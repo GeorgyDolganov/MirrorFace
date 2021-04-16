@@ -1,0 +1,37 @@
+{
+  "name": "mirrorface",
+  "version": "1.0.0",
+  "description": "Gamedev.js game jam entry",
+  "main": "index.js",
+  "scripts": {
+    "start": "webpack serve"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/GeorgyDolganov/MirrorFace.git"
+  },
+  "keywords": [
+    "Mirror",
+    "gamedev.js",
+    "Pixi.js",
+    "Phaser"
+  ],
+  "author": "TheGD",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/GeorgyDolganov/MirrorFace/issues"
+  },
+  "homepage": "https://github.com/GeorgyDolganov/MirrorFace#readme",
+  "dependencies": {
+    "clean-webpack-plugin": "^4.0.0-alpha.0",
+    "file-loader": "^6.2.0",
+    "html-webpack-plugin": "^5.3.1",
+    "phaser": "^3.54.0",
+    "phaser-raycaster": "^0.9.3",
+    "webpack": "^5.33.2"
+  },
+  "devDependencies": {
+    "webpack-cli": "^4.6.0",
+    "webpack-dev-server": "^3.11.2"
+  }
+}
