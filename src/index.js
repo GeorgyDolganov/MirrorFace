@@ -1,4 +1,6 @@
-import Phaser, { Scene } from 'phaser';
+import Phaser, {
+  Scene
+} from 'phaser';
 import logoImg from './assets/logo.png';
 import PhaserRaycaster from 'phaser-raycaster';
 
@@ -9,7 +11,7 @@ let config = {
   height: 600,
   backgroundColor: 'black',
   physics: {
-    default: 'arcade', 
+    default: 'arcade',
   },
   scene: {
     preload: preload,
@@ -36,7 +38,7 @@ var raycaster;
 var ray;
 var graphics;
 var obstacles;
-
+var cursors
 
 //preload
 function preload() {
@@ -74,7 +76,7 @@ function create() {
   raycaster.mapGameObjects(obstacles.getChildren());
 
   console.log(this.input.mousePointer)
-  
+
 
 
 
@@ -91,11 +93,18 @@ function create() {
   let line = new Phaser.Geom.Line(ray.origin.x, ray.origin.y, intersection.x, intersection.y);
   graphics.fillPoint(ray.origin.x, ray.origin.y, 3)
   graphics.strokeLineShape(line);
+  console.log(this)
 
+  this.input.on('pointermove', function (pointer) {
+    this.player.rotation = Phaser.Math.Angle.Between(this.player.x, this.player.y, pointer.x, pointer.y) + 1.5
+  }, this);
+
+  cursors = this.input.keyboard.createCursorKeys();
+  console.log(cursors)
 }
 
 
-let tick = 0;
+let tick = true;
 
 //update
 function update() {
@@ -106,19 +115,44 @@ function update() {
 
   let visibleObjects = ray.overlap();
   if (visibleObjects.length > 0) console.log(visibleObjects);
-  
+
   // console.log(
   //   ray.overlap(
   //     obstacles.getChildren()
   //   )
   // );
-  if( tick++ > 100 ) {
-    console.log("hit", intersection.object); //hit object
-    console.log("segment", intersection.segment); //segment object
-    tick = 0;
+  if (intersection.object === undefined) tick = true
+
+  if (tick) {
+    if (intersection.object !== undefined) {
+      console.log("hit", {
+        object: intersection.object,
+        segment: intersection.segment,
+        pos: {
+          x: intersection.x,
+          y: intersection.y
+        }
+      });
+      tick = false
+    }
   }
 
-  
+
+  if (cursors.up.isDown) {
+    this.physics.velocityFromRotation(this.player.rotation, 200, this.player.body.acceleration);
+  } else {
+    this.player.setAcceleration(0);
+  }
+
+  if (cursors.left.isDown) {
+    this.player.setAngularVelocity(-300);
+  } else if (cursors.right.isDown) {
+    this.player.setAngularVelocity(300);
+  } else {
+    this.player.setAngularVelocity(0);
+  }
+
+
   this.physics.add.overlap(ray, obstacles.getChildren(), function (rayFoVCircle, target) {
     console.log({
       rayFoVCircle,
@@ -169,6 +203,11 @@ function createObstacles(scene) {
   }
 
   //create image obstacle
-  obstacle = scene.add.image(100, 500, 'crate');
-  obstacles.add(obstacle, true);
+  scene.player = scene.physics.add.sprite(100, 500, 'crate');
+  scene.player.setDamping(true);
+  scene.player.setDrag(0.99);
+  scene.player.setMaxVelocity(200);
+
+
+  obstacles.add(scene.player, true);
 }
