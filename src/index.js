@@ -139,17 +139,17 @@ function update() {
 
 
   if (cursors.up.isDown) {
-    this.physics.velocityFromRotation(this.player.rotation, 200, this.player.body.acceleration);
+    this.physics.velocityFromRotation(-1.5, 200, this.player.body.acceleration);
   } else {
     this.player.setAcceleration(0);
   }
 
   if (cursors.left.isDown) {
-    this.physics.velocityFromRotation(this.player.rotation - 1.5, 200, this.player.body.acceleration);
+    this.physics.velocityFromRotation(-3, 200, this.player.body.acceleration);
   } else if (cursors.right.isDown) {
-    this.physics.velocityFromRotation(this.player.rotation + 1.5, 200, this.player.body.acceleration);
+    this.physics.velocityFromRotation(0, 200, this.player.body.acceleration);
   } else if (cursors.down.isDown) {
-    this.physics.velocityFromRotation(this.player.rotation - 3, 200, this.player.body.acceleration);
+    this.physics.velocityFromRotation(1.5, 200, this.player.body.acceleration);
   } else {
     this.player.setAngularVelocity(0);
   }
@@ -207,7 +207,7 @@ function createObstacles(scene) {
   //create image obstacle
   scene.player = scene.physics.add.sprite(100, 500, 'player');
   scene.player.setDamping(true);
-  scene.player.setDrag(0.19);
+  scene.player.setDrag(0.01);
   scene.player.setMaxVelocity(200);
 
 
