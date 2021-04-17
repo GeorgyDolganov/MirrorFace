@@ -7,6 +7,10 @@ import Enemy from "./GameObjects/Enemy";
 import Bullet from "./GameObjects/Bullet";
 import Player from "./GameObjects/Player";
 
+Phaser.Geom.Line.fromAngle = function (x, y, angle, distance) {
+  return new Phaser.Geom.Line(x, y, x + distance * Math.cos(angle), y + distance * Math.sin(angle));
+}
+
 let config = {
   type: Phaser.Auto,
   parent: 'game',
@@ -154,6 +158,8 @@ function create() {
       'left': Phaser.Input.Keyboard.KeyCodes.A,
       'right': Phaser.Input.Keyboard.KeyCodes.D,
   });
+
+  ray.setAngle(-Math.PI / 2);
 }
 
 
@@ -164,7 +170,7 @@ function update() {
   raycaster.mapGameObjects(obstacles.getChildren());
 
   //rotate ray
-  ray.setAngle(ray.angle + 0.01);
+  ray.setAngle(ray.angle + 0.005);
   //cast ray
   let intersection = ray.cast();
 
@@ -195,6 +201,15 @@ function update() {
   let line = new Phaser.Geom.Line(ray.origin.x, ray.origin.y, intersection.x, intersection.y);
   graphics.fillPoint(ray.origin.x, ray.origin.y, 3)
   graphics.strokeLineShape(line);
+
+  if ( intersection.segment !== undefined ) {
+    let reflectionAngle = Phaser.Geom.Line.ReflectAngle(line, intersection.segment);
+
+    // draw reflected line
+    const REFLECTED_LINE_LENGTH = 500
+    let line2 = Phaser.Geom.Line.fromAngle(intersection.x, intersection.y, reflectionAngle, REFLECTED_LINE_LENGTH);
+    graphics.strokeLineShape(line2);
+  }
 
   this.enemy.rotation = Phaser.Math.Angle.Between(this.enemy.x, this.enemy.y, this.player.x, this.player.y);
 }
