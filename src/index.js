@@ -5,6 +5,10 @@ import playerPNG from './assets/player.png';
 import PhaserRaycaster from 'phaser-raycaster';
 import Enemy from "./GameObjects/Enemy";
 
+Phaser.Geom.Line.fromAngle = function (x, y, angle, distance) {
+  return new Phaser.Geom.Line(x, y, x + distance * Math.cos(angle), y + distance * Math.sin(angle));
+}
+
 let config = {
   type: Phaser.Auto,
   parent: 'game',
@@ -177,7 +181,7 @@ function update() {
 
     // draw reflected line
     const REFLECTED_LINE_LENGTH = 500
-    let line2 = new Phaser.Geom.Line (intersection.x, intersection.y, intersection.x + REFLECTED_LINE_LENGTH * Math.cos(reflectionAngle), intersection.y + REFLECTED_LINE_LENGTH * Math.sin(reflectionAngle));
+    let line2 = Phaser.Geom.Line.fromAngle(intersection.x, intersection.y, reflectionAngle, REFLECTED_LINE_LENGTH);
     graphics.strokeLineShape(line2);
   }
 
