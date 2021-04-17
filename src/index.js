@@ -3,6 +3,7 @@ import Phaser, {
 } from 'phaser';
 import playerPNG from './assets/player.png';
 import PhaserRaycaster from 'phaser-raycaster';
+import Enemy from "./GameObjects/Enemy";
 
 let config = {
   type: Phaser.Auto,
@@ -39,6 +40,7 @@ var ray;
 var graphics;
 var obstacles;
 var cursors
+var staticObstacles;
 
 //preload
 function preload() {
@@ -63,22 +65,35 @@ function create() {
   //enable arcade physics body
   ray.enablePhysics();
   //set collision (field of view) range
-  ray.setCollisionRange(600);
+  ray.setCollisionRange(6000);
 
   //cast ray
   let intersection = ray.cast();
+
+
 
   //create obstacles
   obstacles = this.add.group();
   createObstacles(this);
   console.log(obstacles)
   //map obstacles
+  console.log(obstacles.getChildren());
   raycaster.mapGameObjects(obstacles.getChildren());
 
   console.log(this.input.mousePointer)
 
 
+  staticObstacles = this.physics.add.staticGroup({
+    key: 'test',
+    frameQuantity: 5
+  });
+  Phaser.Actions.PlaceOnRectangle(staticObstacles.getChildren(), new Phaser.Geom.Rectangle(100,100, 600, 400));
 
+  staticObstacles.refresh();
+  this.physics.add.collider(this.player, staticObstacles);
+
+  this.physics.add.collider(this.player, this.enemy.bullets);
+    this.physics.add.collider(this.mirror, this.enemy.bullets);
 
   //draw ray
   graphics = this.add.graphics({
@@ -115,6 +130,8 @@ let tick = true;
 
 //update
 function update() {
+  raycaster.mapGameObjects(obstacles.getChildren());
+
   //rotate ray
   ray.setAngle(ray.angle + 0.01);
   //cast ray
@@ -145,6 +162,7 @@ function update() {
   }
 
   handlePlayerMovement(this.player);
+  updateMirrorPosition(this);
 
   //draw ray
   graphics.clear();
@@ -208,6 +226,21 @@ function createObstacles(scene) {
   scene.player.setDrag(0.0009);
   scene.player.setMaxVelocity(200);
 
+  scene.mirror = scene.physics.add.sprite(0, 0, "mirror");
+  scene.mirror.body.width = 200;
+  scene.mirror.body.height = 20;
+  scene.mirror.setImmovable();
 
+  scene.enemy = new Enemy(scene, 100, 200);
+  obstacles.add(scene.enemy, true);
   obstacles.add(scene.player, true);
+}
+
+function updateMirrorPosition(scene) {
+    let angle =  scene.player.rotation;
+    let r = 50;
+
+    scene.mirror.x = scene.player.x + r * Math.cos(angle);
+    scene.mirror.y = scene.player.y + r * Math.sin(angle);
+    scene.mirror.rotation = angle;
 }
