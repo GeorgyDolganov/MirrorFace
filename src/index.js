@@ -95,8 +95,11 @@ function create() {
   graphics.strokeLineShape(line);
   console.log(this)
 
+  //Set camera to follow the player
+  this.cameras.main.startFollow(this.player);
+
   this.input.on('pointermove', function (pointer) {
-    this.player.rotation = Phaser.Math.Angle.Between(this.player.x, this.player.y, pointer.x, pointer.y)
+    this.player.rotation = Phaser.Math.Angle.Between(800/2, 600/2, pointer.x, pointer.y)
   }, this);
 
   cursors = this.input.keyboard.addKeys({
@@ -105,7 +108,6 @@ function create() {
       'left': Phaser.Input.Keyboard.KeyCodes.A,
       'right': Phaser.Input.Keyboard.KeyCodes.D,
   });
-  console.log(cursors)
 }
 
 
