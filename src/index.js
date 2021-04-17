@@ -4,6 +4,8 @@ import Phaser, {
 import playerPNG from './assets/player.png';
 import PhaserRaycaster from 'phaser-raycaster';
 import Enemy from "./GameObjects/Enemy";
+import Bullet from "./GameObjects/Bullet";
+import Player from "./GameObjects/Player";
 
 let config = {
   type: Phaser.Auto,
@@ -33,6 +35,10 @@ let config = {
   }
 }
 
+Phaser.Geom.Line.fromAngle = function (x, y, angle, distance) {
+  return new Phaser.Geom.Line(x, y, x + distance * Math.cos(angle), y + distance * Math.sin(angle));
+};
+
 let game = new Phaser.Game(config);
 
 var raycaster;
@@ -42,13 +48,18 @@ var obstacles;
 var cursors
 var staticObstacles;
 
+//Stores all bullets on the scenes
+var bullets;
+
 //preload
 function preload() {
   this.load.image('player', playerPNG);
+  //this.load.atlas('space', 'assets/tests/space/space.png', 'assets/tests/space/space.json');
 }
 
 //create
 function create() {
+
   //create raycaster
   raycaster = this.raycasterPlugin.createRaycaster();
 
@@ -70,6 +81,11 @@ function create() {
   //cast ray
   let intersection = ray.cast();
 
+  bullets = this.physics.add.group({
+    classType: Bullet,
+    maxSize: 30,
+    runChildUpdate: true
+  });
 
 
   //create obstacles
@@ -92,8 +108,24 @@ function create() {
   staticObstacles.refresh();
   this.physics.add.collider(this.player, staticObstacles);
 
-  this.physics.add.collider(this.player, this.enemy.bullets);
-    this.physics.add.collider(this.mirror, this.enemy.bullets);
+  this.physics.add.collider(this.player, bullets, (player, bullet) => {
+    console.log("Player hit");
+    player.health -= 10;
+    bullet.remove();
+  });
+  this.physics.add.collider(this.mirror, bullets, (mirror, bullet) => {
+    console.log("Mirror hit");
+
+    let mirrorLine = Phaser.Geom.Line.fromAngle(mirror.x, mirror.y, mirror.rotation, 200);
+    let bulletLine = Phaser.Geom.Line.fromAngle(bullet.x, bullet.y, bullet.rotation, 200);
+
+    let reflectionAngle = Phaser.Geom.Line.ReflectAngle(mirrorLine, bulletLine);
+    console.log(reflectionAngle);
+
+    //let reflectionAngle = Phaser.Geom.Line.ReflectAngle()
+    //let rotation = 90 * Math.PI/180 - bullet.body.rotation;
+    //this.physics.velocityFromRotation(rotation, bullet.speed, bullet.body.velocity);
+  });
 
   //draw ray
   graphics = this.add.graphics({
@@ -108,7 +140,6 @@ function create() {
   let line = new Phaser.Geom.Line(ray.origin.x, ray.origin.y, intersection.x, intersection.y);
   graphics.fillPoint(ray.origin.x, ray.origin.y, 3)
   graphics.strokeLineShape(line);
-  console.log(this)
 
   //Set camera to follow the player
   this.cameras.main.startFollow(this.player);
@@ -139,12 +170,6 @@ function update() {
 
   // let visibleObjects = ray.overlap();
   // if (visibleObjects.length > 0) console.log(visibleObjects);
-
-  // console.log(
-  //   ray.overlap(
-  //     obstacles.getChildren()
-  //   )
-  // );
   if (intersection.object === undefined) tick = true
 
   if (tick) {
@@ -163,6 +188,7 @@ function update() {
 
   handlePlayerMovement(this.player);
   updateMirrorPosition(this);
+
 
   //draw ray
   graphics.clear();
@@ -197,7 +223,7 @@ function handlePlayerMovement(player) {
     }
     else if (cursors.down.isDown)
     {
-        player.setVelocityY(SPEED);
+        player.body.setVelocityY(SPEED);
     }
 }
 
@@ -235,13 +261,14 @@ function createObstacles(scene) {
   scene.player.setDamping(true);
   scene.player.setDrag(0.0009);
   scene.player.setMaxVelocity(200);
+  scene.player.health = 100;
 
   scene.mirror = scene.physics.add.sprite(0, 0, "mirror");
   scene.mirror.body.width = 200;
   scene.mirror.body.height = 20;
   scene.mirror.setImmovable();
 
-  scene.enemy = new Enemy(scene, 100, 200);
+  scene.enemy = new Enemy(scene, 100, 200, bullets);
   obstacles.add(scene.enemy, true);
   obstacles.add(scene.player, true);
 }

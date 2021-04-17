@@ -1,35 +1,43 @@
 import Phaser from "phaser";
 
 
-export default class Bullet extends Phaser.Physics.Arcade.Sprite {
+export default class Bullet extends Phaser.Physics.Arcade.Image {
     constructor (scene, x, y)
     {
-        super(scene, x, y, 'bullet');
+        super(scene, x, y, 'space', 'blaster');
 
         this.lifeTime = 10000;
-        this.currentLifetime = 0;
+        this.speed = 400;
+
+        this.setBlendMode(1);
+        this.setDepth(1);
     }
 
-    fire (x, y, angle)
+    fire ({x, y, rotation})
     {
-        this.setBounce(1);
+        this.setBounce(1, 1);
         this.body.reset(x, y);
-        this.currentLifetime = 0;
+        this.lifeTime = 10000;
         this.setActive(true);
         this.setVisible(true);
 
-        this.setVelocityX(300 * Math.cos(angle));
-        this.setVelocityY(300 * Math.sin(angle));
+        this.setAngle(rotation);
+        this.scene.physics.velocityFromRotation(rotation, this.speed, this.body.velocity);
     }
 
-    preUpdate (time, delta)
+    update(time, delta)
     {
-        super.preUpdate(time, delta);
-        this.currentLifetime += delta;
-        if( this.currentLifetime > this.lifeTime ) {
-            this.setActive(false);
-            this.setVisible(false);
+        super.update(time, delta);
+        this.lifeTime -= delta;
+        if( this.lifeTime < 0 ) {
+            this.remove();
         }
+    }
+
+    remove() {
+        this.setActive(false);
+        this.setVisible(false);
+        this.body.stop();
     }
 
 }

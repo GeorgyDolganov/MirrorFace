@@ -1,12 +1,11 @@
 import Phaser from "phaser";
-import BulletGroup from "./BulletGroup";
 
 export default class Enemy extends Phaser.Physics.Arcade.Sprite {
-    constructor (scene, x, y)
+    constructor (scene, x, y, bullets)
     {
         super(scene, x, y, 'player');
 
-        this.bullets = new BulletGroup(scene);
+        this.bullets = bullets;
 
         this.fireCooldown = 2000;
         this.currentCooldown = 0;
@@ -15,12 +14,13 @@ export default class Enemy extends Phaser.Physics.Arcade.Sprite {
         this.currentCooldown += delta;
 
         if( this.currentCooldown > this.fireCooldown ) {
-            this.shoot();
+            let bullet = this.bullets.get();
+            if( bullet ) bullet.fire(this);
             this.currentCooldown = 0;
         }
     }
 
-    shoot() {
-        this.bullets.fireBullet(this.x, this.y, this.rotation);
+    getBullets() {
+        return this.bullets;
     }
 }

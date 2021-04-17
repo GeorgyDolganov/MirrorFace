@@ -17,7 +17,7 @@ module.exports = {
   },
   devServer: {
     host: '0.0.0.0',
-    port: 4040, // port that we're using for local host (localhost:8080)
+    port: 4041, // port that we're using for local host (localhost:8080)
     disableHostCheck: true,
     contentBase: path.resolve(appDirectory, 'public'), // tells webpack to serve from the public folder
     publicPath: '/',
@@ -29,7 +29,8 @@ module.exports = {
       use: [
         'file-loader',
       ],
-    }, {
+    },
+    {
       test: /\.s[ac]ss$/i,
       use: [
         // Creates `style` nodes from JS strings
@@ -39,7 +40,18 @@ module.exports = {
         // Compiles Sass to CSS
         'sass-loader',
       ],
-    }],
+    },
+    {
+      test: /\.m?js$/,
+      exclude: /(node_modules|bower_components)/,
+      use: {
+        loader: 'babel-loader',
+        options: {
+          presets: ['@babel/preset-env']
+        }
+      }
+    }
+    ],
 
   },
   plugins: [
