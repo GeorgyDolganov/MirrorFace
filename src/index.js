@@ -123,6 +123,8 @@ function create() {
       'left': Phaser.Input.Keyboard.KeyCodes.A,
       'right': Phaser.Input.Keyboard.KeyCodes.D,
   });
+
+  ray.setAngle(-Math.PI / 2);
 }
 
 
@@ -133,7 +135,7 @@ function update() {
   raycaster.mapGameObjects(obstacles.getChildren());
 
   //rotate ray
-  ray.setAngle(ray.angle + 0.01);
+  ray.setAngle(ray.angle + 0.005);
   //cast ray
   let intersection = ray.cast();
 
@@ -169,6 +171,36 @@ function update() {
   let line = new Phaser.Geom.Line(ray.origin.x, ray.origin.y, intersection.x, intersection.y);
   graphics.fillPoint(ray.origin.x, ray.origin.y, 3)
   graphics.strokeLineShape(line);
+
+  if ( intersection.segment !== undefined ) {
+    // base angle
+    let oangle = Phaser.Math.Angle.Between(ray.origin.x, ray.origin.y, intersection.x, intersection.y)
+
+    // rotation correction angle
+    let angle = Phaser.Math.Angle.Between(intersection.segment.x1, intersection.segment.y1, intersection.segment.x2, intersection.segment.y2)
+
+    // fix angle with period of a plane
+    if ( angle < 0 && angle >= -Math.PI / 2 ) {
+      angle = angle - Math.PI / 2
+    }
+    else if ( angle >= Math.PI * 0 && angle < Math.PI / 2 ) {
+      angle = angle
+    }
+    else if ( angle >= Math.PI / 2 && angle < Math.PI ) {
+      angle = angle + Math.PI / 2
+    }
+    else if ( angle >= Math.PI && angle < Math.PI * 1.5 ) {
+      angle = angle + Math.PI
+    }
+    else if ( angle >= Math.PI * 1.5 && angle < Math.PI * 2 ) {
+      angle = angle - Math.PI / 2
+    }
+
+    // draw reflected line
+    const REFLECTED_LINE_LENGTH = 500
+    let line2 = new Phaser.Geom.Line(intersection.x, intersection.y, intersection.x + REFLECTED_LINE_LENGTH * Math.cos(-oangle + angle), intersection.y + REFLECTED_LINE_LENGTH * Math.sin(-oangle + angle));
+    graphics.strokeLineShape(line2);
+  }
 
   this.enemy.rotation = Phaser.Math.Angle.Between(this.enemy.x, this.enemy.y, this.player.x, this.player.y);
 }
