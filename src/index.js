@@ -5,7 +5,7 @@ import playerPNG from './assets/player.png';
 import PhaserRaycaster from 'phaser-raycaster';
 import Enemy from "./GameObjects/Enemy";
 import Bullet from "./GameObjects/Bullet";
-import Player from "./GameObjects/Player";
+import mirrorPNG from "./assets/mirror.png";
 
 Phaser.Geom.Line.fromAngle = function (x, y, angle, distance) {
   return new Phaser.Geom.Line(x, y, x + distance * Math.cos(angle), y + distance * Math.sin(angle));
@@ -19,6 +19,7 @@ let config = {
   backgroundColor: 'black',
   physics: {
     default: 'arcade',
+    debug: true,
   },
   scene: {
     preload: preload,
@@ -58,6 +59,7 @@ var bullets;
 //preload
 function preload() {
   this.load.image('player', playerPNG);
+  this.load.image('mirror', mirrorPNG);
   //this.load.atlas('space', 'assets/tests/space/space.png', 'assets/tests/space/space.json');
 }
 
@@ -113,12 +115,12 @@ function create() {
   this.physics.add.collider(this.player, staticObstacles);
 
   this.physics.add.collider(this.player, bullets, (player, bullet) => {
-    console.log("Player hit");
+    console.log("Player hit", bullet);
     player.health -= 10;
     bullet.remove();
   });
   this.physics.add.collider(this.mirror, bullets, (mirror, bullet) => {
-    console.log("Mirror hit");
+    console.log("Mirror hit", bullet);
 
     let mirrorLine = Phaser.Geom.Line.fromAngle(mirror.x, mirror.y, mirror.rotation, 200);
     let bulletLine = Phaser.Geom.Line.fromAngle(bullet.x, bullet.y, bullet.rotation, 200);
@@ -126,9 +128,7 @@ function create() {
     let reflectionAngle = Phaser.Geom.Line.ReflectAngle(mirrorLine, bulletLine);
     console.log(reflectionAngle);
 
-    //let reflectionAngle = Phaser.Geom.Line.ReflectAngle()
-    //let rotation = 90 * Math.PI/180 - bullet.body.rotation;
-    //this.physics.velocityFromRotation(rotation, bullet.speed, bullet.body.velocity);
+    this.physics.velocityFromRotation(mirror.rotation - (90 * Math.PI/180), bullet.speed, bullet.body.velocity);
   });
 
   //draw ray
@@ -279,8 +279,6 @@ function createObstacles(scene) {
   scene.player.health = 100;
 
   scene.mirror = scene.physics.add.sprite(0, 0, "mirror");
-  scene.mirror.body.width = 200;
-  scene.mirror.body.height = 20;
   scene.mirror.setImmovable();
 
   scene.enemy = new Enemy(scene, 100, 200, bullets);
@@ -294,5 +292,5 @@ function updateMirrorPosition(scene) {
 
     scene.mirror.x = scene.player.x + r * Math.cos(angle);
     scene.mirror.y = scene.player.y + r * Math.sin(angle);
-    scene.mirror.rotation = angle;
+    scene.mirror.rotation = angle + (90 * Math.PI/180);
 }
