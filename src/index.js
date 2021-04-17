@@ -1,7 +1,7 @@
 import Phaser, {
   Scene
 } from 'phaser';
-import logoImg from './assets/logo.png';
+import playerPNG from './assets/player.png';
 import PhaserRaycaster from 'phaser-raycaster';
 
 let config = {
@@ -42,7 +42,7 @@ var cursors
 
 //preload
 function preload() {
-  this.load.image('crate', 'assets/sprites/ghost.png');
+  this.load.image('player', playerPNG);
 }
 
 //create
@@ -96,7 +96,7 @@ function create() {
   console.log(this)
 
   this.input.on('pointermove', function (pointer) {
-    this.player.rotation = Phaser.Math.Angle.Between(this.player.x, this.player.y, pointer.x, pointer.y) + 1.5
+    this.player.rotation = Phaser.Math.Angle.Between(this.player.x, this.player.y, pointer.x, pointer.y)
   }, this);
 
   cursors = this.input.keyboard.createCursorKeys();
@@ -113,8 +113,8 @@ function update() {
   //cast ray
   let intersection = ray.cast();
 
-  let visibleObjects = ray.overlap();
-  if (visibleObjects.length > 0) console.log(visibleObjects);
+  // let visibleObjects = ray.overlap();
+  // if (visibleObjects.length > 0) console.log(visibleObjects);
 
   // console.log(
   //   ray.overlap(
@@ -145,9 +145,11 @@ function update() {
   }
 
   if (cursors.left.isDown) {
-    this.player.setAngularVelocity(-300);
+    this.physics.velocityFromRotation(this.player.rotation - 1.5, 200, this.player.body.acceleration);
   } else if (cursors.right.isDown) {
-    this.player.setAngularVelocity(300);
+    this.physics.velocityFromRotation(this.player.rotation + 1.5, 200, this.player.body.acceleration);
+  } else if (cursors.down.isDown) {
+    this.physics.velocityFromRotation(this.player.rotation - 3, 200, this.player.body.acceleration);
   } else {
     this.player.setAngularVelocity(0);
   }
@@ -203,9 +205,9 @@ function createObstacles(scene) {
   }
 
   //create image obstacle
-  scene.player = scene.physics.add.sprite(100, 500, 'crate');
+  scene.player = scene.physics.add.sprite(100, 500, 'player');
   scene.player.setDamping(true);
-  scene.player.setDrag(0.99);
+  scene.player.setDrag(0.19);
   scene.player.setMaxVelocity(200);
 
 
