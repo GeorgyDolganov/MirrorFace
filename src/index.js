@@ -169,6 +169,8 @@ function update() {
   let line = new Phaser.Geom.Line(ray.origin.x, ray.origin.y, intersection.x, intersection.y);
   graphics.fillPoint(ray.origin.x, ray.origin.y, 3)
   graphics.strokeLineShape(line);
+
+  this.enemy.rotation = Phaser.Math.Angle.Between(this.enemy.x, this.enemy.y, this.player.x, this.player.y);
 }
 
 function handlePlayerMovement(player) {

@@ -16,13 +16,13 @@ export default class BulletGroup extends Phaser.Physics.Arcade.Group
         });
     }
 
-    fireBullet (x, y)
+    fireBullet (x, y, angle)
     {
         let bullet = this.getFirstDead(false);
 
         if (bullet)
         {
-            bullet.fire(x, y);
+            bullet.fire(x, y, angle);
         }
     }
 }

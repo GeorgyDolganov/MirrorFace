@@ -10,7 +10,7 @@ export default class Bullet extends Phaser.Physics.Arcade.Sprite {
         this.currentLifetime = 0;
     }
 
-    fire (x, y)
+    fire (x, y, angle)
     {
         this.setBounce(1);
         this.body.reset(x, y);
@@ -18,8 +18,8 @@ export default class Bullet extends Phaser.Physics.Arcade.Sprite {
         this.setActive(true);
         this.setVisible(true);
 
-        this.setVelocityX(300);
-
+        this.setVelocityX(300 * Math.cos(angle));
+        this.setVelocityY(300 * Math.sin(angle));
     }
 
     preUpdate (time, delta)

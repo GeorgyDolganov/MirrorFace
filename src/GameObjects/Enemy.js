@@ -21,6 +21,6 @@ export default class Enemy extends Phaser.Physics.Arcade.Sprite {
     }
 
     shoot() {
-        this.bullets.fireBullet(this.x, this.y);
+        this.bullets.fireBullet(this.x, this.y, this.rotation);
     }
 }
