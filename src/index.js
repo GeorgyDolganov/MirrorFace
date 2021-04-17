@@ -99,7 +99,12 @@ function create() {
     this.player.rotation = Phaser.Math.Angle.Between(this.player.x, this.player.y, pointer.x, pointer.y)
   }, this);
 
-  cursors = this.input.keyboard.createCursorKeys();
+  cursors = this.input.keyboard.addKeys({
+      'up': Phaser.Input.Keyboard.KeyCodes.W,
+      'down': Phaser.Input.Keyboard.KeyCodes.S ,
+      'left': Phaser.Input.Keyboard.KeyCodes.A,
+      'right': Phaser.Input.Keyboard.KeyCodes.D,
+  });
   console.log(cursors)
 }
 
@@ -137,42 +142,33 @@ function update() {
     }
   }
 
-
-  if (cursors.up.isDown) {
-    this.physics.velocityFromRotation(this.player.rotation, 200, this.player.body.acceleration);
-  } else {
-    this.player.setAcceleration(0);
-  }
-
-  if (cursors.left.isDown) {
-    this.physics.velocityFromRotation(this.player.rotation - 1.5, 200, this.player.body.acceleration);
-  } else if (cursors.right.isDown) {
-    this.physics.velocityFromRotation(this.player.rotation + 1.5, 200, this.player.body.acceleration);
-  } else if (cursors.down.isDown) {
-    this.physics.velocityFromRotation(this.player.rotation - 3, 200, this.player.body.acceleration);
-  } else {
-    this.player.setAngularVelocity(0);
-  }
-
-
-  this.physics.add.overlap(ray, obstacles.getChildren(), function (rayFoVCircle, target) {
-    console.log({
-      rayFoVCircle,
-      target
-    })
-    /*
-     * What to do with game objects in line of sight.
-     */
-  }, ray.processOverlap.bind(ray));
-
-
-
+  handlePlayerMovement(this.player);
 
   //draw ray
   graphics.clear();
   let line = new Phaser.Geom.Line(ray.origin.x, ray.origin.y, intersection.x, intersection.y);
   graphics.fillPoint(ray.origin.x, ray.origin.y, 3)
   graphics.strokeLineShape(line);
+}
+
+function handlePlayerMovement(player) {
+    if (cursors.left.isDown)
+    {
+        player.setVelocityX(-160);
+    }
+    else if (cursors.right.isDown)
+    {
+        player.setVelocityX(160);
+    }
+
+    if (cursors.up.isDown)
+    {
+        player.setVelocityY(-160);
+    }
+    else if (cursors.down.isDown)
+    {
+        player.setVelocityY(160);
+    }
 }
 
 //create obstacles
@@ -207,7 +203,7 @@ function createObstacles(scene) {
   //create image obstacle
   scene.player = scene.physics.add.sprite(100, 500, 'player');
   scene.player.setDamping(true);
-  scene.player.setDrag(0.19);
+  scene.player.setDrag(0.0009);
   scene.player.setMaxVelocity(200);
 
 
