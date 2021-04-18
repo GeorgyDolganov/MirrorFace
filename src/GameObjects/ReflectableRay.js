@@ -68,13 +68,18 @@ export default class ReflectableRay {
     }
 
     _getRay(from, angle) {
-        let ray = ReflectableRay.Raycaster.createRay({
-            origin: from
-        });
-        ray.enablePhysics();
-        ray.setCollisionRange(6000);
-        ray.setAngle(angle);
+        if( this._ray === undefined ) {
+           this._ray = ReflectableRay.Raycaster.createRay({
+                origin: from
+            });
+        } else {
+            this._ray.origin = from;
+        }
 
-        return ray;
+        this._ray.enablePhysics();
+        this._ray.setCollisionRange(6000);
+        this._ray.setAngle(angle);
+
+        return this._ray;
     }
 }

@@ -7,10 +7,15 @@ import Enemy from "./GameObjects/Enemy";
 import Bullet from "./GameObjects/Bullet";
 import mirrorPNG from "./assets/mirror.png";
 import ReflectableRay from "./GameObjects/ReflectableRay";
+import Stats from "stats.js";
 
 Phaser.Geom.Line.fromAngle = function (x, y, angle, distance) {
   return new Phaser.Geom.Line(x, y, x + distance * Math.cos(angle), y + distance * Math.sin(angle));
 }
+
+var stats = new Stats();
+stats.showPanel( 1 ); // 0: fps, 1: ms, 2: mb, 3+: custom
+document.body.appendChild( stats.dom );
 
 let config = {
   type: Phaser.Auto,
@@ -177,6 +182,7 @@ let tick = true;
 
 //update
 function update() {
+  stats.begin();
     reflectableRay.update();
   //rotate ray
   ray.setAngle(ray.angle + 0.005);
@@ -231,6 +237,7 @@ function update() {
   }
 
   this.enemy.rotation = Phaser.Math.Angle.Between(this.enemy.x, this.enemy.y, this.player.x, this.player.y);
+  stats.end();
 }
 
 function handlePlayerMovement(player) {
