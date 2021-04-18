@@ -8,6 +8,9 @@ import playerPNG from "../assets/Player.png"
 import metalfloorPNG from "../assets/metalfloor.png"
 import ReflectableRay from "../GameObjects/ReflectableRay";
 import Stats from "stats.js";
+import createObstacles from '../functions/createObstacles';
+import handlePlayerMovement from '../functions/handlePlayerMovment';
+import updateMirrorPosition from '../functions/updateMirrorPosition';
 
 var raycaster;
 var ray;
@@ -29,82 +32,6 @@ document.body.appendChild(stats.dom);
 Phaser.Geom.Line.fromAngle = function(x, y, angle, distance) {
     return new Phaser.Geom.Line(x, y, x + distance * Math.cos(angle), y + distance * Math.sin(angle));
 };
-
-function handlePlayerMovement(player) {
-    const angle = cursors.up.isDown && cursors.left.isDown ||
-        cursors.up.isDown && cursors.right.isDown ||
-        cursors.down.isDown && cursors.left.isDown ||
-        cursors.down.isDown && cursors.right.isDown
-
-    const BASE_SPEED = 160
-    const SPEED = angle ? Math.sqrt(BASE_SPEED * BASE_SPEED / 2) : BASE_SPEED
-
-    if (cursors.left.isDown) {
-        player.body.setVelocityX(-SPEED);
-    } else if (cursors.right.isDown) {
-        player.body.setVelocityX(SPEED);
-    }
-
-    if (cursors.up.isDown) {
-        player.body.setVelocityY(-SPEED);
-    } else if (cursors.down.isDown) {
-        player.body.setVelocityY(SPEED);
-    }
-}
-
-//create obstacles
-function createObstacles(scene) {
-    //create rectangle obstacle
-    let obstacle = scene.add.rectangle(100, 100, 75, 75)
-        .setStrokeStyle(1, 0xff0000);
-    obstacles.add(obstacle, true);
-
-    //create line obstacle
-    obstacle = scene.add.line(400, 100, 0, 0, 200, 50)
-        .setStrokeStyle(1, 0xff0000);
-    obstacles.add(obstacle);
-
-    //create circle obstacle
-    obstacle = scene.add.circle(650, 100, 50)
-        .setStrokeStyle(1, 0xff0000);
-    obstacles.add(obstacle);
-
-    //create polygon obstacle
-    obstacle = scene.add.polygon(650, 500, [0, 0, 50, 50, 100, 0, 100, 75, 50, 100, 0, 50])
-        .setStrokeStyle(1, 0xff0000);
-    obstacles.add(obstacle);
-
-    //create overlapping obstacles
-    for (let i = 0; i < 5; i++) {
-        obstacle = scene.add.rectangle(350 + 30 * i, 550 - 30 * i, 50, 50)
-            .setStrokeStyle(1, 0xff0000);
-        obstacles.add(obstacle, true);
-    }
-
-    //create image obstacle
-    scene.player = scene.physics.add.sprite(100, 500, 'player');
-    scene.player.setDamping(true);
-    scene.player.setDrag(0.0009);
-    scene.player.setMaxVelocity(200);
-    scene.player.health = 100;
-
-    scene.mirror = scene.physics.add.sprite(0, 0, "mirror");
-    scene.mirror.setImmovable();
-
-    scene.enemy = new Enemy(scene, 100, 200, bullets);
-    obstacles.add(scene.enemy, true);
-    obstacles.add(scene.player, true);
-    obstacles.add(scene.mirror, true);
-}
-
-function updateMirrorPosition(scene) {
-    let angle = scene.player.rotation;
-    let r = 25;
-
-    scene.mirror.x = scene.player.x + r * Math.cos(angle);
-    scene.mirror.y = scene.player.y + r * Math.sin(angle);
-    scene.mirror.rotation = angle + (90 * Math.PI / 180);
-}
 
 export default class Arena0 extends Scene {
 
@@ -152,7 +79,7 @@ export default class Arena0 extends Scene {
 
         //create obstacles
         obstacles = this.add.group();
-        createObstacles(this);
+        createObstacles(this, obstacles, bullets);
         console.log(obstacles)
             //map obstacles
         console.log("obstacles", obstacles.getChildren());
@@ -248,7 +175,7 @@ export default class Arena0 extends Scene {
             }
         }
 
-        handlePlayerMovement(this.player);
+        handlePlayerMovement(this.player, cursors);
         updateMirrorPosition(this);
 
 
