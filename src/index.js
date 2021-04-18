@@ -99,8 +99,8 @@ function create() {
   createObstacles(this);
   console.log(obstacles)
   //map obstacles
-  console.log(obstacles.getChildren());
-  raycaster.mapGameObjects(obstacles.getChildren());
+  console.log("obstacles", obstacles.getChildren());
+  raycaster.mapGameObjects(obstacles.getChildren(), true);
 
   console.log(this.input.mousePointer)
 
@@ -109,9 +109,7 @@ function create() {
     key: 'test',
     frameQuantity: 5
   });
-  Phaser.Actions.PlaceOnRectangle(staticObstacles.getChildren(), new Phaser.Geom.Rectangle(100,100, 600, 400));
 
-  staticObstacles.refresh();
   this.physics.add.collider(this.player, staticObstacles);
 
   this.physics.add.collider(this.player, bullets, (player, bullet) => {
@@ -167,7 +165,6 @@ let tick = true;
 
 //update
 function update() {
-  raycaster.mapGameObjects(obstacles.getChildren());
 
   //rotate ray
   ray.setAngle(ray.angle + 0.005);
@@ -235,16 +232,16 @@ function handlePlayerMovement(player) {
 
     if (cursors.left.isDown)
     {
-        player.setVelocityX(-SPEED);
+        player.body.setVelocityX(-SPEED);
     }
     else if (cursors.right.isDown)
     {
-        player.setVelocityX(SPEED);
+        player.body.setVelocityX(SPEED);
     }
 
     if (cursors.up.isDown)
     {
-        player.setVelocityY(-SPEED);
+        player.body.setVelocityY(-SPEED);
     }
     else if (cursors.down.isDown)
     {
@@ -294,6 +291,7 @@ function createObstacles(scene) {
   scene.enemy = new Enemy(scene, 100, 200, bullets);
   obstacles.add(scene.enemy, true);
   obstacles.add(scene.player, true);
+  obstacles.add(scene.mirror, true);
 }
 
 function updateMirrorPosition(scene) {
