@@ -11,6 +11,7 @@ import Stats from "stats.js";
 import createObstacles from '../functions/createObstacles';
 import handlePlayerMovement from '../functions/handlePlayerMovment';
 import updateMirrorPosition from '../functions/updateMirrorPosition';
+import GameUI from "../GameObjects/UI/PlayerUI";
 
 var raycaster;
 var ray;
@@ -55,6 +56,19 @@ export default class Arena0 extends Scene {
 
         ReflectableRay.Raycaster = raycaster;
 
+        //Create game ui
+        this.add.existing(new GameUI(this));
+
+        // var gr = this.add.graphics({
+        //     lineStyle: {
+        //         width: 1,
+        //         color: 0x00ff00
+        //     },
+        //     fillStyle: {
+        //         color: 0xff00ff
+        //     }
+        // });
+        // gr.fillRect(0,0, 300, 300);
         //create ray
         ray = raycaster.createRay({
             origin: {
@@ -99,8 +113,7 @@ export default class Arena0 extends Scene {
         this.physics.add.collider(this.player, staticObstacles);
 
         this.physics.add.collider(this.player, bullets, (player, bullet) => {
-            console.log("Player hit", bullet);
-            player.health -= 10;
+            player.onHit(bullet);
             bullet.remove();
         });
         this.physics.add.collider(this.mirror, bullets, (mirror, bullet) => {
@@ -128,6 +141,8 @@ export default class Arena0 extends Scene {
         let line = new Phaser.Geom.Line(ray.origin.x, ray.origin.y, intersection.x, intersection.y);
         graphics.fillPoint(ray.origin.x, ray.origin.y, 3)
         graphics.strokeLineShape(line);
+
+
 
         //Set camera to follow the player
         this.cameras.main.startFollow(this.player);

@@ -1,4 +1,5 @@
 import Enemy from "../GameObjects/Enemy";
+import Player from "../GameObjects/Player";
 
 export default function createObstacles(scene, obstacles, bullets) {
     //create rectangle obstacle
@@ -29,11 +30,8 @@ export default function createObstacles(scene, obstacles, bullets) {
     }
 
     //create image obstacle
-    scene.player = scene.physics.add.sprite(100, 500, 'player');
-    scene.player.setDamping(true);
-    scene.player.setDrag(0.0009);
-    scene.player.setMaxVelocity(200);
-    scene.player.health = 100;
+    scene.player = new Player(scene, scene.healthBar);
+
 
     scene.mirror = scene.physics.add.sprite(0, 0, "mirror");
     scene.mirror.setImmovable();
