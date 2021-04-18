@@ -44,6 +44,9 @@ export default class Arena0 extends Scene {
     }
 
     create() {
+
+        this.physics.world.setBounds(-640, -640, 1280, 1280);
+
         //Создаем арену
         this.arena = this.add.group()
         this.arena.floor = this.add.tileSprite(640, 640, 1280, 1280, 'metalfloor').setName('floor')
