@@ -31,6 +31,7 @@ export default class ReflectableRay {
         this._raySegments = [];
         let ray = this._getRay(fromPoint,angle);
         let intersection = ray.cast();
+        this.calculateCircleSegment(intersection);
 
         let raySegment = new Phaser.Geom.Line(ray.origin.x, ray.origin.y, intersection.x, intersection.y);
         this._raySegments.push(raySegment);
@@ -38,7 +39,7 @@ export default class ReflectableRay {
     }
 
     _createNextSegment(prevRaySegment, intersection) {
-
+        this.calculateCircleSegment(intersection);
         if( intersection.segment === undefined ) return;
         let reflectionAngle = Phaser.Geom.Line.ReflectAngle(prevRaySegment, intersection.segment);
         let ray = this._getRay({
@@ -52,6 +53,19 @@ export default class ReflectableRay {
         this._raySegments.push(raySegment);
         if( this._raySegments.length < this.MAX_REFLECTS) {
             this._createNextSegment(raySegment,nextIntersection);
+        }
+    }
+
+    calculateCircleSegment(intersection) {
+        if ( intersection.object !== undefined && intersection.object.type == "Arc" ) {
+            let angle = Phaser.Math.Angle.Between(intersection.object.x, intersection.object.y, intersection.x, intersection.y);
+
+            let tangentAngle = Phaser.Math.Angle.Between(intersection.object.x, intersection.object.y,
+                intersection.x + intersection.object.width / 2 * Math.cos(angle),
+                intersection.y + intersection.object.width / 2 * Math.sin(angle));
+            let tangent = Phaser.Geom.Line.fromAngle(intersection.x, intersection.y, tangentAngle + Math.PI / 2, 100);
+
+            intersection.segment = tangent
         }
     }
 
