@@ -5,6 +5,7 @@ import Bullet from "../GameObjects/Bullet";
 import mirrorPNG from "../assets/mirror.png";
 import Enemy from "../GameObjects/Enemy";
 import playerPNG from "../assets/Player.png"
+import metalfloorPNG from "../assets/metalfloor.png"
 import ReflectableRay from "../GameObjects/ReflectableRay";
 import Stats from "stats.js";
 
@@ -110,9 +111,15 @@ export default class Arena0 extends Scene {
     preload() {
         this.load.image('player', playerPNG);
         this.load.image('mirror', mirrorPNG);
+        this.load.image('metalfloor', metalfloorPNG)
     }
 
     create() {
+        //Создаем арену
+        this.arena = this.add.group()
+        this.arena.floor = this.add.tileSprite(0, 0, 1280, 1280, 'metalfloor').setName('floor')
+        this.arena.add(this.arena.floor)
+
         //create raycaster
         raycaster = this.raycasterPlugin.createRaycaster();
 
