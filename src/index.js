@@ -211,6 +211,16 @@ function update() {
   graphics.fillPoint(ray.origin.x, ray.origin.y, 3)
   graphics.strokeLineShape(line);
 
+  if ( intersection.object !== undefined && intersection.object.type == "Arc" ) {
+    let angle = Phaser.Math.Angle.Between(intersection.object.x, intersection.object.y, intersection.x, intersection.y);
+
+    let tangentAngle = Phaser.Math.Angle.Between(intersection.object.x, intersection.object.y,  
+    intersection.x + intersection.object.width / 2 * Math.cos(angle), 
+    intersection.y + intersection.object.width / 2 * Math.sin(angle));
+    let tangent = Phaser.Geom.Line.fromAngle(intersection.x, intersection.y, tangentAngle + Math.PI / 2, 100);
+
+    intersection.segment = tangent
+  }
   if ( intersection.segment !== undefined ) {
     let reflectionAngle = Phaser.Geom.Line.ReflectAngle(line, intersection.segment);
 
