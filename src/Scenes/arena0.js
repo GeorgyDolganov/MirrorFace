@@ -45,15 +45,30 @@ export default class Arena0 extends Scene {
 
     create() {
 
-        this.physics.world.setBounds(-640, -640, 1280, 1280);
+        this.physics.world.setBounds(0, 0, 1280, 1280);
 
         //Создаем арену
         this.arena = this.add.group()
         this.arena.floor = this.add.tileSprite(640, 640, 1280, 1280, 'metalfloor').setName('floor')
         this.arena.add(this.arena.floor)
 
-        this.arena.wall0 = this.add.tileSprite(16, 640, 32, 1280, 'mirrorwall').setName('wall0')
-        this.arena.add(this.arena.wall0)
+        this.arena.walls = this.physics.add.group()
+        this.arena.add(this.arena.walls)
+
+        this.arena.wall0 = this.add.tileSprite(-16, 640, 32, 1280, 'mirrorwall').setName('wall0')
+        this.arena.walls.add(this.arena.wall0)
+
+        this.arena.wall1 = this.add.tileSprite(640, -16, 32, 1280, 'mirrorwall').setName('wall1')
+        this.arena.wall1.angle = 90
+        this.arena.walls.add(this.arena.wall1)
+
+        this.arena.wall2 = this.add.tileSprite(1296, 640, 32, 1280, 'mirrorwall').setName('wall2')
+        this.arena.wall2.angle = 180
+        this.arena.walls.add(this.arena.wall2)
+
+        this.arena.wall3 = this.add.tileSprite(640, 1296, 32, 1280, 'mirrorwall').setName('wall3')
+        this.arena.wall3.angle = -90
+        this.arena.walls.add(this.arena.wall3)
 
         //create raycaster
         raycaster = this.raycasterPlugin.createRaycaster();
@@ -101,7 +116,11 @@ export default class Arena0 extends Scene {
             frameQuantity: 5
         });
 
+        this.player.setCollideWorldBounds(true)
+
         this.physics.add.collider(this.player, staticObstacles);
+
+        this.physics.add.collider(this.player, this.arena.walls);
 
         this.physics.add.collider(this.player, bullets, (player, bullet) => {
             console.log("Player hit", bullet);
