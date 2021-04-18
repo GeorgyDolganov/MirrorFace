@@ -2,16 +2,18 @@ import Phaser, {
     Scene
 } from 'phaser';
 import Bullet from "../GameObjects/Bullet";
-import mirrorPNG from "../assets/mirror.png";
-import Enemy from "../GameObjects/Enemy";
-import playerPNG from "../assets/Player.png"
-import metalfloorPNG from "../assets/metalfloor.png"
 import ReflectableRay from "../GameObjects/ReflectableRay";
 import Stats from "stats.js";
 import createObstacles from '../functions/createObstacles';
 import handlePlayerMovement from '../functions/handlePlayerMovment';
 import updateMirrorPosition from '../functions/updateMirrorPosition';
 import GameUI from "../GameObjects/UI/PlayerUI";
+
+import playerPNG from "../assets/Player.png"
+import pyramidHeadPNG from "../assets/PyramidHead.png"
+import mirrorPNG from "../assets/mirror.png";
+import metalfloorPNG from "../assets/metalfloor.png"
+import mirrorwallPNG from "../assets/mirrorwall.png"
 
 var raycaster;
 var ray;
@@ -38,18 +40,38 @@ export default class Arena0 extends Scene {
 
     preload() {
         this.load.image('player', playerPNG);
+        this.load.image('pyramidHead', pyramidHeadPNG);
         this.load.image('mirror', mirrorPNG);
         this.load.image('metalfloor', metalfloorPNG)
+        this.load.image('mirrorwall', mirrorwallPNG)
     }
 
     create() {
 
-        this.physics.world.setBounds(-640, -640, 1280, 1280);
+        this.physics.world.setBounds(0, 0, 1280, 1280);
 
         //Создаем арену
         this.arena = this.add.group()
-        this.arena.floor = this.add.tileSprite(0, 0, 1280, 1280, 'metalfloor').setName('floor')
+        this.arena.floor = this.add.tileSprite(640, 640, 1280, 1280, 'metalfloor').setName('floor')
         this.arena.add(this.arena.floor)
+
+        this.arena.walls = this.add.group()
+        this.arena.add(this.arena.walls)
+
+        this.arena.wall0 = this.add.tileSprite(-16, 640, 32, 1280, 'mirrorwall').setName('wall0')
+        this.arena.walls.add(this.arena.wall0)
+
+        this.arena.wall1 = this.add.tileSprite(640, -16, 32, 1280, 'mirrorwall').setName('wall1')
+        this.arena.wall1.angle = 90
+        this.arena.walls.add(this.arena.wall1)
+
+        this.arena.wall2 = this.add.tileSprite(1296, 640, 32, 1280, 'mirrorwall').setName('wall2')
+        this.arena.wall2.angle = 180
+        this.arena.walls.add(this.arena.wall2)
+
+        this.arena.wall3 = this.add.tileSprite(640, 1296, 32, 1280, 'mirrorwall').setName('wall3')
+        this.arena.wall3.angle = -90
+        this.arena.walls.add(this.arena.wall3)
 
         //create raycaster
         raycaster = this.raycasterPlugin.createRaycaster();
@@ -110,7 +132,11 @@ export default class Arena0 extends Scene {
             frameQuantity: 5
         });
 
+        this.player.setCollideWorldBounds(true)
+
         this.physics.add.collider(this.player, staticObstacles);
+
+        this.physics.add.collider(this.player, this.arena.walls);
 
         this.physics.add.collider(this.player, bullets, (player, bullet) => {
             player.onHit(bullet);
@@ -222,7 +248,7 @@ export default class Arena0 extends Scene {
             graphics.strokeLineShape(line2);
         }
 
-        this.enemy.rotation = Phaser.Math.Angle.Between(this.enemy.x, this.enemy.y, this.player.x, this.player.y);
+        this.enemy.update(this.player, this)
         stats.end();
     }
 }
