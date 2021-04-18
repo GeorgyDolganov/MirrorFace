@@ -6,6 +6,7 @@ import PhaserRaycaster from 'phaser-raycaster';
 import Enemy from "./GameObjects/Enemy";
 import Bullet from "./GameObjects/Bullet";
 import mirrorPNG from "./assets/mirror.png";
+import ReflectableRay from "./GameObjects/ReflectableRay";
 
 Phaser.Geom.Line.fromAngle = function (x, y, angle, distance) {
   return new Phaser.Geom.Line(x, y, x + distance * Math.cos(angle), y + distance * Math.sin(angle));
@@ -56,6 +57,9 @@ var staticObstacles;
 //Stores all bullets on the scenes
 var bullets;
 
+
+var reflectableRay;
+
 //preload
 function preload() {
   this.load.image('player', playerPNG);
@@ -68,6 +72,8 @@ function create() {
 
   //create raycaster
   raycaster = this.raycasterPlugin.createRaycaster();
+
+  ReflectableRay.Raycaster = raycaster;
 
   //create ray
   ray = raycaster.createRay({
@@ -158,6 +164,12 @@ function create() {
   });
 
   ray.setAngle(-Math.PI / 2);
+
+    reflectableRay = new ReflectableRay({
+        scene: this,
+        fromPoint: { x: 400, y: 400 },
+        angle: 0.48
+    });
 }
 
 
@@ -165,7 +177,7 @@ let tick = true;
 
 //update
 function update() {
-
+    reflectableRay.update();
   //rotate ray
   ray.setAngle(ray.angle + 0.005);
   //cast ray
