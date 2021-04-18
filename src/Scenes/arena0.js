@@ -2,15 +2,16 @@ import Phaser, {
     Scene
 } from 'phaser';
 import Bullet from "../GameObjects/Bullet";
-import mirrorPNG from "../assets/mirror.png";
-import Enemy from "../GameObjects/Enemy";
-import playerPNG from "../assets/Player.png"
-import metalfloorPNG from "../assets/metalfloor.png"
 import ReflectableRay from "../GameObjects/ReflectableRay";
 import Stats from "stats.js";
 import createObstacles from '../functions/createObstacles';
 import handlePlayerMovement from '../functions/handlePlayerMovment';
 import updateMirrorPosition from '../functions/updateMirrorPosition';
+
+import playerPNG from "../assets/Player.png"
+import mirrorPNG from "../assets/mirror.png";
+import metalfloorPNG from "../assets/metalfloor.png"
+import mirrorwallPNG from "../assets/mirrorwall.png"
 
 var raycaster;
 var ray;
@@ -39,13 +40,17 @@ export default class Arena0 extends Scene {
         this.load.image('player', playerPNG);
         this.load.image('mirror', mirrorPNG);
         this.load.image('metalfloor', metalfloorPNG)
+        this.load.image('mirrorwall', mirrorwallPNG)
     }
 
     create() {
         //Создаем арену
         this.arena = this.add.group()
-        this.arena.floor = this.add.tileSprite(0, 0, 1280, 1280, 'metalfloor').setName('floor')
+        this.arena.floor = this.add.tileSprite(640, 640, 1280, 1280, 'metalfloor').setName('floor')
         this.arena.add(this.arena.floor)
+
+        this.arena.wall0 = this.add.tileSprite(16, 640, 32, 1280, 'mirrorwall').setName('wall0')
+        this.arena.add(this.arena.wall0)
 
         //create raycaster
         raycaster = this.raycasterPlugin.createRaycaster();
