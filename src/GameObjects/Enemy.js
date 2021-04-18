@@ -23,4 +23,8 @@ export default class Enemy extends Phaser.Physics.Arcade.Sprite {
     getBullets() {
         return this.bullets;
     }
+
+    update(player) {
+        this.rotation = Phaser.Math.Angle.Between(this.x, this.y, player.x, player.y);
+    }
 }
