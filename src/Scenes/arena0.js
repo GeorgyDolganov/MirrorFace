@@ -9,6 +9,7 @@ import handlePlayerMovement from '../functions/handlePlayerMovment';
 import updateMirrorPosition from '../functions/updateMirrorPosition';
 
 import playerPNG from "../assets/Player.png"
+import pyramidHeadPNG from "../assets/PyramidHead.png"
 import mirrorPNG from "../assets/mirror.png";
 import metalfloorPNG from "../assets/metalfloor.png"
 import mirrorwallPNG from "../assets/mirrorwall.png"
@@ -38,6 +39,7 @@ export default class Arena0 extends Scene {
 
     preload() {
         this.load.image('player', playerPNG);
+        this.load.image('pyramidHead', pyramidHeadPNG);
         this.load.image('mirror', mirrorPNG);
         this.load.image('metalfloor', metalfloorPNG)
         this.load.image('mirrorwall', mirrorwallPNG)
@@ -52,7 +54,7 @@ export default class Arena0 extends Scene {
         this.arena.floor = this.add.tileSprite(640, 640, 1280, 1280, 'metalfloor').setName('floor')
         this.arena.add(this.arena.floor)
 
-        this.arena.walls = this.physics.add.group()
+        this.arena.walls = this.add.group()
         this.arena.add(this.arena.walls)
 
         this.arena.wall0 = this.add.tileSprite(-16, 640, 32, 1280, 'mirrorwall').setName('wall0')
@@ -231,7 +233,7 @@ export default class Arena0 extends Scene {
             graphics.strokeLineShape(line2);
         }
 
-        this.enemy.rotation = Phaser.Math.Angle.Between(this.enemy.x, this.enemy.y, this.player.x, this.player.y);
+        this.enemy.update(this.player, this)
         stats.end();
     }
 }
