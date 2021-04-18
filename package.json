@@ -28,6 +28,7 @@
     "html-webpack-plugin": "^5.3.1",
     "phaser": "^3.54.0",
     "phaser-raycaster": "^0.9.3",
+    "stats.js": "^0.17.0",
     "webpack": "^5.33.2"
   },
   "devDependencies": {
