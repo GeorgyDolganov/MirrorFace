@@ -38,8 +38,8 @@ export default function createObstacles(scene, obstacles, bullets) {
     scene.mirror.setImmovable();
     scene.mirror.canReflect = true;
 
-    scene.enemy = new RaycasterEnemy(scene, 100, 200, bullets);
-    obstacles.add(scene.enemy, true);
+    // scene.enemy = new RaycasterEnemy(scene, 100, 200, bullets);
+    // obstacles.add(scene.enemy, true);
     obstacles.add(scene.player, true);
     obstacles.add(scene.mirror, true);
 }

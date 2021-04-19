@@ -19,7 +19,12 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
     }
 
     onRayHit(ray) {
-        this.health -= ray.damage;
+        this.tint = 0xff0000;
+        this.changeHealth(-ray.damage);
+    }
+
+    changeHealth(changeBy) {
+        this.health += changeBy;
         this.healthBar.update(this.health);
     }
 
@@ -29,5 +34,6 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
     }
 
     preUpdate(time, delta) {
+        this.tint = 0xffffff;
     }
 }
