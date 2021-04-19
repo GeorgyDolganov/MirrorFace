@@ -4,6 +4,7 @@ import ReflectableRay from "../ReflectableRay";
 export default class DoubleRaycasterEnemyFirst extends Phaser.Physics.Arcade.Sprite {
 
     _rays = [];
+    speed = 100;
 
     constructor(scene, x, y) {
         super(scene, x, y, "pyramidHead");
@@ -40,7 +41,7 @@ export default class DoubleRaycasterEnemyFirst extends Phaser.Physics.Arcade.Spr
     moveTo(gameObject) {
         this.rotation = Phaser.Math.Angle.Between(this.x, this.y, gameObject.x, gameObject.y);
         if (Phaser.Math.Distance.Between(this.x, this.y, gameObject.x, gameObject.y) > 150) {
-            this.scene.physics.moveToObject(this, gameObject, 1000, 3 * 1000);
+            this.scene.physics.moveToObject(this, gameObject, this.speed);
         } else {
             this.body.stop();
         }

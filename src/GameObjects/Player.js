@@ -5,7 +5,13 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
     items = [
         {
             name: 'pyramidHead',
-            quantity: 10
+            quantity: 10,
+            type: 'freeze'
+        },
+        {
+            name: 'pyramidHead',
+            quantity: 10,
+            type: 'blink'
         }
     ];
     currentItem = false;
@@ -44,7 +50,7 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
 
         let currentItem = this.items[this.currentItem];
 
-        let item = new Item(this.scene, this.x, this.y, currentItem.name);
+        let item = new Item(this.scene, this.x, this.y, currentItem.name, currentItem.type);
 
         currentItem.quantity -= 1;
         if ( currentItem.quantity <= 0 ) {

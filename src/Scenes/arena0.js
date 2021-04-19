@@ -50,6 +50,13 @@ export default class Arena0 extends Scene {
     }
 
     create() {
+
+        this.physics.collisionDetection = function(a, b) {
+            const ab = {x: a.x, y: a.y, width: a.width, height: a.height}
+            const bb = {x: b.x, y: b.y, width: b.width, height: b.height}
+
+            return ab.x + ab.width > bb.x && ab.x < bb.x + bb.width && ab.y + ab.height > bb.y && ab.y < bb.y + bb.height;
+        }
         
         this.physics.world.setBounds(0, 0, 1280, 1280);
 
