@@ -1,6 +1,6 @@
 import Phaser from "phaser";
 
-export default class HealthBar extends Phaser.GameObjects.Container {
+export default class PlayerHealthBar extends Phaser.GameObjects.Container {
 
     _innerBar;
     _background;
@@ -35,11 +35,6 @@ export default class HealthBar extends Phaser.GameObjects.Container {
         this._background.fillRect(0,0, 300, 20);
         this._background.strokeRect(0,0, 300, 20);
         this._innerBar.fillRect(3, 3, 300-6, 20-6);
-    }
-
-    drawBackground() {
-        this.fillRect(0,0, 300, 20);
-        this.strokeRect(0,0, 300, 20);
     }
 
     update(health) {

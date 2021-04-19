@@ -14,8 +14,11 @@ import pyramidHeadPNG from "../assets/PyramidHead.png"
 import mirrorPNG from "../assets/mirror.png";
 import metalfloorPNG from "../assets/metalfloor.png"
 import mirrorwallPNG from "../assets/mirrorwall.png"
+import EnemiesManager from "../Managers/EnemiesManager";
 
 import bgLoopMP3 from "../assets/audio/bgloop.mp3"
+import DoubleRaycasterEnemySecond from "../GameObjects/Enemies/DoubleRaycasterEnemySecond";
+import DoubleRaycasterEnemyFirst from "../GameObjects/Enemies/DoubleRaycasterEnemyFirst";
 
 var raycaster;
 var ray;
@@ -102,6 +105,7 @@ export default class Arena0 extends Scene {
         //Create game ui
         this.add.existing(new GameUI(this));
 
+
         // var gr = this.add.graphics({
         //     lineStyle: {
         //         width: 1,
@@ -136,7 +140,7 @@ export default class Arena0 extends Scene {
             runChildUpdate: true
         });
 
-
+        window.scene = this;
         //create obstacles
         obstacles = this.add.group();
         createObstacles(this, obstacles, bullets);
@@ -146,8 +150,10 @@ export default class Arena0 extends Scene {
         raycaster.mapGameObjects(obstacles.getChildren(), true);
         raycaster.mapGameObjects(this.arena.walls.getChildren(), true);
 
-        console.log(this.input.mousePointer)
-
+       this.EnemiesManager = new EnemiesManager(this, raycaster);
+       this.EnemiesManager.spawnRandomAt({x:100, y: 100});
+        this.EnemiesManager.spawnAt({x:500, y: 100}, DoubleRaycasterEnemyFirst);
+        this.EnemiesManager.spawnAt({x:100, y: 500}, DoubleRaycasterEnemySecond);
 
         staticObstacles = this.physics.add.staticGroup({
             key: 'test',
@@ -218,6 +224,8 @@ export default class Arena0 extends Scene {
     update(time, delta) {
         stats.begin();
         reflectableRay.update();
+
+        this.EnemiesManager.update(time, delta);
         //rotate ray
         ray.setAngle(ray.angle + 0.005);
         //cast ray
@@ -269,10 +277,6 @@ export default class Arena0 extends Scene {
             let line2 = Phaser.Geom.Line.fromAngle(intersection.x, intersection.y, reflectionAngle, REFLECTED_LINE_LENGTH);
             graphics.strokeLineShape(line2);
         }
-
-        this.enemy.update(this.player, this)
-        this.enemyDoubleFirst.update(this.player, this)
-        this.enemyDoubleSecond.update(this.player, this)
         stats.end();
     }
 }

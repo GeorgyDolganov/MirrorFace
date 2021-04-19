@@ -121,4 +121,8 @@ export default class ReflectableRay {
 
         return this._ray;
     }
+
+    disable() {
+        this._graphics.clear();
+    }
 }

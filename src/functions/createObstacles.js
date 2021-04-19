@@ -52,19 +52,6 @@ export default function createObstacles(scene, obstacles, bullets) {
     scene.mirror.setImmovable();
     scene.mirror.canReflect = true;
 
-    scene.enemies = []
-
-    scene.enemy = new RaycasterEnemy(scene, 100, 200);
-    obstacles.add(scene.enemy, true);
-
-    scene.enemyDoubleFirst = new DoubleRaycasterEnemyFirst(scene, 400, 600);
-    obstacles.add(scene.enemyDoubleFirst, true);
-
-    scene.enemyDoubleSecond = new DoubleRaycasterEnemySecond(scene, 200, 1000);
-    obstacles.add(scene.enemyDoubleSecond, true);
-
-    scene.enemies = [scene.enemy, scene.enemyDoubleFirst, scene.enemyDoubleSecond]
-
     obstacles.add(scene.player, true);
     obstacles.add(scene.mirror, true);
 }

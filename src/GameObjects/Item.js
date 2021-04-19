@@ -1,4 +1,5 @@
 import Phaser from "phaser";
+import EnemiesManager from "../Managers/EnemiesManager";
 
 export default class Item extends Phaser.Physics.Arcade.Sprite {
     type
@@ -27,7 +28,7 @@ export default class Item extends Phaser.Physics.Arcade.Sprite {
             case 'freeze': {
                 let area = this.scene.add.circle(this.x, this.y, 50).setStrokeStyle(1, 0xff0000);
 
-                this.scene.enemies.forEach(enemy => {
+                this.scene.EnemiesManager._enemies.forEach(enemy => {
                     if ( this.scene.physics.collisionDetection(area, enemy) ) {
                         let defaultSpeed = enemy.speed;
                         enemy.speed = 10;
