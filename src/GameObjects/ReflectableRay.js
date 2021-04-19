@@ -18,7 +18,7 @@ export default class ReflectableRay {
     _ray;
     _raySegments = [];
 
-    MAX_REFLECTS = 7;
+    MAX_REFLECTS = 3;
 
     constructor({scene, fromPoint, angle}) {
         this._graphics = scene.add.graphics({
