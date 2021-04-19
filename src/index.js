@@ -12,7 +12,15 @@ let config = {
     backgroundColor: 'black',
     physics: {
         default: 'arcade',
-        debug: true,
+        arcade: {
+            debug: true,
+            debugShowBody: true,
+            debugShowStaticBody: true,
+            debugShowVelocity: true,
+            debugVelocityColor: 0xffff00,
+            debugBodyColor: 0x0000ff,
+            debugStaticBodyColor: 0xffffff
+        },
     },
     scene: [Arena0],
     loader: {

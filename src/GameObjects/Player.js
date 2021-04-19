@@ -12,6 +12,9 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
         this.setMaxVelocity(200);
         this.health = 100;
 
+        this.body.setCircle(15);
+        this.body.setOffset(0, 15);
+
         this.healthBar = healthBar;
     }
 

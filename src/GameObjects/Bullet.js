@@ -20,6 +20,7 @@ export default class Bullet extends Phaser.Physics.Arcade.Image {
         this.lifeTime = 10000;
         this.setActive(true);
         this.setVisible(true);
+        this.body.setEnable(true);
 
         this.rotation = rotation;
         this.scene.physics.velocityFromRotation(rotation, this.speed, this.body.velocity);
@@ -38,6 +39,7 @@ export default class Bullet extends Phaser.Physics.Arcade.Image {
         this.setActive(false);
         this.setVisible(false);
         this.body.stop();
+        this.body.setEnable(false);
     }
 
 }
