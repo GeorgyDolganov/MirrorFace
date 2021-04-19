@@ -1,6 +1,14 @@
 import Phaser from "phaser";
+import Item from "./Item";
 
 export default class Player extends Phaser.Physics.Arcade.Sprite {
+    items = [
+        {
+            name: 'pyramidHead',
+            quantity: 10
+        }
+    ];
+    currentItem = false;
 
     constructor(scene, healthBar) {
         super(scene, 100, 500, "player");
@@ -29,5 +37,25 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
     }
 
     preUpdate(time, delta) {
+    }
+
+    throw() {
+        if ( this.currentItem === false || this.items.length === 0 ) return;
+
+        let currentItem = this.items[this.currentItem];
+
+        let item = new Item(this.scene, this.x, this.y, currentItem.name);
+
+        currentItem.quantity -= 1;
+        if ( currentItem.quantity <= 0 ) {
+            this.items.splice(this.currentItem, 1)
+        }
+
+        this.scene.item = item
+        item.throw(input.activePointer.worldX, input.activePointer.worldY);
+    }
+
+    changeItem() {
+        this.currentItem = this.items.length > 0 ? ( 1 + this.currentItem ) % this.items.length : false;
     }
 }
