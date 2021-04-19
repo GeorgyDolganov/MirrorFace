@@ -32,6 +32,18 @@ export default function createObstacles(scene, obstacles, bullets) {
     //create image obstacle
     scene.player = new Player(scene, scene.healthBar);
 
+    window.addEventListener('keypress', e => {
+        switch(e.code) {
+            case 'Space': {
+                scene.player.throw();
+                break;
+            }
+            case 'KeyG': {
+                scene.player.changeItem();
+                break;
+            }
+        }
+    })
 
     scene.mirror = scene.physics.add.sprite(0, 0, "mirror");
     scene.mirror.setImmovable();

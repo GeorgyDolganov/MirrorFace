@@ -39,3 +39,5 @@ let config = {
 
 
 let game = new Phaser.Game(config);
+
+window.input = game.input
