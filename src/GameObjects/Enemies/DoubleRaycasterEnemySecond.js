@@ -1,9 +1,12 @@
 import Phaser from "phaser";
 import ReflectableRay from "../ReflectableRay";
+import GameObjectHealthBar from "../UI/GameObjectHealthBar";
 
 export default class DoubleRaycasterEnemySecond extends Phaser.Physics.Arcade.Sprite {
 
     _rays = [];
+    maxHealth = 20;
+    health = this.maxHealth;
 
     constructor(scene, x, y) {
         super(scene, x, y, "pyramidHead");
@@ -16,6 +19,9 @@ export default class DoubleRaycasterEnemySecond extends Phaser.Physics.Arcade.Sp
             scene, fromPoint: {x: 0, y: 0}, angle: 0
         })
 
+        this._healthBar = new GameObjectHealthBar(scene); //TODO not working atm
+        scene.add.existing(this._healthBar);
+        scene.add.existing(this);
         scene.physics.add.existing(this)
     }
 
@@ -27,6 +33,7 @@ export default class DoubleRaycasterEnemySecond extends Phaser.Physics.Arcade.Sp
         this._rays[1].setOrigin(this.calculateRayOrigin(1));
         this._rays[1].setAngle(this.rotation + 0.25);
         this._rays[1].update();
+        this._healthBar.setPosition(this.x -this.width * 0.75, this.y + 30);
     }
 
     calculateRayOrigin(i) {
@@ -44,5 +51,31 @@ export default class DoubleRaycasterEnemySecond extends Phaser.Physics.Arcade.Sp
         } else {
             this.body.stop();
         }
+    }
+
+    die() {
+        this._rays.forEach( r=> r.disable() );
+        this.setActive(false);
+        this.setVisible(false);
+        this.body.stop();
+        this._healthBar.setVisible(false);
+    }
+
+    isAlive() {
+        return this.health > 0;
+    }
+
+    preUpdate(time, delta) {
+        this.tint = 0xffffff;
+    }
+
+    onRayHit(ray) {
+        this.changeHealth(-ray.damage);
+        this.tint = 0xff0000
+    }
+
+    changeHealth(changeBy) {
+        this.health += changeBy;
+        this._healthBar.setHealth(this.health/this.maxHealth * 100);
     }
 }

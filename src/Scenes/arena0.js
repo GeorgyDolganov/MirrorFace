@@ -17,6 +17,8 @@ import mirrorwallPNG from "../assets/mirrorwall.png"
 import EnemiesManager from "../Managers/EnemiesManager";
 
 import bgLoopMP3 from "../assets/audio/bgloop.mp3"
+import DoubleRaycasterEnemySecond from "../GameObjects/Enemies/DoubleRaycasterEnemySecond";
+import DoubleRaycasterEnemyFirst from "../GameObjects/Enemies/DoubleRaycasterEnemyFirst";
 
 var raycaster;
 var ray;
@@ -142,8 +144,9 @@ export default class Arena0 extends Scene {
         raycaster.mapGameObjects(this.arena.walls.getChildren(), true);
 
        this.EnemiesManager = new EnemiesManager(this, raycaster);
-       this.EnemiesManager.spawnRandomAt(400,200);
-
+       this.EnemiesManager.spawnRandomAt({x:100, y: 100});
+        this.EnemiesManager.spawnAt({x:500, y: 100}, DoubleRaycasterEnemyFirst);
+        this.EnemiesManager.spawnAt({x:100, y: 500}, DoubleRaycasterEnemySecond);
 
         staticObstacles = this.physics.add.staticGroup({
             key: 'test',

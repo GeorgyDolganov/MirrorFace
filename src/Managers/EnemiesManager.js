@@ -1,4 +1,6 @@
 import RaycasterEnemy from "../GameObjects/Enemies/RaycasterEnemy";
+import DoubleRaycasterEnemyFirst from "../GameObjects/Enemies/DoubleRaycasterEnemyFirst";
+import DoubleRaycasterEnemySecond from "../GameObjects/Enemies/DoubleRaycasterEnemySecond";
 
 export default class EnemiesManager {
     _enemies = [];
@@ -16,10 +18,10 @@ export default class EnemiesManager {
 
         this.currentCooldown += delta;
         if( this.currentCooldown > this.spawnCooldown ) {
-            this.spawnRandomAt(200, 200);
+            this.spawnRandomAt({x: 100, y: 100});
             this.currentCooldown = 0;
         }
-    }
+    }wd
 
     updateEnemies(time, delta) {
         let markForRemove = [];
@@ -37,13 +39,20 @@ export default class EnemiesManager {
     }
 
     spawnRandomAt(position) {
-        let type = this.getRandomEnemyType();
+        this.spawnAt(position, this.getRandomEnemyType());
+    }
+
+    spawnAt(position, type) {
+        console.log(type);
         let enemy = new type(this._scene, position.x, position.y);
         this._raycaster.mapGameObjects(enemy, true);
         this._enemies.push(enemy);
     }
 
     getRandomEnemyType() {
-        return RaycasterEnemy;
+        let map = [ RaycasterEnemy, DoubleRaycasterEnemyFirst, DoubleRaycasterEnemySecond ];
+
+        let index = Math.floor(Math.random() * (map.length));
+        return map[index];
     }
 }
