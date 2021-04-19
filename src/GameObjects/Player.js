@@ -52,7 +52,7 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
     }
 
     throw() {
-        if ( this.currentItem === false || this.items.length === 0 ) return;
+        if ( this.currentItem === false || this.items.length === 0 || this.items[this.currentItem] === undefined ) return;
 
         let currentItem = this.items[this.currentItem];
 
