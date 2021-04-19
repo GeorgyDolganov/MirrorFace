@@ -42,7 +42,7 @@ export default class RaycasterEnemy extends Phaser.Physics.Arcade.Sprite {
     }
 
     calculateRayOrigin() {
-        let r = 30;
+        let r = 18;
         return {
             x: this.x + r * Math.cos(this.rotation),
             y: this.y + r * Math.sin(this.rotation)

@@ -252,8 +252,6 @@ export default class Arena0 extends Scene {
             let line2 = Phaser.Geom.Line.fromAngle(intersection.x, intersection.y, reflectionAngle, REFLECTED_LINE_LENGTH);
             graphics.strokeLineShape(line2);
         }
-
-        //this.enemy.update(this.player, this)
         stats.end();
     }
 }
