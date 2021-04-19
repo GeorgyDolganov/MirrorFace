@@ -1,6 +1,8 @@
 import Enemy from "../GameObjects/Enemy";
 import Player from "../GameObjects/Player";
 import RaycasterEnemy from "../GameObjects/Enemies/RaycasterEnemy";
+import DoubleRaycasterEnemyFirst from "../GameObjects/Enemies/DoubleRaycasterEnemyFirst";
+import DoubleRaycasterEnemySecond from "../GameObjects/Enemies/DoubleRaycasterEnemySecond";
 
 export default function createObstacles(scene, obstacles, bullets) {
     //create rectangle obstacle
@@ -38,8 +40,15 @@ export default function createObstacles(scene, obstacles, bullets) {
     scene.mirror.setImmovable();
     scene.mirror.canReflect = true;
 
-    scene.enemy = new RaycasterEnemy(scene, 100, 200, bullets);
+    scene.enemy = new RaycasterEnemy(scene, 100, 200);
     obstacles.add(scene.enemy, true);
+
+    scene.enemyDoubleFirst = new DoubleRaycasterEnemyFirst(scene, 400, 600);
+    obstacles.add(scene.enemyDoubleFirst, true);
+
+    scene.enemyDoubleSecond = new DoubleRaycasterEnemySecond(scene, 200, 1000);
+    obstacles.add(scene.enemyDoubleSecond, true);
+
     obstacles.add(scene.player, true);
     obstacles.add(scene.mirror, true);
 }

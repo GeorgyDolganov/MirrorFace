@@ -249,6 +249,8 @@ export default class Arena0 extends Scene {
         }
 
         this.enemy.update(this.player, this)
+        this.enemyDoubleFirst.update(this.player, this)
+        this.enemyDoubleSecond.update(this.player, this)
         stats.end();
     }
 }

@@ -5,8 +5,8 @@ export default class RaycasterEnemy extends Phaser.Physics.Arcade.Sprite {
 
     _ray;
 
-    constructor(scene) {
-        super(scene, 0, 0, "pyramidHead");
+    constructor(scene, x, y) {
+        super(scene, x, y, "pyramidHead");
 
         this._ray = new ReflectableRay({
             scene, fromPoint: {x: 0, y: 0}, angle: 0
@@ -23,7 +23,7 @@ export default class RaycasterEnemy extends Phaser.Physics.Arcade.Sprite {
     }
 
     calculateRayOrigin() {
-        let r = 30;
+        let r = 18;
         return {
             x: this.x + r * Math.cos(this.rotation),
             y: this.y + r * Math.sin(this.rotation)
