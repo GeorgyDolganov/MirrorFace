@@ -78,7 +78,7 @@ export default class Arena0 extends Scene {
 
         let bgLoopMusic = this.sound.add('bgloop', {
             loop: true,
-            volume: 0.5
+            volume: 0.25
         });
 
         bgLoopMusic.play();
