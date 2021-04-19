@@ -3,7 +3,16 @@ import Phaser from "phaser";
 
 export default class ReflectableRay {
 
+    //Raycaster reference
     static Raycaster;
+
+    //Origin and starting angle
+    fromPoint;
+    angle;
+
+    //Damage per update tick
+    damage = 0.05;
+
 
     _graphics;
     _ray;
@@ -40,7 +49,15 @@ export default class ReflectableRay {
 
     _createNextSegment(prevRaySegment, intersection) {
         this.calculateCircleSegment(intersection);
+
         if( intersection.segment === undefined ) return;
+
+        if( intersection.object.onRayHit ) intersection.object.onRayHit(this);
+
+        if( !intersection.object.canReflect ) {
+            return;
+        }
+
         let reflectionAngle = Phaser.Geom.Line.ReflectAngle(prevRaySegment, intersection.segment);
         let ray = this._getRay({
             x: intersection.x + Math.cos(reflectionAngle)/1000,
@@ -67,6 +84,14 @@ export default class ReflectableRay {
 
             intersection.segment = tangent
         }
+    }
+
+    setOrigin(newOrigin) {
+        this.fromPoint = newOrigin;
+    }
+
+    setAngle(angle) {
+        this.angle = angle;
     }
 
     update() {

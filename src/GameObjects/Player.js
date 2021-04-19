@@ -26,6 +26,11 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
         this.healthBar = healthBar;
     }
 
+    onRayHit(ray) {
+        this.health -= ray.damage;
+        this.healthBar.update(this.health);
+    }
+
     onHit(bullet) {
         this.health -= 10;
         this.healthBar.update(this.health);
