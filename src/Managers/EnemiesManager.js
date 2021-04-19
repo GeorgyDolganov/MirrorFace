@@ -3,7 +3,7 @@ import RaycasterEnemy from "../GameObjects/Enemies/RaycasterEnemy";
 export default class EnemiesManager {
     _enemies = [];
 
-    spawnCooldown = 2000;
+    spawnCooldown = 10000;
     currentCooldown = 0;
 
     constructor(scene, raycaster) {
