@@ -16,6 +16,8 @@ import metalfloorPNG from "../assets/metalfloor.png"
 import mirrorwallPNG from "../assets/mirrorwall.png"
 import EnemiesManager from "../Managers/EnemiesManager";
 
+import bgLoopMP3 from "../assets/audio/bgloop.mp3"
+
 var raycaster;
 var ray;
 var graphics;
@@ -45,10 +47,11 @@ export default class Arena0 extends Scene {
         this.load.image('mirror', mirrorPNG);
         this.load.image('metalfloor', metalfloorPNG)
         this.load.image('mirrorwall', mirrorwallPNG)
+        this.load.audio('bgloop', bgLoopMP3);
     }
 
     create() {
-
+        
         this.physics.world.setBounds(0, 0, 1280, 1280);
 
         //Создаем арену
@@ -73,6 +76,13 @@ export default class Arena0 extends Scene {
         this.arena.wall3 = this.add.tileSprite(640, 1296, 32, 1280, 'mirrorwall').setName('wall3')
         this.arena.wall3.angle = -90
         this.arena.walls.add(this.arena.wall3)
+
+        let bgLoopMusic = this.sound.add('bgloop', {
+            loop: true,
+            volume: 0.5
+        });
+
+        bgLoopMusic.play();
 
         //create raycaster
         raycaster = this.raycasterPlugin.createRaycaster();
