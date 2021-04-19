@@ -35,6 +35,7 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
     onRayHit(ray) {
         this.tint = 0xff0000;
         this.changeHealth(-ray.damage);
+        if(this.health <= 0 ) alert("YOU DED");
     }
 
     changeHealth(changeBy) {
