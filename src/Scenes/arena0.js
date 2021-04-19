@@ -63,23 +63,27 @@ export default class Arena0 extends Scene {
         this.arena.add(this.arena.walls)
 
         this.arena.wall0 = this.add.tileSprite(-16, 640, 32, 1280, 'mirrorwall').setName('wall0')
+        this.arena.wall0.canReflect = true
         this.arena.walls.add(this.arena.wall0)
 
         this.arena.wall1 = this.add.tileSprite(640, -16, 32, 1280, 'mirrorwall').setName('wall1')
+        this.arena.wall1.canReflect = true
         this.arena.wall1.angle = 90
         this.arena.walls.add(this.arena.wall1)
 
         this.arena.wall2 = this.add.tileSprite(1296, 640, 32, 1280, 'mirrorwall').setName('wall2')
+        this.arena.wall2.canReflect = true
         this.arena.wall2.angle = 180
         this.arena.walls.add(this.arena.wall2)
 
         this.arena.wall3 = this.add.tileSprite(640, 1296, 32, 1280, 'mirrorwall').setName('wall3')
+        this.arena.wall3.canReflect = true
         this.arena.wall3.angle = -90
         this.arena.walls.add(this.arena.wall3)
 
         let bgLoopMusic = this.sound.add('bgloop', {
             loop: true,
-            volume: 0.5
+            volume: 0.25
         });
 
         bgLoopMusic.play();
@@ -135,6 +139,7 @@ export default class Arena0 extends Scene {
             //map obstacles
         console.log("obstacles", obstacles.getChildren());
         raycaster.mapGameObjects(obstacles.getChildren(), true);
+        raycaster.mapGameObjects(this.arena.walls.getChildren(), true);
 
        this.EnemiesManager = new EnemiesManager(this, raycaster);
        this.EnemiesManager.spawnRandomAt(400,200);
