@@ -9,6 +9,7 @@ export default class Item extends Phaser.Physics.Arcade.Sprite {
         this.type = type;
         scene.physics.add.existing(this);
 
+        this.tweens = this.scene.tweens;
         this.physics = this.scene.physics;
         this.player = this.scene.player;
         this.EnemiesManager = this.scene.EnemiesManager;
@@ -17,7 +18,7 @@ export default class Item extends Phaser.Physics.Arcade.Sprite {
     throw(x, y) {
         let time = Math.sqrt( Math.pow(x - this.x, 2) + Math.pow(y - this.y, 2) ) / 500 * 1000;
 
-        this.scene.tweens.add({
+        this.tweens.add({
             targets: this,
             x: x,
             y: y,
@@ -44,6 +45,19 @@ export default class Item extends Phaser.Physics.Arcade.Sprite {
         }
     }
 
+    delayedCall(delay, callback) {
+        let fakeObject = { iterator: 0 };
+
+        this.tweens.add({
+            targets: fakeObject,
+            iterator: delay,
+            duration: delay,
+            onComplete: tween => {
+                callback();
+            }
+        });
+    }
+
     action() {
         switch( this.type ) {
             case 'blink': {
@@ -57,10 +71,10 @@ export default class Item extends Phaser.Physics.Arcade.Sprite {
                 this.checkCollisions(area, (unit) => {
                     let defaultSpeed = unit.speed;
                     unit.speed = unit.speed / 10;
-                    setTimeout(_ => unit.speed = defaultSpeed, 2000);
+                    this.delayedCall(2000, _ => unit.speed = defaultSpeed);
                 })
 
-                setTimeout(_ => {area.destroy()}, 100);
+                this.delayedCall(100, _ => {area.destroy()});
 
                 break;
             }
@@ -75,10 +89,10 @@ export default class Item extends Phaser.Physics.Arcade.Sprite {
                     particle.x = this.x + 50 * Math.cos(Math.random() * 2 - 1);
                     particle.y = this.y + 50 * Math.sin(Math.random() * 2 - 1);
 
-                    setTimeout(_ => {
+                    this.delayedCall(Math.random() * 3000 + 1000, _ => {
                         particle.x = -999;
                         particle.y = -999;
-                    }, Math.random() * 3000 + 1000)
+                    });
                 })
 
                 break;
@@ -90,7 +104,7 @@ export default class Item extends Phaser.Physics.Arcade.Sprite {
                     unit.changeHealth(-50);
                 })
 
-                setTimeout(_ => {area.destroy()}, 100);
+                this.delayedCall(100, _ => {area.destroy()});
 
                 break;
             }
@@ -102,24 +116,63 @@ export default class Item extends Phaser.Physics.Arcade.Sprite {
 
                     let burned = Math.random() > .5;
                     if ( burned ) {
-                        let burnedTimer = setInterval(_ => {if ( unit ) unit.changeHealth(-1)}, 500);
-                        setTimeout(_ => clearInterval( burnedTimer ), 2000);
+
+                        let burnedTicker = {times: 4, last: 4};
+
+                        this.tweens.add({
+                            targets: burnedTicker,
+                            times: 0,
+                            duration: 2000,
+                            onUpdate: tween => {
+                                if ( parseInt(burnedTicker.times) < burnedTicker.last ) {
+                                    burnedTicker.last = parseInt(burnedTicker.times);
+
+                                    if ( unit ) unit.changeHealth(-1);
+                                    else this.tweens.killTweensOf(burnedTicker);
+                                }
+                            }
+                        })
                     }
                 })
 
-                let fireAreaTimer = setInterval(_ => {
-                    this.checkCollisions(area, (unit) => {
-                        if ( unit ) unit.changeHealth(-1);
+                let fireAreaTicker = {times: 10, last: 10};
 
-                        let burned = Math.random() > .5;
-                        if ( burned ) {
-                            let burnedTimer = setInterval(_ => {if ( unit ) unit.changeHealth(-1)}, 500);
-                            setTimeout(_ => clearInterval( burnedTimer ), 2000);
+                this.tweens.add({
+                    targets: fireAreaTicker,
+                    times: 0,
+                    duration: 5000,
+                    onUpdate: tween => {
+                        if ( parseInt(fireAreaTicker.times) < fireAreaTicker.last ) {
+                            fireAreaTicker.last = parseInt(fireAreaTicker.times);
+                            
+                            this.checkCollisions(area, (unit) => {
+                                if ( unit ) unit.changeHealth(-1);
+        
+                                let burned = Math.random() > .5;
+                                if ( burned ) {
+                                    let burnedTicker = {times: 4, last: 4};
+
+                                    this.tweens.add({
+                                        targets: burnedTicker,
+                                        times: 0,
+                                        duration: 2000,
+                                        onUpdate: tween => {
+                                            if ( parseInt(burnedTicker.times) < burnedTicker.last ) {
+                                                burnedTicker.last = parseInt(burnedTicker.times);
+
+                                                if ( unit ) unit.changeHealth(-1);
+                                                else this.tweens.killTweensOf(burnedTicker);
+                                            }
+                                        }
+                                    })
+                                }
+                            })
                         }
-                    })
-                }, 500)
-
-                setTimeout(_ => {clearInterval(fireAreaTimer); area.destroy();}, 5000);
+                    },
+                    onComplete: tween => {
+                        area.destroy();
+                    }
+                });
 
                 break;
             }
