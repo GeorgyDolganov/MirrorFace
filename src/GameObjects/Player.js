@@ -6,6 +6,16 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
         {
             name: 'pyramidHead',
             quantity: 10,
+            type: 'burn'
+        },
+        {
+            name: 'pyramidHead',
+            quantity: 10,
+            type: 'damage'
+        },
+        {
+            name: 'pyramidHead',
+            quantity: 10,
             type: 'freeze'
         },
         {
