@@ -80,7 +80,9 @@ export default class Skeleton extends Phaser.GameObjects.Container {
         // this.rotation = Phaser.Math.Angle.Between(this.x, this.y, gameObject.x, gameObject.y);
         if (Phaser.Math.Distance.Between(this.x, this.y, gameObject.x, gameObject.y) > 150) {
             this.scene.physics.moveToObject(this, gameObject, this.speed);
+            this.skeletonLegs.stopOnFrame(0)
         } else {
+            this.skeletonLegs.play({key: 'walk', repeat: -1})
             this.body.stop();
         }
     }
