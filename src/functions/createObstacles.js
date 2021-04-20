@@ -1,8 +1,4 @@
-import Enemy from "../GameObjects/Enemy";
 import Player from "../GameObjects/Player";
-import RaycasterEnemy from "../GameObjects/Enemies/RaycasterEnemy";
-import DoubleRaycasterEnemyFirst from "../GameObjects/Enemies/DoubleRaycasterEnemyFirst";
-import DoubleRaycasterEnemySecond from "../GameObjects/Enemies/DoubleRaycasterEnemySecond";
 
 export default function createObstacles(scene, obstacles, bullets) {
     //create rectangle obstacle
