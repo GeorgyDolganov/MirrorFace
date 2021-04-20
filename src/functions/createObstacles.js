@@ -21,11 +21,14 @@ export default function createObstacles(scene, obstacles, bullets) {
         .setStrokeStyle(1, 0xff0000);
     obstacles.add(obstacle);
 
-    //create overlapping obstacles
-    for (let i = 0; i < 5; i++) {
-        obstacle = scene.add.rectangle(350 + 30 * i, 550 - 30 * i, 50, 50)
+    // Create reflection particles for grenade
+    scene.reflectionParticles = []
+    for (let i = 0; i < 50; i++) {
+        obstacle = scene.add.rectangle(-999, -999, 10, 10)
             .setStrokeStyle(1, 0xff0000);
         obstacles.add(obstacle, true);
+        obstacle.canReflect = true;
+        scene.reflectionParticles.push(obstacle);
     }
 
     //create image obstacle

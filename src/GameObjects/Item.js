@@ -57,6 +57,25 @@ export default class Item extends Phaser.Physics.Arcade.Sprite {
 
                 break;
             }
+            case 'reflection': {
+                let limit = 5;
+        
+                this.scene.reflectionParticles.forEach(particle => {
+                    if ( limit <= 0 || particle.x !== -999 ) return;
+
+                    limit -= 1;
+
+                    particle.x = this.x + 50 * Math.cos(Math.random() * 2 - 1);
+                    particle.y = this.y + 50 * Math.sin(Math.random() * 2 - 1);
+
+                    setTimeout(_ => {
+                        particle.x = -999;
+                        particle.y = -999;
+                    }, Math.random() * 3000 + 1000)
+                })
+
+                break;
+            }
             case 'damage': {
                 let area = this.scene.add.circle(this.x, this.y, 50).setStrokeStyle(1, 0xff0000);
 
