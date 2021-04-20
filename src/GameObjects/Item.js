@@ -15,10 +15,17 @@ export default class Item extends Phaser.Physics.Arcade.Sprite {
     }
 
     throw(x, y) {
-        this.scene.physics.moveTo(this, x, y, 500);
+        let time = Math.sqrt( Math.pow(x - this.x, 2) + Math.pow(y - this.y, 2) ) / 500 * 1000;
 
-        let time = Math.sqrt( Math.pow(x - this.x, 2) + Math.pow(y - this.y, 2) ) / 500;
-        setTimeout(_ => {this.action()}, time * 1000);
+        this.scene.tweens.add({
+            targets: this,
+            x: x,
+            y: y,
+            duration: time,
+            onComplete: tween => {
+                this.action();
+            }
+        });
     }
 
     checkCollisions(area, callback) {
