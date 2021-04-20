@@ -21,7 +21,7 @@ export default class RaycasterEnemy extends Phaser.Physics.Arcade.Sprite {
         this._healthBar = new GameObjectHealthBar(scene); //TODO not working atm
         scene.add.existing(this._healthBar);
         scene.add.existing(this);
-        scene.physics.add.existing(this)
+        //scene.physics.add.existing(this)
     }
 
     update(player) {
@@ -67,6 +67,7 @@ export default class RaycasterEnemy extends Phaser.Physics.Arcade.Sprite {
         this.setActive(false);
         this.setVisible(false);
         this.body.stop();
+        this.body.setEnable(false);
         this._healthBar.setVisible(false);
         this._ray.disable();
     }

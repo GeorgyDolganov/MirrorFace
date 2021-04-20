@@ -61,6 +61,7 @@ export default class DoubleRaycasterEnemyFirst extends Phaser.Physics.Arcade.Spr
         this.setActive(false);
         this.setVisible(false);
         this.body.stop();
+        this.body.setEnable(false);
         this._healthBar.setVisible(false);
     }
 

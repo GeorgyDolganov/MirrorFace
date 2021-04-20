@@ -1,16 +1,18 @@
 import RaycasterEnemy from "../GameObjects/Enemies/RaycasterEnemy";
 import DoubleRaycasterEnemyFirst from "../GameObjects/Enemies/DoubleRaycasterEnemyFirst";
 import DoubleRaycasterEnemySecond from "../GameObjects/Enemies/DoubleRaycasterEnemySecond";
+import EnemyFactory from "./EnemiesPool";
 
 export default class EnemiesManager {
     _enemies = [];
+    _enemiesFactory;
 
     spawnCooldown = 10000;
     currentCooldown = 0;
 
     constructor(scene, raycaster) {
         this._scene = scene;
-        this._raycaster = raycaster;
+        this._enemiesFactory = new EnemyFactory(scene, raycaster);
     }
 
     update(time, delta) {
@@ -21,7 +23,7 @@ export default class EnemiesManager {
             this.spawnRandomAt({x: 100, y: 100});
             this.currentCooldown = 0;
         }
-    }wd
+    }
 
     updateEnemies(time, delta) {
         let markForRemove = [];
@@ -30,7 +32,8 @@ export default class EnemiesManager {
                 e.update(this._scene.player);
             } else {
                 markForRemove.push(index);
-                e.die();
+                //e.die();
+                this._enemiesFactory.kill(e);
             }
         });
         markForRemove.forEach(i => {
@@ -43,9 +46,7 @@ export default class EnemiesManager {
     }
 
     spawnAt(position, type) {
-        console.log(type);
-        let enemy = new type(this._scene, position.x, position.y);
-        this._raycaster.mapGameObjects(enemy, true);
+        let enemy = this._enemiesFactory.create(type, position);
         this._enemies.push(enemy);
     }
 

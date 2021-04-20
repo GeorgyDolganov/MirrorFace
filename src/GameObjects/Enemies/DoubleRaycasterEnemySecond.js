@@ -24,7 +24,7 @@ export default class DoubleRaycasterEnemySecond extends Phaser.Physics.Arcade.Sp
         this._healthBar = new GameObjectHealthBar(scene); //TODO not working atm
         scene.add.existing(this._healthBar);
         scene.add.existing(this);
-        scene.physics.add.existing(this)
+
     }
 
     update(player) {
@@ -60,6 +60,7 @@ export default class DoubleRaycasterEnemySecond extends Phaser.Physics.Arcade.Sp
         this.setActive(false);
         this.setVisible(false);
         this.body.stop();
+        this.body.setEnable(false);
         this._healthBar.setVisible(false);
     }
 
