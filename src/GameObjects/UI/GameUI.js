@@ -1,7 +1,10 @@
 import PlayerHealthBar from "./PlayerHealthBar";
+import CurrentRound from "./CurrentRound";
 
 
 export default class GameUI extends Phaser.GameObjects.Container {
+
+    currentRound;
 
     _healthBar;
     _grenadeType;
@@ -21,6 +24,11 @@ export default class GameUI extends Phaser.GameObjects.Container {
             else this._grenadeType.text = 'Grenade Type:\nnone';
         };
         scene.grenadeType = this._grenadeType;
+
+        this.currentRound = new CurrentRound(scene);
+        this.add(this.currentRound);
         this.add(this._grenadeType)
     }
+
+
 }

@@ -5,24 +5,24 @@ import EnemyFactory from "./EnemiesPool";
 
 export default class EnemiesManager {
     _enemies = [];
-    _enemiesFactory;
+    _enemiesPool;
 
     spawnCooldown = 10000;
     currentCooldown = 0;
 
     constructor(scene, raycaster) {
         this._scene = scene;
-        this._enemiesFactory = new EnemyFactory(scene, raycaster);
+        this._enemiesPool = new EnemyFactory(scene, raycaster);
     }
 
     update(time, delta) {
         this.updateEnemies();
 
-        this.currentCooldown += delta;
-        if( this.currentCooldown > this.spawnCooldown ) {
-            this.spawnRandomAt({x: 100, y: 100});
-            this.currentCooldown = 0;
-        }
+        // this.currentCooldown += delta;
+        // if( this.currentCooldown > this.spawnCooldown ) {
+        //     this.spawnRandomAt({x: 100, y: 100});
+        //     this.currentCooldown = 0;
+        // }
     }
 
     updateEnemies(time, delta) {
@@ -32,8 +32,7 @@ export default class EnemiesManager {
                 e.update(this._scene.player);
             } else {
                 markForRemove.push(index);
-                //e.die();
-                this._enemiesFactory.kill(e);
+                this._enemiesPool.kill(e);
             }
         });
         markForRemove.forEach(i => {
@@ -46,7 +45,7 @@ export default class EnemiesManager {
     }
 
     spawnAt(position, type) {
-        let enemy = this._enemiesFactory.create(type, position);
+        let enemy = this._enemiesPool.create(type, position);
         this._enemies.push(enemy);
     }
 
@@ -55,5 +54,9 @@ export default class EnemiesManager {
 
         let index = Math.floor(Math.random() * (map.length));
         return map[index];
+    }
+
+    countEnemies() {
+        return this._enemies.length;
     }
 }

@@ -7,7 +7,7 @@ import Stats from "stats.js";
 import createObstacles from '../functions/createObstacles';
 import handlePlayerMovement from '../functions/handlePlayerMovment';
 import updateMirrorPosition from '../functions/updateMirrorPosition';
-import GameUI from "../GameObjects/UI/PlayerUI";
+import GameUI from "../GameObjects/UI/GameUI";
 import EnemiesManager from "../Managers/EnemiesManager";
 
 import playerPNG from "../assets/Player.png"
@@ -27,6 +27,7 @@ import bgLoopMP3 from "../assets/audio/bgloop.mp3"
 import DoubleRaycasterEnemySecond from "../GameObjects/Enemies/DoubleRaycasterEnemySecond";
 import DoubleRaycasterEnemyFirst from "../GameObjects/Enemies/DoubleRaycasterEnemyFirst";
 import Skeleton from '../GameObjects/Enemies/Skeleton';
+import RoundManager from "../Managers/RoundManager";
 
 var raycaster;
 var ray;
@@ -131,7 +132,8 @@ export default class Arena0 extends Scene {
         ReflectableRay.Raycaster = raycaster;
 
         //Create game ui
-        this.add.existing(new GameUI(this));
+        this.gameUI = new GameUI(this);
+        this.add.existing(this.gameUI);
 
 
         // var gr = this.add.graphics({
@@ -179,18 +181,8 @@ export default class Arena0 extends Scene {
         raycaster.mapGameObjects(this.arena.walls.getChildren(), true);
 
         this.EnemiesManager = new EnemiesManager(this, raycaster);
-        this.EnemiesManager.spawnRandomAt({
-            x: 100,
-            y: 100
-        });
-        this.EnemiesManager.spawnAt({
-            x: 500,
-            y: 100
-        }, DoubleRaycasterEnemyFirst);
-        this.EnemiesManager.spawnAt({
-            x: 100,
-            y: 500
-        }, DoubleRaycasterEnemySecond);
+        this.RoundManager = new RoundManager(this, this.EnemiesManager);
+        this.RoundManager.setRound(1);
 
         staticObstacles = this.physics.add.staticGroup({
             key: 'test',
@@ -233,7 +225,6 @@ export default class Arena0 extends Scene {
         graphics.fillPoint(ray.origin.x, ray.origin.y, 3)
         graphics.strokeLineShape(line);
 
-        this.skeleton = new Skeleton(this, 200, 300)
 
         //Set camera to follow the player
         this.cameras.main.startFollow(this.player);
@@ -266,6 +257,7 @@ export default class Arena0 extends Scene {
         reflectableRay.update();
 
         this.EnemiesManager.update(time, delta);
+        this.RoundManager.update(time, delta);
         //rotate ray
         ray.setAngle(ray.angle + 0.005);
         //cast ray
@@ -318,6 +310,5 @@ export default class Arena0 extends Scene {
             graphics.strokeLineShape(line2);
         }
         stats.end();
-        this.skeleton.update()
     }
 }
