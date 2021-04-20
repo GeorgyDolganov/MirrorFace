@@ -16,7 +16,10 @@ export default class GameUI extends Phaser.GameObjects.Container {
         this.add(this._healthBar);
 
         this._grenadeType = new Phaser.GameObjects.Text(scene, 700, 550, 'Grenade Type:\nnone', { font: '"Press Start 2P"', align: 'center' });
-        this._grenadeType.set = name => this._grenadeType.text = 'Grenade Type:\n' + name;
+        this._grenadeType.set = grenade => {
+            if ( grenade ) this._grenadeType.text = 'Grenade Type:\n' + grenade.type + ' x' + grenade.quantity;
+            else this._grenadeType.text = 'Grenade Type:\nnone';
+        };
         scene.grenadeType = this._grenadeType;
         this.add(this._grenadeType)
     }
