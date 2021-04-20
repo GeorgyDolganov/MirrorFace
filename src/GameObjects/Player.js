@@ -41,6 +41,7 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
         this.body.setOffset(0, 15);
 
         this.healthBar = healthBar;
+        this.grenadeType = scene.grenadeType;
     }
 
     onRayHit(ray) {
@@ -87,5 +88,6 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
 
     changeItem() {
         this.currentItem = this.items.length > 0 ? ( 1 + this.currentItem ) % this.items.length : false;
+        this.grenadeType.set( this.items[this.currentItem].type );
     }
 }
