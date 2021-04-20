@@ -4,7 +4,7 @@ export default function handlePlayerMovement(player, cursors) {
         cursors.down.isDown && cursors.left.isDown ||
         cursors.down.isDown && cursors.right.isDown
 
-    const BASE_SPEED = 160
+    const BASE_SPEED = player.speed
     const SPEED = angle ? Math.sqrt(BASE_SPEED * BASE_SPEED / 2) : BASE_SPEED
 
     if (cursors.left.isDown) {

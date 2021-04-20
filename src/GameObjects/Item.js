@@ -1,5 +1,4 @@
 import Phaser from "phaser";
-import EnemiesManager from "../Managers/EnemiesManager";
 
 export default class Item extends Phaser.Physics.Arcade.Sprite {
     type
@@ -9,6 +8,10 @@ export default class Item extends Phaser.Physics.Arcade.Sprite {
 
         this.type = type;
         scene.physics.add.existing(this);
+
+        this.physics = this.scene.physics;
+        this.player = this.scene.player;
+        this.EnemiesManager = this.scene.EnemiesManager;
     }
 
     throw(x, y) {
@@ -16,6 +19,22 @@ export default class Item extends Phaser.Physics.Arcade.Sprite {
 
         let time = Math.sqrt( Math.pow(x - this.x, 2) + Math.pow(y - this.y, 2) ) / 500;
         setTimeout(_ => {this.action()}, time * 1000);
+    }
+
+    checkCollisions(area, callback) {
+        const physics = this.physics;
+        const player = this.player;
+        const EnemiesManager = this.EnemiesManager;
+
+        EnemiesManager._enemies.forEach(enemy => {
+            if ( physics.collisionDetection(area, enemy) ) {
+                callback(enemy);
+            }
+        });
+
+        if ( physics.collisionDetection(area, player) ) {
+            callback(player);
+        }
     }
 
     action() {
@@ -28,13 +47,11 @@ export default class Item extends Phaser.Physics.Arcade.Sprite {
             case 'freeze': {
                 let area = this.scene.add.circle(this.x, this.y, 50).setStrokeStyle(1, 0xff0000);
 
-                this.scene.EnemiesManager._enemies.forEach(enemy => {
-                    if ( this.scene.physics.collisionDetection(area, enemy) ) {
-                        let defaultSpeed = enemy.speed;
-                        enemy.speed = 10;
-                        setTimeout(_ => enemy.speed = defaultSpeed, 2000);
-                    }
-                });
+                this.checkCollisions(area, (unit) => {
+                    let defaultSpeed = unit.speed;
+                    unit.speed = unit.speed / 10;
+                    setTimeout(_ => unit.speed = defaultSpeed, 2000);
+                })
 
                 setTimeout(_ => {area.destroy()}, 100);
 
@@ -43,11 +60,9 @@ export default class Item extends Phaser.Physics.Arcade.Sprite {
             case 'damage': {
                 let area = this.scene.add.circle(this.x, this.y, 50).setStrokeStyle(1, 0xff0000);
 
-                this.scene.EnemiesManager._enemies.forEach(enemy => {
-                    if ( this.scene.physics.collisionDetection(area, enemy) ) {
-                        enemy.changeHealth(-50);
-                    }
-                });
+                this.checkCollisions(area, (unit) => {
+                    unit.changeHealth(-50);
+                })
 
                 setTimeout(_ => {area.destroy()}, 100);
 
@@ -56,31 +71,26 @@ export default class Item extends Phaser.Physics.Arcade.Sprite {
             case 'burn': {
                 let area = this.scene.add.circle(this.x, this.y, 100).setStrokeStyle(1, 0xff0000);
 
-                const EnemiesManager = this.scene.EnemiesManager
-                const physics = this.scene.physics
+                this.checkCollisions(area, (unit) => {
+                    if ( unit ) unit.changeHealth(-5);
 
-                EnemiesManager._enemies.forEach(enemy => {
-                    if ( physics.collisionDetection(area, enemy) ) {
-                        if (enemy) enemy.changeHealth(-5);
-                        let burned = Math.random() > .5;
-                        if ( burned ) {
-                            let burnedTimer = setInterval(_ => {if ( enemy ) enemy.changeHealth(-1)}, 500);
-                            setTimeout(_ => clearInterval(burnedTimer), 2000);
-                        }
+                    let burned = Math.random() > .5;
+                    if ( burned ) {
+                        let burnedTimer = setInterval(_ => {if ( unit ) unit.changeHealth(-1)}, 500);
+                        setTimeout(_ => clearInterval( burnedTimer ), 2000);
                     }
-                });
+                })
 
                 let fireAreaTimer = setInterval(_ => {
-                    EnemiesManager._enemies.forEach(enemy => {
-                        if ( physics.collisionDetection(area, enemy) ) {
-                            if ( enemy ) enemy.changeHealth(-1);
-                            let burned = Math.random() > .5;
-                            if ( burned ) {
-                                let burnedTimer = setInterval(_ => {if ( enemy ) enemy.changeHealth(-1)}, 500);
-                                setTimeout(_ => clearInterval(burnedTimer), 2000);
-                            }
+                    this.checkCollisions(area, (unit) => {
+                        if ( unit ) unit.changeHealth(-1);
+
+                        let burned = Math.random() > .5;
+                        if ( burned ) {
+                            let burnedTimer = setInterval(_ => {if ( unit ) unit.changeHealth(-1)}, 500);
+                            setTimeout(_ => clearInterval( burnedTimer ), 2000);
                         }
-                    });
+                    })
                 }, 500)
 
                 setTimeout(_ => {clearInterval(fireAreaTimer); area.destroy();}, 5000);

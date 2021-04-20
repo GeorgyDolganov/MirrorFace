@@ -2,6 +2,7 @@ import Phaser from "phaser";
 import Item from "./Item";
 
 export default class Player extends Phaser.Physics.Arcade.Sprite {
+    speed = 160;
     items = [
         {
             name: 'pyramidHead',
