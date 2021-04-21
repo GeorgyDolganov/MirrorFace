@@ -10,6 +10,8 @@ import GameUI from "../GameObjects/UI/GameUI";
 import EnemiesManager from "../Managers/EnemiesManager";
 
 import playerPNG from "../assets/Player.png"
+import grenadePNG from "../assets/grenade.png"
+import shardPNG from "../assets/shard.png"
 import pyramidHeadPNG from "../assets/PyramidHead.png"
 import mirrorPNG from "../assets/mirror.png";
 import metalfloorPNG from "../assets/floor.png"
@@ -46,6 +48,8 @@ export default class Arena0 extends Scene {
 
     preload() {
         this.load.image('player', playerPNG)
+        this.load.image('grenade', grenadePNG)
+        this.load.image('shard', shardPNG)
         this.load.image('pyramidHead', pyramidHeadPNG)
         this.load.image('mirror', mirrorPNG);
         this.load.image('metalfloor', metalfloorPNG)

@@ -12,8 +12,7 @@ export default function createObstacles(scene, obstacles) {
     // Create reflection particles for grenade
     scene.reflectionParticles = []
     for (let i = 0; i < 50; i++) {
-        obstacle = scene.add.rectangle(-999, -999, 10, 10)
-            .setStrokeStyle(1, 0xff0000);
+        obstacle = scene.physics.add.sprite(-999, -999, "shard");
         obstacles.add(obstacle, true);
         obstacle.canReflect = true;
         scene.reflectionParticles.push(obstacle);
