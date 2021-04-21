@@ -18,6 +18,10 @@ export default function createObstacles(scene, obstacles) {
         scene.reflectionParticles.push(obstacle);
     }
 
+    for (let i = 0; i < 20;  i++) {
+        let bones = scene.add.sprite(Math.random() * 1200, Math.random() * 1200, 'bone')
+        bones.rotation = Math.random() - Math.random()
+    }
 
     for (let i = 0; i < 10;  i++) {
         let crate = scene.add.sprite(Math.random() * 1200 + 100, Math.random() * 1200 + 100, objects[Math.round(Math.random() * 2)])
@@ -26,10 +30,6 @@ export default function createObstacles(scene, obstacles) {
         obstacles.add(crate, true);
     }
 
-    for (let i = 0; i < 20;  i++) {
-        let bones = scene.add.sprite(Math.random() * 1200, Math.random() * 1200, 'bone')
-        bones.rotation = Math.random() - Math.random()
-    }
 
     scene.player = new Player(scene, scene.healthBar);
 

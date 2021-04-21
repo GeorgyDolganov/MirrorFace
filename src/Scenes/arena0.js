@@ -122,6 +122,10 @@ export default class Arena0 extends Scene {
         this.arena.wall3.angle = -90
         this.arena.walls.add(this.arena.wall3)
 
+        //create obstacles
+        obstacles = this.add.group();
+        createObstacles(this, obstacles);
+
         let bgLoopMusic = this.sound.add('bgloop', {
             loop: true,
             volume: 0.25
@@ -140,10 +144,6 @@ export default class Arena0 extends Scene {
 
         //Debug info
         window.scene = this;
-
-        //create obstacles
-        obstacles = this.add.group();
-        createObstacles(this, obstacles);
 
         //map obstacles
         raycaster.mapGameObjects(obstacles.getChildren(), true);
