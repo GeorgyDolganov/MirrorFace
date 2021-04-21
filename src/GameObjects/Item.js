@@ -80,18 +80,20 @@ export default class Item extends Phaser.Physics.Arcade.Sprite {
                 break;
             }
             case 'reflection': {
-                let limit = 5;
+                let limit = 10;
         
                 this.scene.reflectionParticles.forEach(particle => {
                     if ( limit <= 0 || particle.x !== -999 ) return;
 
                     limit -= 1;
 
-                    particle.x = this.x + 50 * Math.cos(Math.random() * Math.PI);
-                    particle.y = this.y + 50 * Math.sin(Math.random() * Math.PI);
+                    let delta = limit < 5 ? 50 : 100;
+
+                    particle.x = this.x + delta * Math.cos(Math.random() * Math.PI);
+                    particle.y = this.y + delta * Math.sin(Math.random() * Math.PI);
                     particle.rotation = Math.random() * 6;
 
-                    this.delayedCall(Math.random() * 3000 + 1000, _ => {
+                    this.delayedCall(Math.random() * 3000 + 2000, _ => {
                         particle.x = -999;
                         particle.y = -999;
                     });
@@ -102,6 +104,7 @@ export default class Item extends Phaser.Physics.Arcade.Sprite {
             case 'damage': {
                 let area = this.scene.add.circle(this.x, this.y, 50).setStrokeStyle(1, 0xff0000);
 
+                this.scene.cameras.main.shake(200, .005);
                 this.checkCollisions(area, (unit) => {
                     unit.changeHealth(-50);
                 })

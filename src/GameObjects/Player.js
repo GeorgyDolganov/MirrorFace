@@ -103,7 +103,6 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
     onRayHit(ray) {
         this.tint = 0xff0000;
         this.changeHealth(-ray.damage);
-        if(this.health <= 0 ) this.dead();
     }
 
     dead() {
@@ -115,6 +114,7 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
     changeHealth(changeBy) {
         this.health += changeBy;
         this.scene.healthBar.update(this.health);
+        if(this.health <= 0 ) this.dead();
     }
 
     onHit(bullet) {

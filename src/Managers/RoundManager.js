@@ -1,4 +1,5 @@
 import config from "../Configs/rounds.json";
+import TankEnemy from "../GameObjects/Enemies/TankEnemy";
 import RaycasterEnemy from "../GameObjects/Enemies/RaycasterEnemy";
 import SkeletonEnemy from "../GameObjects/Enemies/SkeletonEnemy";
 
@@ -12,6 +13,7 @@ export default class RoundManager {
     _enemiesRemaining = [];
 
     _enemyTypesMap = {
+        ["TankEnemy"]: TankEnemy,
         ["RaycasterEnemy"]: RaycasterEnemy,
         ["SkeletonEnemy"]: SkeletonEnemy,
     }

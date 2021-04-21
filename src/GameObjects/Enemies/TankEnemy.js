@@ -1,4 +1,3 @@
-import ReflectableRay from "../ReflectableRay";
 import AEnemy from "./AEnemy";
 
 /**
@@ -6,13 +5,6 @@ import AEnemy from "./AEnemy";
  * You can create your enemies based on this.
  */
 export default class TankEnemy extends AEnemy {
-
-    /**
-     * Rays caster by this enemy
-     * @type {ReflectableRay[]}
-     */
-    rays = [];
-
     maxHealth = 200;
     health = this.maxHealth;
 
@@ -31,9 +23,6 @@ export default class TankEnemy extends AEnemy {
         super(scene, x, y, spriteName);
 
         this.setScale(2)
-        this.rays.push(new ReflectableRay({
-            scene, fromPoint: {x: 0, y: 0}, angle: 0
-        }));
     }
 
     /**
@@ -43,7 +32,6 @@ export default class TankEnemy extends AEnemy {
      */
     onUpdate(time, delta) {
         this.moveTowardsTo(this.scene.player);
-        //this.updateRays();
     }
 
     moveTowardsTo(gameObject) {
@@ -78,25 +66,5 @@ export default class TankEnemy extends AEnemy {
                 })
             }
         });
-    }
-
-    updateRays() {
-        this.rays.forEach((r, index) => {
-            r.setOrigin(this._calculateRayOrigin());
-            r.setAngle(this.rotation);
-            r.update();
-        });
-    }
-
-    onDeath() {
-        this.rays.forEach(r => r.disable() );
-    }
-
-    _calculateRayOrigin() {
-        let r = 18 * 2;
-        return {
-            x: this.x + r * Math.cos(this.rotation),
-            y: this.y + r * Math.sin(this.rotation)
-        }
     }
 }
