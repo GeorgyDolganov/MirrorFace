@@ -201,14 +201,17 @@ export default class Arena0 extends Scene {
         for (let i = 0; i < 10;  i++) {
             let crate = this.physics.add.sprite(Math.random() * 1200 + 100, Math.random() * 1200 + 100, objects[Math.round(Math.random() * 2)])
             crate.canReflect = false;
-            crate.setImmovable();
+            crate.setDamping(true);
+            crate.setDrag(0.0009);
+            crate.setCollideWorldBounds(true);
             cratesGroup.add(crate);
         }
 
-        raycaster.mapGameObjects(cratesGroup.getChildren());
+        raycaster.mapGameObjects(cratesGroup.getChildren(), true);
         this.physics.add.collider(cratesGroup, this.player);
+        this.physics.add.collider(cratesGroup, cratesGroup);
 
         this.staticObstacles = cratesGroup;
-        this.cosmeticObstacles = cratesGroup;
+        this.cosmeticObstacles = bonesGroup;
     }
 }
