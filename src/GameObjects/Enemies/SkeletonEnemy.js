@@ -86,7 +86,6 @@ export default class SkeletonEnemy extends RaycasterEnemy {
     }
 
     setAction(actionName) {
-        console.log("ACTION " + actionName);
         this.timestamp = 0;
         if( actionName === "movement" ) {
             this.findNextPosition();
@@ -101,7 +100,6 @@ export default class SkeletonEnemy extends RaycasterEnemy {
     findNextPosition() {
         let area = new Phaser.Geom.Circle(this.scene.player.x, this.scene.player.y, 200);
         this.targetPosition = area.getRandomPoint();
-        console.log(this.targetPosition);
     }
 
     _calculateRayOrigin() {

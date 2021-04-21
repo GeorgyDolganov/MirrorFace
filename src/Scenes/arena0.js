@@ -122,9 +122,7 @@ export default class Arena0 extends Scene {
         this.arena.wall3.angle = -90
         this.arena.walls.add(this.arena.wall3)
 
-        //create obstacles
-        obstacles = this.add.group();
-        createObstacles(this, obstacles);
+
 
         let bgLoopMusic = this.sound.add('bgloop', {
             loop: true,
@@ -142,6 +140,11 @@ export default class Arena0 extends Scene {
         this.gameUI = new GameUI(this);
         this.add.existing(this.gameUI);
 
+        //create obstacles
+        obstacles = this.add.group();
+        createObstacles(this, obstacles);
+        this.addObstacles();
+
         //Debug info
         window.scene = this;
 
@@ -156,7 +159,6 @@ export default class Arena0 extends Scene {
 
         this.player.setCollideWorldBounds(true);
         this.physics.add.collider(this.player, this.arena.walls);
-
 
         //Set camera to follow the player
         this.cameras.main.startFollow(this.player);
@@ -205,5 +207,30 @@ export default class Arena0 extends Scene {
         updateMirrorPosition(this);
 
         stats.end();
+    }
+
+    addObstacles() {
+        const objects = ['crate', 'crate2', 'crateBig']
+
+        let bonesGroup = this.add.group();
+        for (let i = 0; i < 20;  i++) {
+            let bones = this.add.sprite(Math.random() * 1200, Math.random() * 1200, 'bone')
+            bones.rotation = Math.random() - Math.random()
+            bonesGroup.add(bones);
+        }
+
+        let cratesGroup = this.add.group();
+        for (let i = 0; i < 10;  i++) {
+            let crate = this.physics.add.sprite(Math.random() * 1200 + 100, Math.random() * 1200 + 100, objects[Math.round(Math.random() * 2)])
+            crate.canReflect = false;
+            crate.setImmovable();
+            cratesGroup.add(crate);
+        }
+
+        raycaster.mapGameObjects(cratesGroup.getChildren());
+        this.physics.add.collider(cratesGroup, this.player);
+
+        this.staticObstacles = cratesGroup;
+        this.cosmeticObstacles = cratesGroup;
     }
 }
