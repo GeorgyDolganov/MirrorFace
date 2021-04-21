@@ -27,6 +27,11 @@ let config = {
         baseURL: 'https://labs.phaser.io',
         crossOrigin: 'anonymous'
     },
+    pixelArt: true,
+    scale: {
+        mode: Phaser.Scale.FIT,
+        autoCenter: Phaser.Scale.CENTER_BOTH
+    },
     //enable Phaser-raycaster plugin
     plugins: {
         scene: [{

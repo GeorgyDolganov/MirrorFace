@@ -23,8 +23,8 @@ export default class ReflectableRay {
     constructor({scene, fromPoint, angle}) {
         this._graphics = scene.add.graphics({
             lineStyle: {
-                width: 1,
-                color: 0x00ff00
+                width: 5,
+                color: 0xb83530
             },
             fillStyle: {
                 color: 0xff00ff

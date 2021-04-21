@@ -13,7 +13,7 @@ import EnemiesManager from "../Managers/EnemiesManager";
 import playerPNG from "../assets/Player.png"
 import pyramidHeadPNG from "../assets/PyramidHead.png"
 import mirrorPNG from "../assets/mirror.png";
-import metalfloorPNG from "../assets/metalfloor.png"
+import metalfloorPNG from "../assets/floor.png"
 import mirrorwallPNG from "../assets/mirrorwall.png"
 import Skeleton_bodyPNG from "../assets/Skeleton_body.png"
 import Skeleton_headPNG from "../assets/Skeleton_head.png"
@@ -22,11 +22,10 @@ import skeletonPNG from "../assets/SpriteSheets/Skeleton.png"
 import skeletonJSON from "../assets/SpriteSheets/Skeleton.json"
 import skeleton_legsPNG from "../assets/SpriteSheets/Skeleton_legs.png"
 import skeleton_legsJSON from "../assets/SpriteSheets/Skeleton_legs.json"
+import floorPNG from "../assets/SpriteSheets/floor.png"
+import floorJSON from "../assets/SpriteSheets/floor.json"
 
 import bgLoopMP3 from "../assets/audio/bgloop.mp3"
-import DoubleRaycasterEnemySecond from "../GameObjects/Enemies/DoubleRaycasterEnemySecond";
-import DoubleRaycasterEnemyFirst from "../GameObjects/Enemies/DoubleRaycasterEnemyFirst";
-import Skeleton from '../GameObjects/Enemies/Skeleton';
 import RoundManager from "../Managers/RoundManager";
 
 var raycaster;
@@ -57,6 +56,8 @@ export default class Arena0 extends Scene {
 
         this.load.aseprite('skeleton', skeletonPNG, skeletonJSON)
         this.load.aseprite('skeleton_legs', skeleton_legsPNG, skeleton_legsJSON)
+
+        this.load.atlas('floorAtlas', floorPNG, floorJSON);
     }
 
     create() {
@@ -81,10 +82,12 @@ export default class Arena0 extends Scene {
 
         //Анимации
         let skeletonAnims = this.anims.createFromAseprite('skeleton_legs');
+        var floorTextures = this.textures.get('floorAtlas');
 
         //Создаем арену
         this.arena = this.add.group()
         this.arena.floor = this.add.tileSprite(640, 640, 1280, 1280, 'metalfloor').setName('floor')
+        this.arena.floor.setScale(1)
         this.arena.add(this.arena.floor)
 
         this.arena.walls = this.add.group()
