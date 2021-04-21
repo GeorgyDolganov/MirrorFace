@@ -5,7 +5,7 @@ import Arena0 from './Scenes/arena0'
 
 
 let config = {
-    type: Phaser.Auto,
+    type: Phaser.WEBGL,
     parent: 'game',
     width: 800,
     height: 600,
