@@ -1,3 +1,4 @@
+import TankEnemy from "../GameObjects/Enemies/TankEnemy";
 import RaycasterEnemy from "../GameObjects/Enemies/RaycasterEnemy";
 import DoubleRaycasterEnemyFirst from "../GameObjects/Enemies/DoubleRaycasterEnemyFirst";
 import DoubleRaycasterEnemySecond from "../GameObjects/Enemies/DoubleRaycasterEnemySecond";
@@ -50,7 +51,7 @@ export default class EnemiesManager {
     }
 
     getRandomEnemyType() {
-        let map = [ RaycasterEnemy, DoubleRaycasterEnemyFirst, DoubleRaycasterEnemySecond ];
+        let map = [ TankEnemy, RaycasterEnemy, DoubleRaycasterEnemyFirst, DoubleRaycasterEnemySecond ];
 
         let index = Math.floor(Math.random() * (map.length));
         return map[index];
