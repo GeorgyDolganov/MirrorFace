@@ -21,10 +21,15 @@ export default function createObstacles(scene, obstacles) {
 
 
     for (let i = 0; i < 10;  i++) {
-        let crate = scene.add.sprite(Math.random() * 1200, Math.random() * 1200, objects[Math.round(Math.random() * 2)])
+        let crate = scene.add.sprite(Math.random() * 1200 + 100, Math.random() * 1200 + 100, objects[Math.round(Math.random() * 2)])
         crate.rotation = Math.random() - Math.random()
         crate.canReflect = false;
         obstacles.add(crate, true);
+    }
+
+    for (let i = 0; i < 20;  i++) {
+        let bones = scene.add.sprite(Math.random() * 1200, Math.random() * 1200, 'bone')
+        bones.rotation = Math.random() - Math.random()
     }
 
     scene.player = new Player(scene, scene.healthBar);
