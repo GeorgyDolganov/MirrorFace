@@ -1,5 +1,6 @@
 import config from "../Configs/rounds.json";
 import RaycasterEnemy from "../GameObjects/Enemies/RaycasterEnemy";
+import SkeletonEnemy from "../GameObjects/Enemies/SkeletonEnemy";
 
 export default class RoundManager {
     _scene;
@@ -11,7 +12,8 @@ export default class RoundManager {
     _enemiesRemaining = [];
 
     _enemyTypesMap = {
-        ["RaycasterEnemy"]: RaycasterEnemy
+        ["RaycasterEnemy"]: RaycasterEnemy,
+        ["SkeletonEnemy"]: SkeletonEnemy,
     }
 
     constructor(scene, enemiesManager) {
@@ -67,6 +69,8 @@ export default class RoundManager {
     }
 
     getEnemyType(stringType) {
+        let type = this._enemyTypesMap[stringType];
+        if( type === undefined ) throw new Error(`Trying to get unsupported enemy type ${stringType}`);
         return this._enemyTypesMap[stringType];
     }
 }

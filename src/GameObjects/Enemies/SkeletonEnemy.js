@@ -2,7 +2,7 @@ import Phaser from "phaser";
 import ReflectableRay from "../ReflectableRay";
 import GameObjectHealthBar from "../UI/GameObjectHealthBar";
 
-export default class Skeleton extends Phaser.GameObjects.Container {
+export default class SkeletonEnemy extends Phaser.GameObjects.Container {
 
     _ray;
     _healthBar;

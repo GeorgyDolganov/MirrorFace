@@ -1,78 +1,61 @@
-import Phaser from "phaser";
 import ReflectableRay from "../ReflectableRay";
-import GameObjectHealthBar from "../UI/GameObjectHealthBar";
+import AEnemy from "./AEnemy";
 
-export default class RaycasterEnemy extends Phaser.Physics.Arcade.Sprite {
+/**
+ * Simple enemy that cast single ray and moved to the player.
+ * You can create your enemies based on this.
+ */
+export default class RaycasterEnemy extends AEnemy {
 
-    _ray;
-    _healthBar;
+    /**
+     * Rays caster by this enemy
+     * @type {ReflectableRay[]}
+     * @private
+     */
+    rays = [];
 
-    speed = 100;
-    maxHealth = 20;
-    health = this.maxHealth;
+    /**
+     * RaycasterEnemy constructor
+     * @param scene
+     * @param x
+     * @param y
+     * @param spriteName
+     */
+    constructor(scene, x, y, spriteName = "pyramidHead") {
+        super(scene, x, y, spriteName);
 
-    constructor(scene, x, y) {
-        super(scene, x, y, "pyramidHead");
-
-        this._ray = new ReflectableRay({
+        this.rays.push(new ReflectableRay({
             scene, fromPoint: {x: 0, y: 0}, angle: 0
-        })
-
-        this._healthBar = new GameObjectHealthBar(scene); //TODO not working atm
-        scene.add.existing(this._healthBar);
-        scene.add.existing(this);
-        //scene.physics.add.existing(this)
+        }));
     }
 
-    update(player) {
-        this.moveTo(player);
-        this._ray.setOrigin(this.calculateRayOrigin());
-        this._ray.setAngle(this.rotation);
-        this._ray.update();
-        this._healthBar.setPosition(this.x -this.width * 0.75, this.y + 30);
+    /**
+     * Update ticker
+     * @param time
+     * @param delta
+     */
+    onUpdate(time, delta) {
+        this.moveTowardsTo(this.scene.player);
+        this.updateRays();
     }
 
-    onRayHit(ray) {
-        this.changeHealth(-ray.damage);
-        this.tint = 0xff0000
+    updateRays() {
+        this.rays.forEach((r, index) => {
+            r.setOrigin(this._calculateRayOrigin());
+            r.setAngle(this.rotation);
+            r.update();
+        });
     }
 
-    changeHealth(changeBy) {
-        this.health += changeBy;
-        this._healthBar.setHealth(this.health/this.maxHealth * 100);
+    onDeath() {
+        this.rays.forEach(r => r.disable() );
     }
 
-    calculateRayOrigin() {
+    _calculateRayOrigin() {
         let r = 18;
         return {
             x: this.x + r * Math.cos(this.rotation),
             y: this.y + r * Math.sin(this.rotation)
         }
-    }
-
-    moveTo(gameObject) {
-        this.rotation = Phaser.Math.Angle.Between(this.x, this.y, gameObject.x, gameObject.y);
-        if (Phaser.Math.Distance.Between(this.x, this.y, gameObject.x, gameObject.y) > 150) {
-            this.scene.physics.moveToObject(this, gameObject, this.speed);
-        } else {
-            this.body.stop();
-        }
-    }
-
-    preUpdate(time, delta) {
-        this.tint = 0xffffff;
-    }
-
-    die() {
-        this.setActive(false);
-        this.setVisible(false);
-        this.body.stop();
-        this.body.setEnable(false);
-        this._healthBar.setVisible(false);
-        this._ray.disable();
-    }
-
-    isAlive() {
-        return this.health > 0;
     }
 }
