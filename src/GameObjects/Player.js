@@ -32,7 +32,7 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
     ];
     currentItem = false;
 
-    constructor(scene, healthBar) {
+    constructor(scene) {
         super(scene, 100, 500, "player");
         this.health = 100;
 
@@ -45,7 +45,6 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
         this.body.setCircle(15);
         this.body.setOffset(0, 15);
 
-        this.healthBar = healthBar;
         this.grenadeType = scene.grenadeType;
     }
 
@@ -63,7 +62,7 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
 
     changeHealth(changeBy) {
         this.health += changeBy;
-        this.healthBar.update(this.health);
+        this.scene.healthBar.update(this.health);
     }
 
     onHit(bullet) {
