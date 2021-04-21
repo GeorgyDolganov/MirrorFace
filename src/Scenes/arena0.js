@@ -122,9 +122,7 @@ export default class Arena0 extends Scene {
         this.arena.wall3.angle = -90
         this.arena.walls.add(this.arena.wall3)
 
-        //create obstacles
-        obstacles = this.add.group();
-        createObstacles(this, obstacles);
+
 
         let bgLoopMusic = this.sound.add('bgloop', {
             loop: true,
@@ -141,6 +139,10 @@ export default class Arena0 extends Scene {
         //Create game ui
         this.gameUI = new GameUI(this);
         this.add.existing(this.gameUI);
+
+        //create obstacles
+        obstacles = this.add.group();
+        createObstacles(this, obstacles);
 
         //Debug info
         window.scene = this;
