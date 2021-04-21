@@ -173,6 +173,28 @@ export default class Arena0 extends Scene {
             'left': Phaser.Input.Keyboard.KeyCodes.A,
             'right': Phaser.Input.Keyboard.KeyCodes.D,
         });
+
+        this.input.mouse.disableContextMenu();
+
+        this.input.on('pointerdown', function (pointer) {
+
+            if (pointer.leftButtonDown())
+            {
+            }
+            else if (pointer.rightButtonDown())
+            {
+            }
+            else if (pointer.middleButtonDown())
+            {
+            }
+            else if (pointer.backButtonDown())
+            {
+            }
+            else if (pointer.forwardButtonDown())
+            {
+            }
+
+        });
     }
 
     update(time, delta) {
