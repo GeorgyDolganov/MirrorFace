@@ -55,7 +55,6 @@ export default class Arena0 extends Scene {
         this.load.audio('bgloop', bgLoopMP3)
 
         this.load.aseprite('skeleton', skeletonPNG, skeletonJSON)
-        this.load.aseprite('skeleton_legs', skeleton_legsPNG, skeleton_legsJSON)
 
         this.load.atlas('floorAtlas', floorPNG, floorJSON);
     }
@@ -81,8 +80,8 @@ export default class Arena0 extends Scene {
         this.physics.world.setBounds(0, 0, 1280, 1280);
 
         //Анимации
-        let skeletonAnims = this.anims.createFromAseprite('skeleton_legs');
-        var floorTextures = this.textures.get('floorAtlas');
+        this.anims.createFromAseprite('skeleton');
+        this.textures.get('floorAtlas');
 
         //Создаем арену
         this.arena = this.add.group()

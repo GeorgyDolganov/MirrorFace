@@ -21,7 +21,6 @@ export default class RoundManager {
         this._enemiesManager = enemiesManager;
 
         this.setRound(1);
-        console.log(this, config);
     }
 
     setNextRound() {

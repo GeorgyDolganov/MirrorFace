@@ -8,7 +8,7 @@
             "x": 100,
             "y": 100
           },
-          "enemyType": "RaycasterEnemy",
+          "enemyType": "SkeletonEnemy",
           "delayBeforeSpawn": 0,
           "spawnRate": 3,
           "totalSpawns": 5
