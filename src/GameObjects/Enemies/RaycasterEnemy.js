@@ -22,7 +22,7 @@ export default class RaycasterEnemy extends AEnemy {
      */
     constructor(scene, x, y, spriteName = "pyramidHead") {
         super(scene, x, y, spriteName);
-
+        this.setName('pyramidHead')
         this.rays.push(new ReflectableRay({
             scene, fromPoint: {x: 0, y: 0}, angle: 0
         }));

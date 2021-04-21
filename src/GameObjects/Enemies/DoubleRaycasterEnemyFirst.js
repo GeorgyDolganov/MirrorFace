@@ -13,7 +13,7 @@ export default class DoubleRaycasterEnemyFirst extends Phaser.Physics.Arcade.Spr
 
     constructor(scene, x, y) {
         super(scene, x, y, "pyramidHead");
-
+        this.setName('pyramidHead')
         this._rays[0] = new ReflectableRay({
             scene, fromPoint: {x: 0, y: 0}, angle: 0
         })

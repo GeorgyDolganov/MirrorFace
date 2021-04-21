@@ -88,6 +88,13 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
                         value: 20, duration: 50, ease: 'Cubic.easeInOut'
                     }
                 })
+                let intersections = scene.physics.overlapCirc(scene.mirror.x, scene.mirror.y, 23, true, true);
+                intersections.forEach(el=>{
+                    if (el?.gameObject?.name === 'pyramidHead' || el?.gameObject?.name === 'skeleton') {
+                        
+                    }
+                })
+                console.log(intersections)
             }
 
         });

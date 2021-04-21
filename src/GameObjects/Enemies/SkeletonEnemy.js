@@ -16,6 +16,7 @@ export default class SkeletonEnemy extends RaycasterEnemy {
 
     constructor(scene, x, y, children) {
         super(scene, x, y, "skeleton")
+        this.setName('skeleton')
         this.setScale(0.7);
         this.setAction("movement");
 
