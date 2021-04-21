@@ -1,6 +1,11 @@
 import Player from "../GameObjects/Player";
 
+const objects = ['crate', 'crate2', 'crateBig']
+
 //TODO: remove all this
+/**
+ * @param {Phaser.Scene} scene
+ */
 export default function createObstacles(scene, obstacles) {
     let obstacle;
 
@@ -14,6 +19,13 @@ export default function createObstacles(scene, obstacles) {
         scene.reflectionParticles.push(obstacle);
     }
 
+
+    for (let i = 0; i < 10;  i++) {
+        let crate = scene.add.sprite(Math.random() * 1200, Math.random() * 1200, objects[Math.round(Math.random() * 2)])
+        crate.rotation = Math.random() - Math.random()
+        crate.canReflect = false;
+        obstacles.add(crate, true);
+    }
 
     scene.player = new Player(scene, scene.healthBar);
 

@@ -1,7 +1,6 @@
 import Phaser, {
     Scene
 } from 'phaser';
-import Bullet from "../GameObjects/Bullet";
 import ReflectableRay from "../GameObjects/ReflectableRay";
 import Stats from "stats.js";
 import createObstacles from '../functions/createObstacles';
@@ -18,10 +17,13 @@ import mirrorwallPNG from "../assets/mirrorwall.png"
 import Skeleton_bodyPNG from "../assets/Skeleton_body.png"
 import Skeleton_headPNG from "../assets/Skeleton_head.png"
 
+import cratePNG from "../assets/crate.png"
+import crate2PNG from "../assets/crate2.png"
+import crateBigPNG from "../assets/crateBig.png"
+import bonePNG from "../assets/bone.png"
+
 import skeletonPNG from "../assets/SpriteSheets/Skeleton.png"
 import skeletonJSON from "../assets/SpriteSheets/Skeleton.json"
-import skeleton_legsPNG from "../assets/SpriteSheets/Skeleton_legs.png"
-import skeleton_legsJSON from "../assets/SpriteSheets/Skeleton_legs.json"
 import floorPNG from "../assets/SpriteSheets/floor.png"
 import floorJSON from "../assets/SpriteSheets/floor.json"
 
@@ -48,6 +50,11 @@ export default class Arena0 extends Scene {
         this.load.image('mirror', mirrorPNG);
         this.load.image('metalfloor', metalfloorPNG)
         this.load.image('mirrorwall', mirrorwallPNG)
+
+        this.load.image('bone', bonePNG)
+        this.load.image('crate', cratePNG);
+        this.load.image('crate2', crate2PNG)
+        this.load.image('crateBig', crateBigPNG)
 
         this.load.image('Skeleton_body', Skeleton_bodyPNG)
         this.load.image('Skeleton_head', Skeleton_headPNG)
