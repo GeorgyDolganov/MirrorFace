@@ -102,6 +102,7 @@ export default class Item extends Phaser.Physics.Arcade.Sprite {
             case 'damage': {
                 let area = this.scene.add.circle(this.x, this.y, 50).setStrokeStyle(1, 0xff0000);
 
+                this.scene.cameras.main.shake(200, .005);
                 this.checkCollisions(area, (unit) => {
                     unit.changeHealth(-50);
                 })
