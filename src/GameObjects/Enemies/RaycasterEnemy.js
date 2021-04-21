@@ -10,7 +10,6 @@ export default class RaycasterEnemy extends AEnemy {
     /**
      * Rays caster by this enemy
      * @type {ReflectableRay[]}
-     * @private
      */
     rays = [];
 

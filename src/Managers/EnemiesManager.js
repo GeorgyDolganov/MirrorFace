@@ -16,7 +16,7 @@ export default class EnemiesManager {
     }
 
     update(time, delta) {
-        this.updateEnemies();
+        this.updateEnemies(time, delta);
 
         // this.currentCooldown += delta;
         // if( this.currentCooldown > this.spawnCooldown ) {
@@ -29,7 +29,7 @@ export default class EnemiesManager {
         let markForRemove = [];
         this._enemies.forEach((e, index) => {
             if( e.isAlive() ) {
-                e.update(this._scene.player);
+                e.update(time, delta);
             } else {
                 markForRemove.push(index);
                 this._enemiesPool.kill(e);

@@ -78,6 +78,15 @@ export default class AEnemy extends Phaser.Physics.Arcade.Sprite {
         }
     }
 
+    moveTo(position) {
+        this.rotation = Phaser.Math.Angle.Between(this.x, this.y, position.x, position.y);
+        if (Phaser.Math.Distance.Between(this.x, this.y, position.x, position.y) > 150) {
+            this.scene.physics.moveTo(this, position.x, position.y, this.speed);
+        } else {
+            this.body.stop();
+        }
+    }
+
     /**
      * Called every frame whenever this enemy is being hit by a ray.
      * @param ray
