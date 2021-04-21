@@ -31,11 +31,13 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
         }
     ];
     currentItem = false;
-
+    /**
+     * 
+     * @param {Phaser.Scene} scene 
+     */
     constructor(scene) {
         super(scene, 100, 500, "player");
         this.health = 100;
-
         scene.physics.add.existing(this);
         this.setDamping(true);
         this.setDrag(0.0009);
@@ -46,6 +48,28 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
         this.body.setOffset(0, 15);
 
         this.grenadeType = scene.grenadeType;
+
+        scene.input.on('pointerdown', function (pointer) {
+
+            if (pointer.leftButtonDown())
+            {
+                console.log('click')
+                scene.tweens
+            }
+            else if (pointer.rightButtonDown())
+            {
+            }
+            else if (pointer.middleButtonDown())
+            {
+            }
+            else if (pointer.backButtonDown())
+            {
+            }
+            else if (pointer.forwardButtonDown())
+            {
+            }
+
+        });
     }
 
     onRayHit(ray) {

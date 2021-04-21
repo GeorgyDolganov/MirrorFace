@@ -14,7 +14,8 @@ import grenadePNG from "../assets/grenade.png"
 import shardPNG from "../assets/shard.png"
 import pyramidHeadPNG from "../assets/PyramidHead.png"
 import mirrorPNG from "../assets/mirror.png";
-import metalfloorPNG from "../assets/floor.png"
+import tilefloorPNG from "../assets/floor.png"
+import tilefloorNormal from "../assets/floor_n.png"
 import mirrorwallPNG from "../assets/mirrorwall.png"
 import Skeleton_bodyPNG from "../assets/Skeleton_body.png"
 import Skeleton_headPNG from "../assets/Skeleton_head.png"
@@ -52,7 +53,7 @@ export default class Arena0 extends Scene {
         this.load.image('shard', shardPNG)
         this.load.image('pyramidHead', pyramidHeadPNG)
         this.load.image('mirror', mirrorPNG);
-        this.load.image('metalfloor', metalfloorPNG)
+        this.load.image({key:'tilefloor',url:tilefloorPNG, normalMap:tilefloorNormal})
         this.load.image('mirrorwall', mirrorwallPNG)
 
         this.load.image('bone', bonePNG)
@@ -96,50 +97,53 @@ export default class Arena0 extends Scene {
 
         //Создаем арену
         this.arena = this.add.group()
-        this.arena.floor = this.add.tileSprite(640, 640, 1280, 1280, 'metalfloor').setName('floor')
+        this.arena.floor = this.add.tileSprite(640, 640, 1280, 1280, 'tilefloor').setName('floor').setPipeline('Light2D');
         this.arena.floor.setScale(1)
         this.arena.add(this.arena.floor)
+
+        this.playerlight  = this.lights.addLight(0, 0, 250, undefined, 1.2);
+
+        this.lights.enable().setAmbientColor(0xdddddd);
 
         this.arena.walls = this.add.group()
         this.arena.add(this.arena.walls)
 
-        this.arena.wall0 = this.add.tileSprite(-16, 640, 32, 1280, 'mirrorwall').setName('wall0')
+        this.arena.wall0 = this.add.tileSprite(-16, 640, 32, 1280, 'mirrorwall').setName('wall0').setPipeline('Light2D');
         this.arena.wall0.canReflect = true
         this.arena.walls.add(this.arena.wall0)
 
-        this.arena.wall1 = this.add.tileSprite(640, -16, 32, 1280, 'mirrorwall').setName('wall1')
+        this.arena.wall1 = this.add.tileSprite(640, -16, 32, 1280, 'mirrorwall').setName('wall1').setPipeline('Light2D');
         this.arena.wall1.canReflect = true
         this.arena.wall1.angle = 90
         this.arena.walls.add(this.arena.wall1)
 
-        this.arena.wall2 = this.add.tileSprite(1296, 640, 32, 1280, 'mirrorwall').setName('wall2')
+        this.arena.wall2 = this.add.tileSprite(1296, 640, 32, 1280, 'mirrorwall').setName('wall2').setPipeline('Light2D');
         this.arena.wall2.canReflect = true
         this.arena.wall2.angle = 180
         this.arena.walls.add(this.arena.wall2)
 
-        this.arena.wall3 = this.add.tileSprite(640, 1296, 32, 1280, 'mirrorwall').setName('wall3')
+        this.arena.wall3 = this.add.tileSprite(640, 1296, 32, 1280, 'mirrorwall').setName('wall3').setPipeline('Light2D');
         this.arena.wall3.canReflect = true
         this.arena.wall3.angle = -90
         this.arena.walls.add(this.arena.wall3)
 
-
-
+        
         let bgLoopMusic = this.sound.add('bgloop', {
             loop: true,
             volume: 0.25
         });
-
+        
         bgLoopMusic.play();
-
+        
         //create raycaster
         raycaster = this.raycasterPlugin.createRaycaster();
 
         ReflectableRay.Raycaster = raycaster;
-
+        
         //Create game ui
         this.gameUI = new GameUI(this);
         this.add.existing(this.gameUI);
-
+        
         //create obstacles
         obstacles = this.add.group();
         createObstacles(this, obstacles);
@@ -147,7 +151,7 @@ export default class Arena0 extends Scene {
 
         //Debug info
         window.scene = this;
-
+        
         //map obstacles
         raycaster.mapGameObjects(obstacles.getChildren(), true);
         raycaster.mapGameObjects(this.arena.walls.getChildren(), true);
@@ -159,6 +163,7 @@ export default class Arena0 extends Scene {
 
         this.player.setCollideWorldBounds(true);
         this.physics.add.collider(this.player, this.arena.walls);
+
 
         //Set camera to follow the player
         this.cameras.main.startFollow(this.player);
@@ -176,25 +181,6 @@ export default class Arena0 extends Scene {
 
         this.input.mouse.disableContextMenu();
 
-        this.input.on('pointerdown', function (pointer) {
-
-            if (pointer.leftButtonDown())
-            {
-            }
-            else if (pointer.rightButtonDown())
-            {
-            }
-            else if (pointer.middleButtonDown())
-            {
-            }
-            else if (pointer.backButtonDown())
-            {
-            }
-            else if (pointer.forwardButtonDown())
-            {
-            }
-
-        });
     }
 
     update(time, delta) {
@@ -206,6 +192,11 @@ export default class Arena0 extends Scene {
         handlePlayerMovement(this.player, cursors);
         updateMirrorPosition(this);
 
+        this.playerlight.setPosition(
+            this.player.x,
+            this.player.y
+        )
+
         stats.end();
     }
 
@@ -214,14 +205,14 @@ export default class Arena0 extends Scene {
 
         let bonesGroup = this.add.group();
         for (let i = 0; i < 20;  i++) {
-            let bones = this.add.sprite(Math.random() * 1200, Math.random() * 1200, 'bone')
+            let bones = this.add.sprite(Math.random() * 1200, Math.random() * 1200, 'bone').setPipeline('Light2D')
             bones.rotation = Math.random() - Math.random()
             bonesGroup.add(bones);
         }
 
         let cratesGroup = this.add.group();
         for (let i = 0; i < 10;  i++) {
-            let crate = this.physics.add.sprite(Math.random() * 1200 + 100, Math.random() * 1200 + 100, objects[Math.round(Math.random() * 2)])
+            let crate = this.physics.add.sprite(Math.random() * 1200 + 100, Math.random() * 1200 + 100, objects[Math.round(Math.random() * 2)]).setPipeline('Light2D')
             crate.canReflect = false;
             crate.setImmovable();
             cratesGroup.add(crate);
