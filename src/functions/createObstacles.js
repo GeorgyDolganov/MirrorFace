@@ -38,6 +38,6 @@ export default function createObstacles(scene, obstacles) {
     scene.mirror.setImmovable();
     scene.mirror.canReflect = true;
 
-    obstacles.add(scene.player, true);
     obstacles.add(scene.mirror, true);
+    obstacles.add(scene.player, true);
 }

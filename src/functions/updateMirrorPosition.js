@@ -1,8 +1,9 @@
+
+
 export default function updateMirrorPosition(scene) {
     let angle = scene.player.rotation;
-    let r = 23;
 
-    scene.mirror.x = scene.player.x + r * Math.cos(angle);
-    scene.mirror.y = scene.player.y + r * Math.sin(angle);
+    scene.mirror.x = scene.player.x + scene.mirror.radius * Math.cos(angle);
+    scene.mirror.y = scene.player.y + scene.mirror.radius * Math.sin(angle);
     scene.mirror.rotation = angle + (90 * Math.PI / 180);
 }

@@ -101,7 +101,7 @@ export default class Arena0 extends Scene {
         this.arena.floor.setScale(1)
         this.arena.add(this.arena.floor)
 
-        this.playerlight  = this.lights.addLight(0, 0, 250, undefined, 1.2);
+        this.playerlight  = this.lights.addLight(0, 0, 250, undefined, 1.);
 
         this.lights.enable().setAmbientColor(0xdddddd);
 
@@ -180,7 +180,7 @@ export default class Arena0 extends Scene {
         });
 
         this.input.mouse.disableContextMenu();
-
+        scene.mirror.radius = 20;
     }
 
     update(time, delta) {

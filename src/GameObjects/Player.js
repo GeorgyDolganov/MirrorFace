@@ -1,6 +1,7 @@
 import Phaser from "phaser";
 import Item from "./Item";
 
+let mirrorTween
 export default class Player extends Phaser.Physics.Arcade.Sprite {
     speed = 160;
     items = [
@@ -54,7 +55,12 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
             if (pointer.leftButtonDown())
             {
                 console.log('click')
-                scene.tweens
+                mirrorTween = scene.tweens.add({
+                    targets: scene.mirror,
+                    radius: {
+                        value: 30, duration: 100, ease: 'Power1'
+                    }
+                })
             }
             else if (pointer.rightButtonDown())
             {
@@ -67,6 +73,21 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
             }
             else if (pointer.forwardButtonDown())
             {
+            }
+
+        });
+        scene.input.on('pointerup', function (pointer) {
+
+            if (pointer.leftButtonReleased())
+            {
+                console.log('unclick')
+                mirrorTween?.stop()
+                scene.tweens.add({
+                    targets: scene.mirror,
+                    radius: {
+                        value: 20, duration: 50, ease: 'Cubic.easeInOut'
+                    }
+                })
             }
 
         });
