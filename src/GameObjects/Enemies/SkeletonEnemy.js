@@ -16,7 +16,6 @@ export default class SkeletonEnemy extends RaycasterEnemy {
 
     constructor(scene, x, y, children) {
         super(scene, x, y, "skeleton")
-        this.play({key: 'walk', repeat: -1})
         this.setScale(0.7);
         this.setAction("movement");
 
@@ -47,11 +46,7 @@ export default class SkeletonEnemy extends RaycasterEnemy {
     handleMovementAction(time, delta) {
         this.moveTo(this.targetPosition);
         this.rotation = Phaser.Math.Angle.Between(this.x, this.y, this.targetPosition.x, this.targetPosition.y) - 1.5;
-        this.ticker += delta;
-        if( this.ticker > 500) {
-            console.log(Phaser.Math.Distance.BetweenPoints(this, this.targetPosition));
-            this.ticker = 0;
-        }
+
         if( Phaser.Math.Distance.BetweenPoints(this, this.targetPosition) < 200 ) {
             this.body.stop();
             if( Phaser.Math.Distance.BetweenPoints(this, this.scene.player) > 500) {
@@ -63,6 +58,7 @@ export default class SkeletonEnemy extends RaycasterEnemy {
     }
 
     handleChargeAction(time, delta) {
+        this.stop();
         this.body.stop();
         this.timestamp += delta;
         if( this.timestamp > 1000 ) {
@@ -92,7 +88,12 @@ export default class SkeletonEnemy extends RaycasterEnemy {
     setAction(actionName) {
         console.log("ACTION " + actionName);
         this.timestamp = 0;
-        if( actionName === "movement" ) this.findNextPosition();
+        if( actionName === "movement" ) {
+            this.findNextPosition();
+            this.play({key: 'walk', repeat: -1})
+        } else {
+            this.stop();
+        }
 
         this.currentAction = actionName;
     }
