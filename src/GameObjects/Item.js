@@ -4,9 +4,10 @@ export default class Item extends Phaser.Physics.Arcade.Sprite {
     type
 
     constructor(scene, x, y, texture, type) {
-        super(scene, x, y, texture);
+        super(scene, x, y, 'grenade');
 
         this.type = type;
+        scene.add.existing(this);
         scene.physics.add.existing(this);
 
         this.tweens = this.scene.tweens;
@@ -86,8 +87,9 @@ export default class Item extends Phaser.Physics.Arcade.Sprite {
 
                     limit -= 1;
 
-                    particle.x = this.x + 50 * Math.cos(Math.random() * 2 - 1);
-                    particle.y = this.y + 50 * Math.sin(Math.random() * 2 - 1);
+                    particle.x = this.x + 50 * Math.cos(Math.random() * Math.PI);
+                    particle.y = this.y + 50 * Math.sin(Math.random() * Math.PI);
+                    particle.rotation = Math.random() * 6;
 
                     this.delayedCall(Math.random() * 3000 + 1000, _ => {
                         particle.x = -999;
