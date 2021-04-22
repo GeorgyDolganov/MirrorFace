@@ -29,7 +29,6 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
     ];
     currentItem = false;
     /**
-     * 
      * @param {Phaser.Scene} scene 
      */
     constructor(scene) {

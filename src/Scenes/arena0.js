@@ -30,7 +30,7 @@ import skeletonJSON from "../assets/SpriteSheets/Skeleton.json"
 import floorPNG from "../assets/SpriteSheets/floor.png"
 import floorJSON from "../assets/SpriteSheets/floor.json"
 
-import bgLoopMP3 from "../assets/audio/bgloop.mp3"
+import bgLoopMP3 from "../assets/audio/bgloopNew.wav"
 import RoundManager from "../Managers/RoundManager";
 
 var raycaster;
