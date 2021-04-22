@@ -3,6 +3,7 @@ import Item from "./Item";
 
 let mirrorTween
 export default class Player extends Phaser.Physics.Arcade.Sprite {
+    hitReady = true;
     speed = 160;
     items = [
         {
@@ -49,20 +50,7 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
 
             if (pointer.leftButtonDown())
             {
-                console.log('click')
-                mirrorTween = scene.tweens.add({
-                    targets: scene.mirror,
-                    radius: {
-                        value: 30, duration: 100, ease: 'Power1'
-                    }
-                })
-                let intersections = scene.physics.overlapCirc(scene.mirror.x, scene.mirror.y, 23, true, true);
-                intersections.forEach(el=>{
-                    if (el?.gameObject?.name === 'pyramidHead' || el?.gameObject?.name === 'skeleton') { 
-                        el.setVelocity(100, 200)
-                        console.log(el?.gameObject?.name)
-                    }
-                })
+                scene.player.hit();
             }
             else if (pointer.rightButtonDown())
             {
@@ -79,21 +67,53 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
 
         });
         scene.input.on('pointerup', function (pointer) {
-
-            if (pointer.leftButtonReleased())
-            {
-                console.log('unclick')
-                mirrorTween?.stop()
-                scene.tweens.add({
-                    targets: scene.mirror,
-                    radius: {
-                        value: 23, duration: 50, ease: 'Cubic.easeInOut'
-                    }
-                })
-
+            if (pointer.leftButtonReleased()) {
+                scene.player.cooldownMirror()
             }
-
         });
+    }
+
+    cooldownMirror() {
+        if ( scene.player.hitReady === true ) return;
+
+        mirrorTween?.stop()
+        scene.tweens.add({
+            targets: scene.mirror,
+            radius: {
+                value: 23, duration: 100, ease: 'Cubic.easeInOut'
+            },
+            onComplete: _ => {
+                scene.player.hitReady = true;
+            }
+        })
+    }
+
+    hit() {
+        if ( this.hitReady === false ) return;
+
+        this.hitReady = false;
+
+        mirrorTween = scene.tweens.add({
+            targets: scene.mirror,
+            radius: {
+                value: 30, duration: 100, ease: 'Power1'
+            }
+        })
+
+        let intersections = scene.physics.overlapCirc(scene.mirror.x, scene.mirror.y, 23, true, true);
+        let rotation = this.rotation;
+        intersections.forEach(el=>{
+            if (el?.gameObject?.name === 'pyramidHead' || el?.gameObject?.name === 'skeleton') {
+                el.gameObject.changeHealth(-5);
+
+                scene.tweens.add({
+                    targets: el.gameObject,
+                    duration: 200,
+                    x: el.gameObject.x + 10 * Math.cos(rotation),
+                    y: el.gameObject.y + 10 * Math.sin(rotation)
+                })
+            }
+        })
     }
 
     onRayHit(ray) {
