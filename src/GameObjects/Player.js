@@ -61,6 +61,13 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
                         value: 30, duration: 100, ease: 'Power1'
                     }
                 })
+                let intersections = scene.physics.overlapCirc(scene.mirror.x, scene.mirror.y, 23, true, true);
+                intersections.forEach(el=>{
+                    if (el?.gameObject?.name === 'pyramidHead' || el?.gameObject?.name === 'skeleton') { 
+                        el.setVelocity(100, 200)
+                        console.log(el?.gameObject?.name)
+                    }
+                })
             }
             else if (pointer.rightButtonDown())
             {
@@ -85,16 +92,10 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
                 scene.tweens.add({
                     targets: scene.mirror,
                     radius: {
-                        value: 20, duration: 50, ease: 'Cubic.easeInOut'
+                        value: 23, duration: 50, ease: 'Cubic.easeInOut'
                     }
                 })
-                let intersections = scene.physics.overlapCirc(scene.mirror.x, scene.mirror.y, 23, true, true);
-                intersections.forEach(el=>{
-                    if (el?.gameObject?.name === 'pyramidHead' || el?.gameObject?.name === 'skeleton') {
-                        
-                    }
-                })
-                console.log(intersections)
+
             }
 
         });

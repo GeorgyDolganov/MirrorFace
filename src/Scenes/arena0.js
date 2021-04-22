@@ -180,7 +180,7 @@ export default class Arena0 extends Scene {
         });
 
         this.input.mouse.disableContextMenu();
-        scene.mirror.radius = 20;
+        scene.mirror.radius = 23;
     }
 
     update(time, delta) {

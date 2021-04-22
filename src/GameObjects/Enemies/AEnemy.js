@@ -35,8 +35,8 @@ export default class AEnemy extends Phaser.Physics.Arcade.Sprite {
      */
     constructor(scene, x, y, spriteName) {
         super(scene, x, y, spriteName);
-
         this.healthBar = new GameObjectHealthBar(scene);
+        scene.physics.world.enable([ this ]);
         scene.add.existing(this.healthBar);
         scene.add.existing(this);
     }
