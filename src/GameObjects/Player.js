@@ -6,27 +6,22 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
     speed = 160;
     items = [
         {
-            name: 'pyramidHead',
             quantity: 10,
             type: 'burn'
         },
         {
-            name: 'pyramidHead',
             quantity: 10,
             type: 'damage'
         },
         {
-            name: 'pyramidHead',
             quantity: 10,
             type: 'freeze'
         },
         {
-            name: 'pyramidHead',
             quantity: 10,
             type: 'blink'
         },
         {
-            name: 'pyramidHead',
             quantity: 10,
             type: 'reflection'
         }
@@ -137,7 +132,7 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
 
         let currentItem = this.items[this.currentItem];
 
-        let item = new Item(this.scene, this.x, this.y, currentItem.name, currentItem.type);
+        let item = new Item(this.scene, this.x, this.y, currentItem.type);
 
         currentItem.quantity -= 1;
 
@@ -156,5 +151,15 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
     changeItem() {
         this.currentItem = this.items.length > 0 ? ( 1 + this.currentItem ) % this.items.length : false;
         this.grenadeType.set( this.items[this.currentItem] );
+    }
+    
+    addItem(type, quantity) {
+        let itemIndex = this.items.findIndex(item => item.type === type);
+
+        if ( itemIndex ) {
+            this.items[itemIndex].quantity += quantity;
+        } else {
+            this.items.push({type, quantity});
+        }
     }
 }

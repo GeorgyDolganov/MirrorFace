@@ -21,19 +21,6 @@ export default function createObstacles(scene, obstacles) {
 
     scene.player = new Player(scene);
 
-    window.addEventListener('keypress', e => {
-        switch(e.code) {
-            case 'Space': {
-                scene.player.throw();
-                break;
-            }
-            case 'KeyG': {
-                scene.player.changeItem();
-                break;
-            }
-        }
-    })
-
     scene.mirror = scene.physics.add.sprite(0, 0, "mirror");
     scene.mirror.setImmovable();
     scene.mirror.canReflect = true;

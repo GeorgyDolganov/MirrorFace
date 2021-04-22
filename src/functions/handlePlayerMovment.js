@@ -19,3 +19,16 @@ export default function handlePlayerMovement(player, cursors) {
         player.body.setVelocityY(SPEED);
     }
 }
+
+window.addEventListener('keypress', e => {
+    switch(e.code) {
+        case 'Space': {
+            scene.player.throw();
+            break;
+        }
+        case 'KeyG': {
+            scene.player.changeItem();
+            break;
+        }
+    }
+})
