@@ -2,7 +2,15 @@ import PhaserRaycaster from 'phaser-raycaster';
 
 
 import Arena0 from './Scenes/arena0'
+import GameMenuScene from "./Scenes/GameMenuScene";
+import {getQueryParams} from "./Helpers";
 
+let scenes;
+if( getQueryParams(document.location.search).dev ) {
+    scenes = [Arena0, GameMenuScene]
+} else {
+    scenes = [GameMenuScene, Arena0 ];
+}
 
 let config = {
     type: Phaser.WEBGL,
@@ -22,7 +30,7 @@ let config = {
             debugStaticBodyColor: 0xffffff
         },
     },
-    scene: [Arena0],
+    scene: scenes,
     loader: {
         baseURL: 'https://labs.phaser.io',
         crossOrigin: 'anonymous'

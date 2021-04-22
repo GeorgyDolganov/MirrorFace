@@ -118,8 +118,7 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
 
     dead() {
         alert("YOU ARE DAED");
-        window.location.reload();
-        this.dead = () => {};
+        this.scene.scene.start("GameMenuScene")
     }
 
     changeHealth(changeBy) {

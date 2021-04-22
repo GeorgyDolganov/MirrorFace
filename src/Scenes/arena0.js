@@ -49,6 +49,10 @@ Phaser.Geom.Line.fromAngle = function (x, y, angle, distance) {
 
 export default class Arena0 extends Scene {
 
+    constructor() {
+        super("Arena0");
+    }
+
     preload() {
         this.load.image('player', playerPNG)
         this.load.image('grenade', grenadePNG)
