@@ -102,7 +102,7 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
         let intersections = scene.physics.overlapCirc(scene.mirror.x, scene.mirror.y, 23, true, true);
         let rotation = this.rotation;
         intersections.forEach(el=>{
-            if (el?.gameObject?.name === 'pyramidHead' || el?.gameObject?.name === 'skeleton') {
+            if (el?.gameObject && el.gameObject.constructor.name.includes('Enemy')) {
                 el.gameObject.changeHealth(-5);
 
                 scene.tweens.add({
