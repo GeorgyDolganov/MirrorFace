@@ -3,7 +3,7 @@ import Phaser from "phaser";
 export default class Item extends Phaser.Physics.Arcade.Sprite {
     type
 
-    constructor(scene, x, y, texture, type) {
+    constructor(scene, x, y, type) {
         super(scene, x, y, 'grenade');
 
         this.type = type;
