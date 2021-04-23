@@ -39,6 +39,7 @@ import Player from "../GameObjects/Player";
 import Mirror from "../GameObjects/Mirror";
 
 import arena0Map from "../assets/tilemap/arena0.json"
+import tilesetPNG from "../assets/SpriteSheets/tileset.png"
 
 var raycaster;
 var obstacles
@@ -81,10 +82,8 @@ export default class Arena0 extends Scene {
         this.load.spritesheet('reflectParticles', reflectParticlesPNG, { frameWidth: 32, frameHeight: 32 });
         this.load.atlas('floorAtlas', floorPNG, floorJSON);
 
-        this.load.tilemapTiledJSON({
-            key: 'map',
-            url: arena0Map
-        });
+        this.load.image('tileset', tilesetPNG)
+        this.load.tilemapTiledJSON( 'map', arena0Map);
         this.load.image('spark', blueSparkPNG);
     }
 
@@ -106,7 +105,7 @@ export default class Arena0 extends Scene {
             return ab.x + ab.width > bb.x && ab.x < bb.x + bb.width && ab.y + ab.height > bb.y && ab.y < bb.y + bb.height;
         }
 
-        this.physics.world.setBounds(0, 0, 1280, 1280);
+        this.physics.world.setBounds(0, 0, 48 * 32, 48 * 32);
 
         //Анимации
         this.anims.createFromAseprite('skeleton');
@@ -114,9 +113,9 @@ export default class Arena0 extends Scene {
 
         //Создаем арену
         this.arena = this.add.group()
-        this.arena.floor = this.add.tileSprite(640, 640, 1280, 1280, 'tilefloor').setName('floor').setPipeline('Light2D');
-        this.arena.floor.setScale(1)
-        this.arena.add(this.arena.floor)
+        // this.arena.floor = this.add.tileSprite(640, 640, 1280, 1280, 'tilefloor').setName('floor').setPipeline('Light2D');
+        // this.arena.floor.setScale(1)
+        // this.arena.add(this.arena.floor)
 
         this.playerlight  = this.lights.addLight(0, 0, 250, undefined, 1.);
 
@@ -125,25 +124,45 @@ export default class Arena0 extends Scene {
         this.arena.walls = this.add.group()
         this.arena.add(this.arena.walls)
 
-        this.arena.wall0 = this.add.tileSprite(-16, 640, 32, 1280, 'mirrorwall').setName('wall0').setPipeline('Light2D');
-        this.arena.wall0.canReflect = true
-        this.arena.walls.add(this.arena.wall0)
+        // this.arena.wall0 = this.add.tileSprite(-16, 640, 32, 1280, 'mirrorwall').setName('wall0').setPipeline('Light2D');
+        // this.arena.wall0.canReflect = true
+        // this.arena.walls.add(this.arena.wall0)
 
-        this.arena.wall1 = this.add.tileSprite(640, -16, 32, 1280, 'mirrorwall').setName('wall1').setPipeline('Light2D');
-        this.arena.wall1.canReflect = true
-        this.arena.wall1.angle = 90
-        this.arena.walls.add(this.arena.wall1)
+        // this.arena.wall1 = this.add.tileSprite(640, -16, 32, 1280, 'mirrorwall').setName('wall1').setPipeline('Light2D');
+        // this.arena.wall1.canReflect = true
+        // this.arena.wall1.angle = 90
+        // this.arena.walls.add(this.arena.wall1)
 
-        this.arena.wall2 = this.add.tileSprite(1296, 640, 32, 1280, 'mirrorwall').setName('wall2').setPipeline('Light2D');
-        this.arena.wall2.canReflect = true
-        this.arena.wall2.angle = 180
-        this.arena.walls.add(this.arena.wall2)
+        // this.arena.wall2 = this.add.tileSprite(1296, 640, 32, 1280, 'mirrorwall').setName('wall2').setPipeline('Light2D');
+        // this.arena.wall2.canReflect = true
+        // this.arena.wall2.angle = 180
+        // this.arena.walls.add(this.arena.wall2)
 
-        this.arena.wall3 = this.add.tileSprite(640, 1296, 32, 1280, 'mirrorwall').setName('wall3').setPipeline('Light2D');
-        this.arena.wall3.canReflect = true
-        this.arena.wall3.angle = -90
-        this.arena.walls.add(this.arena.wall3)
+        // this.arena.wall3 = this.add.tileSprite(640, 1296, 32, 1280, 'mirrorwall').setName('wall3').setPipeline('Light2D');
+        // this.arena.wall3.canReflect = true
+        // this.arena.wall3.angle = -90
+        // this.arena.walls.add(this.arena.wall3)
 
+        const map = this.make.tilemap({ key: 'map', tileWidth: 32, tileHeight: 32  });
+        console.log(map)
+        const tiles = map.addTilesetImage('tileset', 'tileset');
+
+        this.groundLayer = map.createStaticLayer('Floor', [tiles], 0, 0)
+        this.spikeLayer = map.createStaticLayer('Spikes', [tiles], 0, 0)
+        this.objLayer = map.createStaticLayer('Stones and barrels', [tiles], 0, 0)
+        this.wallLayer = map.createStaticLayer('Walls', [tiles], 0, 0)
+
+        this.objLayer.setCollisionBetween(1, 50);
+        this.wallLayer.setCollisionBetween(1, 50);
+        // this.wallLayer.setCollisionByProperty({collides:true})
+        console.log(this.wallLayer)
+        this.wallLayer.forEachTile((tile, i)=>{
+            if (tile.properties.canReflect) {
+                tile.canReflect = true
+                console.log(tile)
+            }
+            
+        })
         
         let bgLoopMusic = this.sound.add('bgloop', {
             loop: true,
@@ -167,6 +186,7 @@ export default class Arena0 extends Scene {
         createObstacles(this, obstacles);
 
         this.player = new Player(this);
+        this.physics.add.collider(this.player, [this.wallLayer, this.objLayer])
         this.add.existing(this.player);
         this.mirror = new Mirror(this);
 
@@ -205,6 +225,8 @@ export default class Arena0 extends Scene {
         });
 
         this.input.mouse.disableContextMenu();
+
+        
     }
 
     update(time, delta) {
@@ -243,7 +265,7 @@ export default class Arena0 extends Scene {
         }
 
         raycaster.mapGameObjects(cratesGroup.getChildren(), true);
-        this.physics.add.collider(cratesGroup, this.player);
+        this.physics.add.collider(cratesGroup, [this.player, this.wallLayer, this.objLayer]);
         this.physics.add.collider(cratesGroup, cratesGroup);
 
         this.staticObstacles = cratesGroup;
