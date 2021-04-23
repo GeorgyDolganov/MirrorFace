@@ -51,17 +51,10 @@ export default class ReflectableRay {
         this._createNextSegment(raySegment, intersection);
     }
 
-    _tick = 0;
     _createNextSegment(prevRaySegment, intersection) {
         this.calculateCircleSegment(intersection);
 
         if( intersection.segment === undefined ) return;
-
-        this._tick+= 1;
-        if( this._tick > 100) {
-            console.log(intersection);
-            this._tick = 0;
-        }
 
         let reflectionAngle = Phaser.Geom.Line.ReflectAngle(prevRaySegment, intersection.segment);
 
@@ -148,29 +141,5 @@ export default class ReflectableRay {
 
     multiplyDamage(multiplyBy) {
         this.damage *= multiplyBy;
-    }
-
-    createReflectedParticles() {
-        this.particlesContainer = this.scene.add.container();
-        const particles = this.scene.add.particles('spark');
-
-        this.emitter = particles.createEmitter({
-            x: 400,
-            y: 300,
-            angle: { min: 240, max: 300 },
-            speed: 400,
-            gravityY: 0,
-            lifespan: { min: 400, max: 800},
-            quantity: 1,
-            scale: 0.1,
-            blendMode: 'ADD',
-            alpha: { start: 0.7, end: 0 },
-            accelerationX: -1,
-            accelerationY: -1,
-        });
-        // this.emitter.stop
-        // this.emitter.stop();
-
-        this.particlesContainer.add(particles);
     }
 }
