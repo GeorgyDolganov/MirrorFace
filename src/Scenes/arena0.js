@@ -149,7 +149,7 @@ export default class Arena0 extends Scene {
 
         this.groundLayer = map.createStaticLayer('Floor', [tiles], 0, 0)
         this.spikeLayer = map.createStaticLayer('Spikes', [tiles], 0, 0)
-        this.objLayer = map.createStaticLayer('Stones and barrels', [tiles], 0, 0)
+        this.objLayer = map.createStaticLayer('Stones', [tiles], 0, 0)
         this.wallLayer = map.createStaticLayer('Walls', [tiles], 0, 0)
 
         this.objLayer.setCollisionBetween(1, 50);
