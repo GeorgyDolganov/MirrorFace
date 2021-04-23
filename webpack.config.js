@@ -15,6 +15,7 @@ module.exports = {
   resolve: {
     extensions: ['.js', '.css', '.scss'],
   },
+  devtool: "source-map",
   devServer: {
     host: '0.0.0.0',
     port: 4041, // port that we're using for local host (localhost:8080)

@@ -7,25 +7,17 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
     speed = 160;
     items = [
         {
-            quantity: 10,
+            quantity: 1,
             type: 'burn'
         },
         {
-            quantity: 10,
+            quantity: 2,
             type: 'damage'
         },
         {
-            quantity: 10,
+            quantity: 1,
             type: 'freeze'
         },
-        {
-            quantity: 10,
-            type: 'blink'
-        },
-        {
-            quantity: 10,
-            type: 'reflection'
-        }
     ];
     currentItem = false;
     /**
@@ -101,7 +93,11 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
 
         let intersections = scene.physics.overlapCirc(scene.mirror.x, scene.mirror.y, 23, true, true);
         let rotation = this.rotation;
+
         intersections.forEach(el=>{
+            if ( el.gameObject.name === 'crate' ) {
+                el.gameObject.damage(5)
+            }
             if (el?.gameObject && el.gameObject.constructor.name.includes('Enemy')) {
                 el.gameObject.changeHealth(-5);
 
@@ -122,8 +118,7 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
 
     dead() {
         alert("YOU ARE DAED");
-        window.location.reload();
-        this.dead = () => {};
+        this.scene.scene.start("GameMenuScene")
     }
 
     changeHealth(changeBy) {
@@ -175,7 +170,7 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
     addItem(type, quantity) {
         let itemIndex = this.items.findIndex(item => item.type === type);
 
-        if ( itemIndex ) {
+        if ( itemIndex > -1 ) {
             this.items[itemIndex].quantity += quantity;
         } else {
             this.items.push({type, quantity});
