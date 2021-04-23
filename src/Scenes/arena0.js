@@ -33,6 +33,8 @@ import floorJSON from "../assets/SpriteSheets/floor.json"
 import bgLoopMP3 from "../assets/audio/bgloopNew.wav"
 import RoundManager from "../Managers/RoundManager";
 
+import arena0Map from "../assets/tilemap/arena0.json"
+
 var raycaster;
 var obstacles
 var cursors;
@@ -69,6 +71,11 @@ export default class Arena0 extends Scene {
         this.load.aseprite('skeleton', skeletonPNG, skeletonJSON)
 
         this.load.atlas('floorAtlas', floorPNG, floorJSON);
+
+        this.load.tilemapTiledJSON({
+            key: 'map',
+            url: arena0Map
+        });
     }
 
     create() {
