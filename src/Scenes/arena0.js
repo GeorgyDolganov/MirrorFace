@@ -6,6 +6,7 @@ import Stats from "stats.js";
 import createObstacles from '../functions/createObstacles';
 import handlePlayerMovement from '../functions/handlePlayerMovment';
 import updateMirrorPosition from '../functions/updateMirrorPosition';
+import Crate from "../GameObjects/Crate";
 import GameUI from "../GameObjects/UI/GameUI";
 import EnemiesManager from "../Managers/EnemiesManager";
 
@@ -35,8 +36,6 @@ import bgLoopMP3 from "../assets/audio/bgloopNew.wav"
 import RoundManager from "../Managers/RoundManager";
 import Player from "../GameObjects/Player";
 import Mirror from "../GameObjects/Mirror";
-
-const GRENADES_TYPES = ['burn','damage','freeze','blink','reflection'];
 
 var raycaster;
 var obstacles
@@ -231,49 +230,8 @@ export default class Arena0 extends Scene {
         let cratesGroup = this.add.group();
         for (let i = 0; i < 10;  i++) {
             let crateType = Math.round(Math.random() * 2);
-            let crate = this.physics.add.sprite(Math.random() * 1200 + 100, Math.random() * 1200 + 100, objects[crateType]).setPipeline('Light2D')
-            crate.name = 'crate'
-            crate.maxHealth = crateType > 1 ? 50 : 25;
-            crate.health = crate.maxHealth;
-            crate.destroyed = false;
-            crate.damage = damage => {
-                if ( crate.destroyed ) return;
-
-                crate.health -= damage;
-
-                if ( crate.health <= 0 ) {
-                    crate.destroyed = true;
-
-                    crate.body.setEnable(false);
-                    crate.setActive(false);
-                    crate.setVisible(false);
-
-                    let type = GRENADES_TYPES[Math.floor(Math.random() * GRENADES_TYPES.length)];
-                    let quantity = Math.floor(Math.random() * (crateType > 1 ? 3 : 2));
-
-                    if ( quantity > 0 ) this.player.addItem(type, quantity);
-
-                    this.tweens.add({
-                        targets: crate,
-                        duration: ( Math.floor(Math.random() * 3) + 2 ) * 1000,
-                        x: Math.floor( Math.random() * this.physics.world.bounds.width ),
-                        y: Math.floor( Math.random() * this.physics.world.bounds.height ),
-                        onComplete: tween => {
-                            crate.destroyed = false;
-
-                            crate.health = crate.maxHealth;
-
-                            crate.body.setEnable(true);
-                            crate.setActive(true);
-                            crate.setVisible(true);
-                        }
-                    });
-                }
-            }
-            crate.canReflect = false;
-            crate.setDamping(true);
-            crate.setDrag(0.0009);
-            crate.setCollideWorldBounds(true);
+            let crate = new Crate(this, Math.random() * 1200 + 100, Math.random() * 1200 + 100, objects[crateType]);
+ 
             cratesGroup.add(crate);
         }
 
