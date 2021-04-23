@@ -98,20 +98,20 @@ export default class Mirror extends Phaser.Physics.Arcade.Sprite {
             
         })
         this._reflectParticles2 = scene.add.particles('reflectParticles')
-
+        this._reflectParticles2.setDepth(10)
         this._reflectParticles = scene.add.particles('spark');
 
-
+        
         this._particlesContainer = scene.add.container();
         let particles = scene.add.particles('spark');
         this._regenerationParticles = particles.createEmitter({
             x: {
-                min: -10,
-                max: 10
+                min: -20,
+                max: 20
             },
             y: {
-                min: -10,
-                max: 10
+                min: -20,
+                max: 20
             },
             lifespan: 10,
             quantity: 1,
@@ -119,7 +119,7 @@ export default class Mirror extends Phaser.Physics.Arcade.Sprite {
             blendMode: 'ADD',
             alpha: {
                 start: 1,
-                end: 1
+                end: 0
             },
         });
         this._particlesContainer.add(particles);
@@ -206,6 +206,7 @@ export default class Mirror extends Phaser.Physics.Arcade.Sprite {
                 emitter: emitter,
                 timestamp: 0,
             })
+
         }
     }
 

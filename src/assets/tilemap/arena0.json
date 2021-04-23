@@ -331,87 +331,10 @@
          "tileheight":32,
          "tiles":[
                 {
-                 "id":0,
-                 "properties":[
-                        {
-                         "name":"collides",
-                         "type":"string",
-                         "value":"false"
-                        }]
-                }, 
-                {
-                 "id":1,
-                 "properties":[
-                        {
-                         "name":"collides",
-                         "type":"string",
-                         "value":"false"
-                        }]
-                }, 
-                {
-                 "id":2,
-                 "properties":[
-                        {
-                         "name":"collides",
-                         "type":"string",
-                         "value":"false"
-                        }]
-                }, 
-                {
-                 "id":3,
-                 "properties":[
-                        {
-                         "name":"collides",
-                         "type":"string",
-                         "value":"false"
-                        }]
-                }, 
-                {
-                 "id":4,
-                 "properties":[
-                        {
-                         "name":"collides",
-                         "type":"string",
-                         "value":"false"
-                        }]
-                }, 
-                {
-                 "id":5,
-                 "properties":[
-                        {
-                         "name":"collides",
-                         "type":"string",
-                         "value":"false"
-                        }]
-                }, 
-                {
-                 "id":6,
-                 "properties":[
-                        {
-                         "name":"collides",
-                         "type":"string",
-                         "value":"false"
-                        }]
-                }, 
-                {
                  "id":7,
                  "properties":[
                         {
-                         "name":"canReflect",
-                         "type":"bool",
-                         "value":true
-                        }, 
-                        {
                          "name":"collides",
-                         "type":"string",
-                         "value":"true"
-                        }]
-                }, 
-                {
-                 "id":8,
-                 "properties":[
-                        {
-                         "name":"canReflect",
                          "type":"bool",
                          "value":true
                         }]
@@ -421,8 +344,8 @@
                  "properties":[
                         {
                          "name":"collides",
-                         "type":"string",
-                         "value":"false"
+                         "type":"bool",
+                         "value":true
                         }]
                 }, 
                 {
@@ -430,8 +353,8 @@
                  "properties":[
                         {
                          "name":"collides",
-                         "type":"string",
-                         "value":"true"
+                         "type":"bool",
+                         "value":true
                         }]
                 }, 
                 {
@@ -439,8 +362,8 @@
                  "properties":[
                         {
                          "name":"collides",
-                         "type":"string",
-                         "value":"true"
+                         "type":"bool",
+                         "value":true
                         }]
                 }, 
                 {
@@ -448,8 +371,8 @@
                  "properties":[
                         {
                          "name":"collides",
-                         "type":"string",
-                         "value":"true"
+                         "type":"bool",
+                         "value":true
                         }]
                 }, 
                 {
@@ -457,22 +380,17 @@
                  "properties":[
                         {
                          "name":"collides",
-                         "type":"string",
-                         "value":"true"
+                         "type":"bool",
+                         "value":true
                         }]
                 }, 
                 {
                  "id":14,
                  "properties":[
                         {
-                         "name":"canReflect",
+                         "name":"collides",
                          "type":"bool",
                          "value":true
-                        }, 
-                        {
-                         "name":"collides",
-                         "type":"string",
-                         "value":"true"
                         }]
                 }, 
                 {
@@ -480,22 +398,17 @@
                  "properties":[
                         {
                          "name":"collides",
-                         "type":"string",
-                         "value":"true"
+                         "type":"bool",
+                         "value":true
                         }]
                 }, 
                 {
                  "id":16,
                  "properties":[
                         {
-                         "name":"canReflect",
+                         "name":"collides",
                          "type":"bool",
                          "value":true
-                        }, 
-                        {
-                         "name":"collides",
-                         "type":"string",
-                         "value":"true"
                         }]
                 }, 
                 {
@@ -503,8 +416,8 @@
                  "properties":[
                         {
                          "name":"collides",
-                         "type":"string",
-                         "value":"true"
+                         "type":"bool",
+                         "value":true
                         }]
                 }, 
                 {
@@ -512,8 +425,8 @@
                  "properties":[
                         {
                          "name":"collides",
-                         "type":"string",
-                         "value":"true"
+                         "type":"bool",
+                         "value":true
                         }]
                 }, 
                 {
@@ -521,8 +434,8 @@
                  "properties":[
                         {
                          "name":"collides",
-                         "type":"string",
-                         "value":"true"
+                         "type":"bool",
+                         "value":true
                         }]
                 }],
          "tilewidth":32
