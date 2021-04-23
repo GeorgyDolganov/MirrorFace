@@ -200,6 +200,13 @@ export default class Arena0 extends Scene {
         raycaster.mapGameObjects(this.mirror, true);
         raycaster.mapGameObjects(this.player, true);
         raycaster.mapGameObjects(this.arena.walls.getChildren(), true);
+        //TODO: fix corrupted tilemap
+        // raycaster.mapGameObjects(this.wallLayer, false, {
+        //     collisionTiles: [10,11,12,13,15,17, 18,19,20,21,7, 8, 14, 16] //array of tiles types which can collide with ray // 10,11,12,13,15,17, 18,19,20,21,7, 8, 14, 16
+        // });
+        // raycaster.mapGameObjects(this.objLayer, false, {
+        //     collisionTiles: [10,11, 18, 19, 20, 21] //array of tiles types which can collide with ray //10,11, 18, 19, 20, 21
+        // });
 
         this.EnemiesManager = new EnemiesManager(this, raycaster);
         this.RoundManager = new RoundManager(this, this.EnemiesManager);
