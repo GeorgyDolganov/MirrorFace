@@ -19,6 +19,7 @@ import tilefloorNormal from "../assets/floor_n.png"
 import mirrorwallPNG from "../assets/mirrorwall.png"
 import Skeleton_bodyPNG from "../assets/Skeleton_body.png"
 import Skeleton_headPNG from "../assets/Skeleton_head.png"
+import blueSparkPNG from "../assets/blue.png"
 
 import cratePNG from "../assets/crate.png"
 import crate2PNG from "../assets/crate2.png"
@@ -32,6 +33,8 @@ import floorJSON from "../assets/SpriteSheets/floor.json"
 
 import bgLoopMP3 from "../assets/audio/bgloopNew.wav"
 import RoundManager from "../Managers/RoundManager";
+import Player from "../GameObjects/Player";
+import Mirror from "../GameObjects/Mirror";
 
 const GRENADES_TYPES = ['burn','damage','freeze','blink','reflection'];
 
@@ -75,6 +78,8 @@ export default class Arena0 extends Scene {
         this.load.aseprite('skeleton', skeletonPNG, skeletonJSON)
 
         this.load.atlas('floorAtlas', floorPNG, floorJSON);
+
+        this.load.image('spark', blueSparkPNG);
     }
 
     create() {
@@ -143,6 +148,7 @@ export default class Arena0 extends Scene {
         
         //create raycaster
         raycaster = this.raycasterPlugin.createRaycaster();
+        this.raycaster = raycaster;
 
         ReflectableRay.Raycaster = raycaster;
         
@@ -153,6 +159,11 @@ export default class Arena0 extends Scene {
         //create obstacles
         obstacles = this.add.group();
         createObstacles(this, obstacles);
+
+        this.player = new Player(this);
+        this.add.existing(this.player);
+        this.mirror = new Mirror(this);
+
         this.addObstacles();
 
         //Debug info
@@ -160,6 +171,8 @@ export default class Arena0 extends Scene {
         
         //map obstacles
         raycaster.mapGameObjects(obstacles.getChildren(), true);
+        raycaster.mapGameObjects(this.mirror, true);
+        raycaster.mapGameObjects(this.player, true);
         raycaster.mapGameObjects(this.arena.walls.getChildren(), true);
 
         this.EnemiesManager = new EnemiesManager(this, raycaster);
@@ -186,7 +199,6 @@ export default class Arena0 extends Scene {
         });
 
         this.input.mouse.disableContextMenu();
-        scene.mirror.radius = 23;
     }
 
     update(time, delta) {

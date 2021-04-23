@@ -10,9 +10,10 @@ export default class ReflectableRay {
     fromPoint;
     angle;
 
-    //Damage per update tick
-    damage = 0.05;
-
+    //Damage per update tick on ray start
+    initialDamage = 0.05;
+    //Damage per update tick on current ray. It could be changed during reflection process
+    damage = this.initialDamage;
 
     _graphics;
     _ray;
@@ -21,6 +22,7 @@ export default class ReflectableRay {
     MAX_REFLECTS = 3;
 
     constructor({scene, fromPoint, angle}) {
+        this.scene = scene;
         this._graphics = scene.add.graphics({
             lineStyle: {
                 width: 5,
@@ -30,6 +32,7 @@ export default class ReflectableRay {
                 color: 0xff00ff
             }
         });
+        this._graphics.lineGradientStyle(5, 0xff0000, 0xff0000, 0x0000ff, 0x0000ff, 1);
         this.fromPoint = fromPoint;
         this.angle = angle;
 
@@ -38,6 +41,7 @@ export default class ReflectableRay {
 
     _createRayRecursively(fromPoint, angle) {
         this._raySegments = [];
+        this.damage = this.initialDamage;
         let ray = this._getRay(fromPoint,angle);
         let intersection = ray.cast();
         this.calculateCircleSegment(intersection);
@@ -47,18 +51,30 @@ export default class ReflectableRay {
         this._createNextSegment(raySegment, intersection);
     }
 
+    _tick = 0;
     _createNextSegment(prevRaySegment, intersection) {
         this.calculateCircleSegment(intersection);
 
         if( intersection.segment === undefined ) return;
 
-        if( intersection.object.onRayHit ) intersection.object.onRayHit(this);
+        this._tick+= 1;
+        if( this._tick > 100) {
+            console.log(intersection);
+            this._tick = 0;
+        }
+
+        let reflectionAngle = Phaser.Geom.Line.ReflectAngle(prevRaySegment, intersection.segment);
+
+        if( intersection.object.onRayHit ) {
+            intersection.object.onRayHit(this, {
+                intersection, reflectionAngle, beforeReflectRayLine: prevRaySegment
+            });
+        }
 
         if( !intersection.object.canReflect ) {
             return;
         }
 
-        let reflectionAngle = Phaser.Geom.Line.ReflectAngle(prevRaySegment, intersection.segment);
         let ray = this._getRay({
             x: intersection.x + Math.cos(reflectionAngle)/1000,
             y: intersection.y + Math.sin(reflectionAngle)/1000
@@ -124,5 +140,37 @@ export default class ReflectableRay {
 
     disable() {
         this._graphics.clear();
+    }
+
+    changeDamage(changeBy) {
+        this.damage += changeBy;
+    }
+
+    multiplyDamage(multiplyBy) {
+        this.damage *= multiplyBy;
+    }
+
+    createReflectedParticles() {
+        this.particlesContainer = this.scene.add.container();
+        const particles = this.scene.add.particles('spark');
+
+        this.emitter = particles.createEmitter({
+            x: 400,
+            y: 300,
+            angle: { min: 240, max: 300 },
+            speed: 400,
+            gravityY: 0,
+            lifespan: { min: 400, max: 800},
+            quantity: 1,
+            scale: 0.1,
+            blendMode: 'ADD',
+            alpha: { start: 0.7, end: 0 },
+            accelerationX: -1,
+            accelerationY: -1,
+        });
+        // this.emitter.stop
+        // this.emitter.stop();
+
+        this.particlesContainer.add(particles);
     }
 }

@@ -1,5 +1,6 @@
 import PlayerHealthBar from "./PlayerHealthBar";
 import CurrentRound from "./CurrentRound";
+import MirrorStabilityBar from "./MirrorStabilityBar";
 
 
 export default class GameUI extends Phaser.GameObjects.Container {
@@ -9,6 +10,8 @@ export default class GameUI extends Phaser.GameObjects.Container {
     _healthBar;
     _grenadeType;
 
+    mirrorStabilityBar;
+
     constructor(scene) {
         super(scene);
 
@@ -17,6 +20,10 @@ export default class GameUI extends Phaser.GameObjects.Container {
         this._healthBar.setPosition(250, 550);
         scene.healthBar = this._healthBar;
         this.add(this._healthBar);
+
+        this.mirrorStabilityBar = new MirrorStabilityBar(scene);
+        this.mirrorStabilityBar.setPosition(250, 534);
+        this.add(this.mirrorStabilityBar);
 
         this._grenadeType = new Phaser.GameObjects.Text(scene, 700, 550, 'Grenade Type:\nnone', { font: '"Press Start 2P"', align: 'center' });
         this._grenadeType.set = grenade => {

@@ -1,4 +1,4 @@
-import Player from "../GameObjects/Player";
+
 
 const objects = ['crate', 'crate2', 'crateBig']
 
@@ -17,14 +17,4 @@ export default function createObstacles(scene, obstacles) {
         obstacle.canReflect = true;
         scene.reflectionParticles.push(obstacle);
     }
-
-
-    scene.player = new Player(scene);
-
-    scene.mirror = scene.physics.add.sprite(0, 0, "mirror");
-    scene.mirror.setImmovable();
-    scene.mirror.canReflect = true;
-
-    obstacles.add(scene.mirror, true);
-    obstacles.add(scene.player, true);
 }

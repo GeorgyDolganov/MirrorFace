@@ -21,7 +21,7 @@ export default class SkeletonEnemy extends RaycasterEnemy {
         this.setAction("movement");
 
 
-        this.rays[0].damage = 0.2;
+        this.rays[0].initialDamage = 0.2;
     }
 
     onUpdate(time, delta) {
