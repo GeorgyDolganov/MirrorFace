@@ -20,7 +20,8 @@ export default class SkeletonEnemy extends RaycasterEnemy {
         this.setScale(0.7);
         this.setAction("movement");
 
-
+        this.body.setCircle(20);
+        this.body.setOffset(32,35);
         this.rays[0].initialDamage = 0.2;
     }
 
