@@ -20,6 +20,8 @@ export default class SkeletonEnemy extends RaycasterEnemy {
         this.setScale(0.7);
         this.setAction("movement");
 
+        this.body.setCircle(18);
+        this.body.setOffset(32, 32);
 
         this.rays[0].initialDamage = 0.2;
     }
@@ -33,6 +35,21 @@ export default class SkeletonEnemy extends RaycasterEnemy {
        switch (this.currentAction) {
            case "movement":
                this.handleMovementAction(time,delta);
+
+               if (this.currentAction === 'movement') {
+                if ( this.isStacked() ) {
+                    scene.tweens.add({
+                        targets: this,
+                        duration: 100,
+                        x: this.x + 10 * Math.sin(Math.random() * Math.PI * 2),
+                        y: this.y + 10 * Math.cos(Math.random() * Math.PI * 2)
+                    })
+
+                    this.findNextPosition();
+                } else {
+                    if ( !this.releasePath() ) this.handleMovementAction(time,delta);
+                }
+               }
                break;
            case "charge":
                this.handleChargeAction(time,delta);
@@ -45,7 +62,7 @@ export default class SkeletonEnemy extends RaycasterEnemy {
 
 
     handleMovementAction(time, delta) {
-        this.moveTo(this.targetPosition);
+        // this.moveTo(this.targetPosition);
         this.rotation = Phaser.Math.Angle.Between(this.x, this.y, this.targetPosition.x, this.targetPosition.y) - 1.5;
 
         if( Phaser.Math.Distance.BetweenPoints(this, this.targetPosition) < 200 ) {
@@ -101,6 +118,7 @@ export default class SkeletonEnemy extends RaycasterEnemy {
     findNextPosition() {
         let area = new Phaser.Geom.Circle(this.scene.player.x, this.scene.player.y, 200);
         this.targetPosition = area.getRandomPoint();
+        this.goTo(this.targetPosition)
     }
 
     _calculateRayOrigin() {
