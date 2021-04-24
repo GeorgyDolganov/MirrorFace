@@ -34,6 +34,9 @@ import floorPNG from "../assets/SpriteSheets/floor.png"
 import floorJSON from "../assets/SpriteSheets/floor.json"
 
 import bgLoopMP3 from "../assets/audio/bgloopNew.wav"
+import mirrorPushWAV from "../assets/audio/mirrorPush.wav"
+import laser0WAV from "../assets/audio/laser0.wav"
+
 import RoundManager from "../Managers/RoundManager";
 import Player from "../GameObjects/Player";
 import Mirror from "../GameObjects/Mirror";
@@ -77,6 +80,8 @@ export default class Arena0 extends Scene {
         this.load.image('Skeleton_head', Skeleton_headPNG)
 
         this.load.audio('bgloop', bgLoopMP3)
+        this.load.audio('mirrorPush', mirrorPushWAV)
+        this.load.audio('laser0', laser0WAV)
 
         this.load.aseprite('skeleton', skeletonPNG, skeletonJSON)
         this.load.spritesheet('reflectParticles', reflectParticlesPNG, { frameWidth: 32, frameHeight: 32 });
@@ -163,7 +168,12 @@ export default class Arena0 extends Scene {
             }
             
         })
-        
+
+        this.mirrorHitSound = this.sound.add('laser0', {
+            volume: 0.10,
+            loop: true
+        })
+
         let bgLoopMusic = this.sound.add('bgloop', {
             loop: true,
             volume: 0.25

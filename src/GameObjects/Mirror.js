@@ -78,6 +78,7 @@ export default class Mirror extends Phaser.Physics.Arcade.Sprite {
      */
     noDamageTime;
 
+    soundPlaying = false;
 
     _regenerationParticles;
     _particlesContainer;
@@ -88,6 +89,7 @@ export default class Mirror extends Phaser.Physics.Arcade.Sprite {
     constructor(scene) {
         super(scene, 0, 0, "mirror");
         scene.physics.add.existing(this);
+        this._scene = scene
         this.setImmovable();
         scene.add.existing(this);
         anim = scene.anims.create({
@@ -142,6 +144,9 @@ export default class Mirror extends Phaser.Physics.Arcade.Sprite {
             if (e.timestamp > 150) {
                 markForRemove.push(index);
                 e.emitter.stop();
+                if (this._scene.mirrorHitSound.isRunning){
+                    this._scene.mirrorHitSound.stop()
+                }
                 this._reflectParticles2.removeEmitter(e);
             } else {
                 e.timestamp += delta;
@@ -231,6 +236,11 @@ export default class Mirror extends Phaser.Physics.Arcade.Sprite {
         this.noDamageTime = 0;
         this.changeStability(-ray.damage);
         ray.multiplyDamage(this.reflectDamageMultiplier);
+        console.log(this._scene.mirrorHitSound)
+        if (Math.round(Math.random() * 5) === 3){
+            this._scene.mirrorHitSound.play()
+        }
+        
     }
 
     changeStability(changeBy) {

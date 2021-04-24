@@ -1,5 +1,8 @@
 import Phaser from 'phaser';
 import logoPNG from "../assets/game_logo.png"
+import menuSound from "../assets/audio/coin.wav"
+
+let optionSound
 
 export default class GameMenuScene extends Phaser.Scene {
 
@@ -10,13 +13,18 @@ export default class GameMenuScene extends Phaser.Scene {
     preload() {
         this.load.image('game_logo', logoPNG);
         this.load.script('webfont', 'https://ajax.googleapis.com/ajax/libs/webfont/1.6.26/webfont.js');
+        this.load.audio('option', menuSound)
+        
     }
 
     create() {
         console.log("Game Menu loaded.");
 
         this.add.image(400, 180, "game_logo");
-
+        optionSound = this.sound.add('option', {
+            volume: 0.25,
+            loop: false
+        })
 
         WebFont.load({
             google: {
@@ -29,7 +37,6 @@ export default class GameMenuScene extends Phaser.Scene {
                     position: {x: 400, y: 400},
                     onClick: () => {
                         console.log("Starting new game...");
-                        
                         this.scene.start("Arena0")
                     }
                 });
@@ -61,6 +68,8 @@ export default class GameMenuScene extends Phaser.Scene {
 
         t.on('pointerover', function (pointer) {
             t.setColor("#4fd06e")
+            optionSound.stop()
+            optionSound.play()
         });
         t.on('pointerout', function (pointer) {
             t.setColor("#3b9a52")
