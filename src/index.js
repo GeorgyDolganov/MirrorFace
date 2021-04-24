@@ -9,11 +9,11 @@ import {getQueryParams} from "./Helpers"
 
 let scenes;
 if( getQueryParams(document.location.search).dev ) {
-    scenes = [Arena0, GameMenuScene]
+    scenes = [Arena0, RoundShop, GameMenuScene]
 } else if( getQueryParams(document.location.search).shop ) {
-    scenes = [RoundShop]
+    scenes = [RoundShop, Arena0, GameMenuScene]
 } else {
-    scenes = [GameMenuScene, Arena0 ];
+    scenes = [GameMenuScene, Arena0, RoundShop ];
 }
 
 let config = {
