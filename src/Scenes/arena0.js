@@ -36,7 +36,7 @@ import floorJSON from "../assets/SpriteSheets/floor.json"
 import vampirePNG from "../assets/SpriteSheets/Vampire.png"
 import vampireJSON from "../assets/SpriteSheets/Vampire.json"
 
-import bgLoopMP3 from "../assets/audio/bgloopNew.wav"
+import bgLoopMP3 from "../assets/audio/moom.mp3"
 import mirrorPushWAV from "../assets/audio/mirrorPush.wav"
 import laser0WAV from "../assets/audio/laser0.wav"
 
@@ -186,7 +186,7 @@ export default class Arena0 extends Scene {
         
         let bgLoopMusic = this.sound.add('bgloop', {
             loop: true,
-            volume: 0.25
+            volume: 1
         });
         
         bgLoopMusic.play();
