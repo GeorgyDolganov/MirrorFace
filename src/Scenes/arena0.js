@@ -141,7 +141,6 @@ export default class Arena0 extends Scene {
         console.log(map)
         const tiles = map.addTilesetImage('tileset', 'tileset');
 
-<<<<<<< HEAD
         this.groundLayer = map.createStaticLayer('Floor', [tiles], 0, 0)
         this.spikeLayer = map.createStaticLayer('Spikes', [tiles], 0, 0)
         this.objLayer = map.createStaticLayer('Stones', [tiles], 0, 0)
@@ -153,15 +152,6 @@ export default class Arena0 extends Scene {
         this.reflectLayer.setCollisionBetween(1, 50);
         // this.wallLayer.setCollisionByProperty({collides:true})
         console.log(this.wallLayer)
-=======
-        this.groundLayer = map.createLayer('Floor', [tiles], 0, 0)
-        this.spikeLayer = map.createLayer('Spikes', [tiles], 0, 0)
-        this.objLayer = map.createLayer('Stones', [tiles], 0, 0)
-        this.wallLayer = map.createLayer('Walls', [tiles], 0, 0)
-
-        this.objLayer.setCollisionBetween(1, 50);
-        this.wallLayer.setCollisionBetween(1, 50);
->>>>>>> 09ee1b999be3e646485ad1a3a68e06980f03087f
         this.wallLayer.forEachTile((tile, i)=>{
             if (tile.properties.canReflect) {
                 tile.canReflect = true
