@@ -136,29 +136,12 @@ export default class Arena0 extends Scene {
         this.arena.walls = this.add.group()
         this.arena.add(this.arena.walls)
 
-        // this.arena.wall0 = this.add.tileSprite(-16, 640, 32, 1280, 'mirrorwall').setName('wall0').setPipeline('Light2D');
-        // this.arena.wall0.canReflect = true
-        // this.arena.walls.add(this.arena.wall0)
-
-        // this.arena.wall1 = this.add.tileSprite(640, -16, 32, 1280, 'mirrorwall').setName('wall1').setPipeline('Light2D');
-        // this.arena.wall1.canReflect = true
-        // this.arena.wall1.angle = 90
-        // this.arena.walls.add(this.arena.wall1)
-
-        // this.arena.wall2 = this.add.tileSprite(1296, 640, 32, 1280, 'mirrorwall').setName('wall2').setPipeline('Light2D');
-        // this.arena.wall2.canReflect = true
-        // this.arena.wall2.angle = 180
-        // this.arena.walls.add(this.arena.wall2)
-
-        // this.arena.wall3 = this.add.tileSprite(640, 1296, 32, 1280, 'mirrorwall').setName('wall3').setPipeline('Light2D');
-        // this.arena.wall3.canReflect = true
-        // this.arena.wall3.angle = -90
-        // this.arena.walls.add(this.arena.wall3)
 
         const map = this.make.tilemap({ key: 'map', tileWidth: 32, tileHeight: 32  });
         console.log(map)
         const tiles = map.addTilesetImage('tileset', 'tileset');
 
+<<<<<<< HEAD
         this.groundLayer = map.createStaticLayer('Floor', [tiles], 0, 0)
         this.spikeLayer = map.createStaticLayer('Spikes', [tiles], 0, 0)
         this.objLayer = map.createStaticLayer('Stones', [tiles], 0, 0)
@@ -170,12 +153,20 @@ export default class Arena0 extends Scene {
         this.reflectLayer.setCollisionBetween(1, 50);
         // this.wallLayer.setCollisionByProperty({collides:true})
         console.log(this.wallLayer)
+=======
+        this.groundLayer = map.createLayer('Floor', [tiles], 0, 0)
+        this.spikeLayer = map.createLayer('Spikes', [tiles], 0, 0)
+        this.objLayer = map.createLayer('Stones', [tiles], 0, 0)
+        this.wallLayer = map.createLayer('Walls', [tiles], 0, 0)
+
+        this.objLayer.setCollisionBetween(1, 50);
+        this.wallLayer.setCollisionBetween(1, 50);
+>>>>>>> 09ee1b999be3e646485ad1a3a68e06980f03087f
         this.wallLayer.forEachTile((tile, i)=>{
             if (tile.properties.canReflect) {
                 tile.canReflect = true
                 console.log(tile)
             }
-            
         })
 
         this.mirrorHitSound = this.sound.add('laser0', {
@@ -187,7 +178,6 @@ export default class Arena0 extends Scene {
 
         const navMesh = this.navMeshPlugin.buildMeshFromTilemap("mesh1", map, layers);
         this.navMesh = navMesh;
-        console.log(navMesh)
 
         // Graphics overlay for visualizing path
         const graphics = this.add.graphics(0, 0).setAlpha(0.5);

@@ -122,11 +122,31 @@ export default class SkeletonEnemy extends RaycasterEnemy {
     }
 
     _calculateRayOrigin() {
-        let r = 80;
-        let angle = Phaser.Math.Angle.Between(this.x, this.y, this.scene.player.x, this.scene.player.y);
+        let point = this.translatePoint(this.x - 32, this.y - 15, this.x, this.y, Phaser.Math.Angle.Normalize(this.rotation ))
         return {
-            x: this.x + r * Math.cos(angle),
-            y: this.y + r * Math.sin(angle)
-        }
+            x: point.x + this.x,
+            y: point.y + this.y,
+        };
+    }
+
+    translatePoint(absPointX, absPointY, centerX, centerY, rotationRad=0) {
+        // Get coordinates relative to center point
+        absPointX -= centerX;
+        absPointY -= centerY;
+
+        // Convert degrees to radians
+        var radians = rotationRad;
+
+        // Translate rotation
+        var cos = Math.sin(radians);
+        var sin = Math.cos(radians);
+        var x = (absPointX * cos) + (absPointY * sin);
+        var y = (-absPointX * sin) + (absPointY * cos);
+
+        // Round to nearest hundredths place
+        x = Math.floor(x * 100) / 100;
+        y = Math.floor(y * 100) / 100;
+
+        return {x, y};
     }
 }
