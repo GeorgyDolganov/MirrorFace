@@ -194,10 +194,13 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
     }
     
     addItem(type, quantity) {
+        this.grenadeType.add(type, quantity);
+
         let itemIndex = this.items.findIndex(item => item.type === type);
 
         if ( itemIndex > -1 ) {
             this.items[itemIndex].quantity += quantity;
+            if ( itemIndex === this.currentItem ) this.grenadeType.set( this.items[this.currentItem] );
         } else {
             this.items.push({type, quantity});
         }
