@@ -158,22 +158,26 @@ export default class Arena0 extends Scene {
         console.log(map)
         const tiles = map.addTilesetImage('tileset', 'tileset');
 
-        this.groundLayer = map.createStaticLayer('Floor', [tiles], 0, 0)
-        this.spikeLayer = map.createStaticLayer('Spikes', [tiles], 0, 0)
-        this.objLayer = map.createStaticLayer('Stones', [tiles], 0, 0)
-        this.wallLayer = map.createStaticLayer('Walls', [tiles], 0, 0)
+        this.groundLayer = map.createLayer('Floor', [tiles], 0, 0)
+        this.spikeLayer = map.createLayer('Spikes', [tiles], 0, 0)
+        this.objLayer = map.createLayer('Stones', [tiles], 0, 0)
+        this.wallLayer = map.createLayer('Walls', [tiles], 0, 0)
 
         this.objLayer.setCollisionBetween(1, 50);
         this.wallLayer.setCollisionBetween(1, 50);
         // this.wallLayer.setCollisionByProperty({collides:true})
-        console.log(this.wallLayer)
+        console.log(this.wallLayer);
+        let qwe = 0;
         this.wallLayer.forEachTile((tile, i)=>{
+            qwe += 1;
             if (tile.properties.canReflect) {
                 tile.canReflect = true
                 console.log(tile)
             }
             
         })
+        console.log("total tiles", qwe);
+        console.log(this.wallLayer)
 
         this.mirrorHitSound = this.sound.add('laser0', {
             volume: 0.10,
@@ -245,6 +249,7 @@ export default class Arena0 extends Scene {
             collisionTiles: [10,11, 18, 19, 20, 21] //array of tiles types which can collide with ray //10,11, 18, 19, 20, 21
         });
 
+        console.log(raycaster.mappedObjects);
         this.EnemiesManager = new EnemiesManager(this, raycaster);
         this.RoundManager = new RoundManager(this, this.EnemiesManager);
         this.RoundManager.setRound(1);

@@ -1,4 +1,5 @@
 import Phaser from "phaser";
+import {silentLog} from "../Helpers";
 
 
 export default class ReflectableRay {
@@ -20,6 +21,8 @@ export default class ReflectableRay {
     _raySegments = [];
 
     MAX_REFLECTS = 3;
+
+    firstIgnoredObjects = [];
 
     constructor({scene, fromPoint, angle}) {
         this.scene = scene;
@@ -51,13 +54,23 @@ export default class ReflectableRay {
         this.update();
     }
 
+    getMappedObjects() {
+        return ReflectableRay.Raycaster.mappedObjects.filter(obj => !this.firstIgnoredObjects.includes(obj));
+    }
+
+    //tick = 0;
     _createRayRecursively(fromPoint, angle) {
         this._raySegments = [];
         this.damage = this.initialDamage;
         let ray = this._getRay(fromPoint,angle);
-        let intersection = ray.cast();
+
+        silentLog(ReflectableRay.Raycaster.mappedObjects, this.getMappedObjects(), this.firstIgnoredObjects);
+        let intersection = ray.cast({
+            objects: this.getMappedObjects()
+        });
         this.calculateCircleSegment(intersection);
 
+        //silentLog(intersection);
         let raySegment = new Phaser.Geom.Line(ray.origin.x, ray.origin.y, intersection.x, intersection.y);
         this._raySegments.push(raySegment);
         this._createNextSegment(raySegment, intersection);
@@ -160,4 +173,5 @@ export default class ReflectableRay {
     multiplyDamage(multiplyBy) {
         this.damage *= multiplyBy;
     }
+
 }
