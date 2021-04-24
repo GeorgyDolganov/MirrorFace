@@ -2,6 +2,7 @@ import config from "../Configs/rounds.json";
 import TankEnemy from "../GameObjects/Enemies/TankEnemy";
 import RaycasterEnemy from "../GameObjects/Enemies/RaycasterEnemy";
 import SkeletonEnemy from "../GameObjects/Enemies/SkeletonEnemy";
+import VampireEnemy from "../GameObjects/Enemies/VampireEnemy";
 
 export default class RoundManager {
     _scene;
@@ -16,6 +17,7 @@ export default class RoundManager {
         ["TankEnemy"]: TankEnemy,
         ["RaycasterEnemy"]: RaycasterEnemy,
         ["SkeletonEnemy"]: SkeletonEnemy,
+        ["VampireEnemy"]: VampireEnemy,
     }
 
     constructor(scene, enemiesManager) {

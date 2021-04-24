@@ -20,6 +20,9 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
         },
     ];
     currentItem = false;
+
+    _bloodEmitter;
+
     /**
      * @param {Phaser.Scene} scene 
      */
@@ -68,6 +71,23 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
                 scene.player.cooldownMirror()
             }
         });
+
+        const particles = scene.add.particles('spark');
+        particles.setDepth(10);
+        this._bloodEmitter = particles.createEmitter({
+            x: 400,
+            y: 300,
+            angle: { min: 0, max: 220 },
+            speed: { min: 0, max: 300 },
+            lifespan: { min: 200, max: 600 },
+            quantity: 6,
+            scale: { start: 0.2, end: 0.1 },
+            alpha: { start: 1, end: 0},
+            blendMode: 'ADD',
+            tint: 0xff0000,
+
+        });
+        this._bloodEmitter.stop();
     }
 
     cooldownMirror() {
@@ -181,5 +201,13 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
         } else {
             this.items.push({type, quantity});
         }
+    }
+
+    runBloodAnimation(angle) {
+
+        this._bloodEmitter.setAngle({
+            min: angle - 20, max: angle + 20
+        });
+        this._bloodEmitter.explode(100, this.x,this.y);
     }
 }

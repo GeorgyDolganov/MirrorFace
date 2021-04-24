@@ -33,6 +33,9 @@ import skeletonJSON from "../assets/SpriteSheets/Skeleton.json"
 import floorPNG from "../assets/SpriteSheets/floor.png"
 import floorJSON from "../assets/SpriteSheets/floor.json"
 
+import vampirePNG from "../assets/SpriteSheets/Vampire.png"
+import vampireJSON from "../assets/SpriteSheets/Vampire.json"
+
 import bgLoopMP3 from "../assets/audio/bgloopNew.wav"
 import mirrorPushWAV from "../assets/audio/mirrorPush.wav"
 import laser0WAV from "../assets/audio/laser0.wav"
@@ -90,6 +93,8 @@ export default class Arena0 extends Scene {
         this.load.image('tileset', tilesetPNG)
         this.load.tilemapTiledJSON( 'map', arena0Map);
         this.load.image('spark', blueSparkPNG);
+
+        this.load.aseprite('vampire', vampirePNG, vampireJSON);
     }
 
     create() {
@@ -114,6 +119,7 @@ export default class Arena0 extends Scene {
 
         //Анимации
         this.anims.createFromAseprite('skeleton');
+        this.anims.createFromAseprite('vampire');
         this.textures.get('floorAtlas');
 
         //Создаем арену
@@ -174,6 +180,27 @@ export default class Arena0 extends Scene {
             loop: true
         })
 
+        const layers = [this.groundLayer, this.spikeLayer, this.objLayer, this.wallLayer];
+
+        const navMesh = this.navMeshPlugin.buildMeshFromTilemap("mesh1", map, layers);
+        this.navMesh = navMesh;
+        console.log(navMesh)
+
+        // Graphics overlay for visualizing path
+        const graphics = this.add.graphics(0, 0).setAlpha(0.5);
+        navMesh.enableDebug(graphics);
+        const drawDebug = () => {
+        navMesh.debugDrawClear();
+        navMesh.debugDrawMesh({
+            drawCentroid: true,
+            drawBounds: true,
+            drawNeighbors: true,
+            drawPortals: true,
+        });
+        };
+        drawDebug();
+        this.input.keyboard.on("keydown-M", drawDebug);
+        
         let bgLoopMusic = this.sound.add('bgloop', {
             loop: true,
             volume: 0.25
@@ -210,6 +237,13 @@ export default class Arena0 extends Scene {
         raycaster.mapGameObjects(this.mirror, true);
         raycaster.mapGameObjects(this.player, true);
         raycaster.mapGameObjects(this.arena.walls.getChildren(), true);
+        //TODO: fix corrupted tilemap
+        // raycaster.mapGameObjects(this.wallLayer, false, {
+        //     collisionTiles: [10,11,12,13,15,17, 18,19,20,21,7, 8, 14, 16] //array of tiles types which can collide with ray // 10,11,12,13,15,17, 18,19,20,21,7, 8, 14, 16
+        // });
+        // raycaster.mapGameObjects(this.objLayer, false, {
+        //     collisionTiles: [10,11, 18, 19, 20, 21] //array of tiles types which can collide with ray //10,11, 18, 19, 20, 21
+        // });
 
         this.EnemiesManager = new EnemiesManager(this, raycaster);
         this.RoundManager = new RoundManager(this, this.EnemiesManager);

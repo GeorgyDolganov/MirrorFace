@@ -102,6 +102,7 @@ export default class AEnemy extends Phaser.Physics.Arcade.Sprite {
      */
     changeHealth(changeBy) {
         this.health += changeBy;
+        if( this.health > this.maxHealth ) this.health = this.maxHealth;
         this.healthBar.setHealth(this.health/this.maxHealth * 100);
     }
 

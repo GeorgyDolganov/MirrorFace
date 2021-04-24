@@ -8,10 +8,10 @@
             "x": 100,
             "y": 100
           },
-          "enemyType": "RaycasterEnemy",
+          "enemyType": "VampireEnemy",
           "delayBeforeSpawn": 0,
           "spawnRate": 3,
-          "totalSpawns": 5
+          "totalSpawns": 1
         }
       ]
     },
@@ -45,13 +45,13 @@
       "spawns": [
         {
           "position": {
-            "x": 100,
-            "y": 100
+            "x": 1400,
+            "y": 1400
           },
-          "enemyType": "RaycasterEnemy",
+          "enemyType": "VampireEnemy",
           "delayBeforeSpawn": 0,
           "spawnRate": 4,
-          "totalSpawns": 10
+          "totalSpawns": 3
         },
         {
           "position": {
