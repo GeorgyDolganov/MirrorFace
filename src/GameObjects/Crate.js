@@ -48,7 +48,6 @@ export default class Crate extends Phaser.Physics.Arcade.Sprite {
                 onComplete: tween => {
                     this.destroyed = false;
 
-                    this.on('animationcomplete', _ => {});
                     this.play(this.type+'Idle');
 
                     this.health = this.maxHealth;
