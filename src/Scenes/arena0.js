@@ -169,6 +169,27 @@ export default class Arena0 extends Scene {
             }
             
         })
+
+        const layers = [this.groundLayer, this.spikeLayer, this.objLayer, this.wallLayer];
+
+        const navMesh = this.navMeshPlugin.buildMeshFromTilemap("mesh1", map, layers);
+        this.navMesh = navMesh;
+        console.log(navMesh)
+
+        // Graphics overlay for visualizing path
+        const graphics = this.add.graphics(0, 0).setAlpha(0.5);
+        navMesh.enableDebug(graphics);
+        const drawDebug = () => {
+        navMesh.debugDrawClear();
+        navMesh.debugDrawMesh({
+            drawCentroid: true,
+            drawBounds: true,
+            drawNeighbors: true,
+            drawPortals: true,
+        });
+        };
+        drawDebug();
+        this.input.keyboard.on("keydown-M", drawDebug);
         
         let bgLoopMusic = this.sound.add('bgloop', {
             loop: true,

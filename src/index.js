@@ -1,5 +1,5 @@
 import PhaserRaycaster from 'phaser-raycaster';
-
+import NavMeshPlugin from "phaser-navmesh";
 
 import Arena0 from './Scenes/arena0'
 import GameMenuScene from "./Scenes/GameMenuScene";
@@ -42,11 +42,19 @@ let config = {
     },
     //enable Phaser-raycaster plugin
     plugins: {
-        scene: [{
-            key: 'PhaserRaycaster',
-            plugin: PhaserRaycaster,
-            mapping: 'raycasterPlugin'
-        }]
+        scene: [
+            {
+                key: "NavMeshPlugin", // Key to store the plugin class under in cache
+                plugin: NavMeshPlugin, // Class that constructs plugins
+                mapping: "navMeshPlugin", // Property mapping to use for the scene, e.g. this.navMeshPlugin
+                start: true,
+            },
+            {
+                key: 'PhaserRaycaster',
+                plugin: PhaserRaycaster,
+                mapping: 'raycasterPlugin'
+            }
+        ]
     }
 }
 
