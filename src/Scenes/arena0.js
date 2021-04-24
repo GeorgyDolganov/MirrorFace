@@ -45,6 +45,7 @@ import Player from "../GameObjects/Player";
 import Mirror from "../GameObjects/Mirror";
 
 import arena0Map from "../assets/tilemap/arena0.json"
+import arenaSkullMap from "../assets/tilemap/arenaSkull.json"
 import tilesetPNG from "../assets/SpriteSheets/tileset.png"
 
 var raycaster;
@@ -91,7 +92,7 @@ export default class Arena0 extends Scene {
         this.load.atlas('floorAtlas', floorPNG, floorJSON);
 
         this.load.image('tileset', tilesetPNG)
-        this.load.tilemapTiledJSON( 'map', arena0Map);
+        this.load.tilemapTiledJSON( 'map', arenaSkullMap);
         this.load.image('spark', blueSparkPNG);
 
         this.load.aseprite('vampire', vampirePNG, vampireJSON);
@@ -115,7 +116,7 @@ export default class Arena0 extends Scene {
             return ab.x + ab.width > bb.x && ab.x < bb.x + bb.width && ab.y + ab.height > bb.y && ab.y < bb.y + bb.height;
         }
 
-        this.physics.world.setBounds(0, 0, 48 * 32, 48 * 32);
+        this.physics.world.setBounds(0, 0, 64 * 32, 64 * 32);
 
         //Анимации
         this.anims.createFromAseprite('skeleton');

@@ -28,8 +28,9 @@ export default class RaycasterEnemy extends AEnemy {
         }));
 
         this.body.setCircle(12);
-        this.body.setOffset(4, 12);
+        this.body.setOffset(4, 16);
         this.rays[0].firstIgnoredObjects.push(this);
+        this.goTo(this.scene.player);
     }
 
     /**
@@ -37,8 +38,34 @@ export default class RaycasterEnemy extends AEnemy {
      * @param time
      * @param delta
      */
+    recalcPath = 0
     onUpdate(time, delta) {
-        this.moveTowardsTo(this.scene.player);
+        // this.moveTowardsTo(this.scene.player);
+        if (Phaser.Math.Distance.Between(this.x, this.y, scene.player.x, scene.player.y) > 150) {
+            if ( this.recalcPath++ > 100 ) {
+                this.recalcPath = 0;
+                this.goTo(scene.player);
+            } else
+                if ( this.releasePath() ) {
+                    if ( this.isStacked() ) {
+                        scene.tweens.add({
+                            targets: this,
+                            duration: 100,
+                            x: this.x + 10 * Math.sin(Math.random() * Math.PI * 2),
+                            y: this.y + 10 * Math.cos(Math.random() * Math.PI * 2)
+                        })
+                    }
+                } else {
+                    this.goTo(scene.player);
+                }
+        } else {
+            this.recalcPath = 0;
+            this.body.velocity.set(0);
+        }
+
+        let angle = Phaser.Math.Angle.Between(this.x, this.y, scene.player.x, scene.player.y)
+        this.rotation = angle;
+
         this.updateRays();
     }
 
