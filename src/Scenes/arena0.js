@@ -33,6 +33,9 @@ import skeletonJSON from "../assets/SpriteSheets/Skeleton.json"
 import floorPNG from "../assets/SpriteSheets/floor.png"
 import floorJSON from "../assets/SpriteSheets/floor.json"
 
+import vampirePNG from "../assets/SpriteSheets/Vampire.png"
+import vampireJSON from "../assets/SpriteSheets/Vampire.json"
+
 import bgLoopMP3 from "../assets/audio/bgloopNew.wav"
 import RoundManager from "../Managers/RoundManager";
 import Player from "../GameObjects/Player";
@@ -85,6 +88,8 @@ export default class Arena0 extends Scene {
         this.load.image('tileset', tilesetPNG)
         this.load.tilemapTiledJSON( 'map', arena0Map);
         this.load.image('spark', blueSparkPNG);
+
+        this.load.aseprite('vampire', vampirePNG, vampireJSON);
     }
 
     create() {
@@ -109,6 +114,7 @@ export default class Arena0 extends Scene {
 
         //Анимации
         this.anims.createFromAseprite('skeleton');
+        this.anims.createFromAseprite('vampire');
         this.textures.get('floorAtlas');
 
         //Создаем арену

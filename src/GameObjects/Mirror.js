@@ -113,6 +113,7 @@ export default class Mirror extends Phaser.Physics.Arcade.Sprite {
             blendMode: 'ADD',
             alpha: { start: 1, end: 0},
         });
+
         this._particlesContainer.add(particles);
     }
 
