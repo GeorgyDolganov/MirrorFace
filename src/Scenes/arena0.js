@@ -166,10 +166,7 @@ export default class Arena0 extends Scene {
         this.objLayer.setCollisionBetween(1, 50);
         this.wallLayer.setCollisionBetween(1, 50);
         // this.wallLayer.setCollisionByProperty({collides:true})
-        console.log(this.wallLayer);
-        let qwe = 0;
         this.wallLayer.forEachTile((tile, i)=>{
-            qwe += 1;
             if (tile.properties.canReflect) {
                 tile.canReflect = true
                 console.log(tile)
@@ -249,7 +246,6 @@ export default class Arena0 extends Scene {
             collisionTiles: [10,11, 18, 19, 20, 21] //array of tiles types which can collide with ray //10,11, 18, 19, 20, 21
         });
 
-        console.log(raycaster.mappedObjects);
         this.EnemiesManager = new EnemiesManager(this, raycaster);
         this.RoundManager = new RoundManager(this, this.EnemiesManager);
         this.RoundManager.setRound(1);
