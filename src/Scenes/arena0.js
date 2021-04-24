@@ -23,9 +23,12 @@ import Skeleton_headPNG from "../assets/Skeleton_head.png"
 import blueSparkPNG from "../assets/blue.png"
 import reflectParticlesPNG from "../assets/particles.png"
 
-import cratePNG from "../assets/crate.png"
-import crate2PNG from "../assets/crate2.png"
-import crateBigPNG from "../assets/crateBig.png"
+import cratePNG from "../assets/SpriteSheets/crateDestroy.png"
+import crateJSON from "../assets/SpriteSheets/crateDestroy.json"
+import crate2PNG from "../assets/SpriteSheets/crate2Destroy.png"
+import crate2JSON from "../assets/SpriteSheets/crate2Destroy.json"
+import crateBigPNG from "../assets/SpriteSheets/crateBigDestroy.png"
+import crateBigJSON from "../assets/SpriteSheets/crateBigDestroy.json"
 import bonePNG from "../assets/bone.png"
 
 import skeletonPNG from "../assets/SpriteSheets/Skeleton.png"
@@ -76,9 +79,9 @@ export default class Arena0 extends Scene {
         this.load.image('mirrorwall', mirrorwallPNG)
 
         this.load.image('bone', bonePNG)
-        this.load.image('crate', cratePNG);
-        this.load.image('crate2', crate2PNG)
-        this.load.image('crateBig', crateBigPNG)
+        this.load.atlas('crate', cratePNG, crateJSON)
+        this.load.atlas('crate2', crate2PNG, crate2JSON)
+        this.load.atlas('crateBig', crateBigPNG, crateBigJSON)
 
         this.load.image('Skeleton_body', Skeleton_bodyPNG)
         this.load.image('Skeleton_head', Skeleton_headPNG)
@@ -119,6 +122,12 @@ export default class Arena0 extends Scene {
         this.physics.world.setBounds(0, 0, 64 * 32, 64 * 32);
 
         //Анимации
+        this.anims.create({ key: 'crateIdle', frames: this.anims.generateFrameNames('crate', { prefix: 'particles.png_', end: 0, zeroPad: 0 }), repeat: 0, repeatDelay: 500, frameRate: 60 });
+        this.anims.create({ key: 'crateDestroy', frames: this.anims.generateFrameNames('crate', { prefix: 'particles.png_', end: 60, zeroPad: 0 }), repeat: 0, repeatDelay: 500, frameRate: 60 });
+        this.anims.create({ key: 'crate2Idle', frames: this.anims.generateFrameNames('crate2', { prefix: 'crate2.png_', end: 0, zeroPad: 0 }), repeat: 0, repeatDelay: 500, frameRate: 60 });
+        this.anims.create({ key: 'crate2Destroy', frames: this.anims.generateFrameNames('crate2', { prefix: 'crate2.png_', end: 60, zeroPad: 0 }), repeat: 0, repeatDelay: 500, frameRate: 60 });
+        this.anims.create({ key: 'crateBigIdle', frames: this.anims.generateFrameNames('crateBig', { prefix: 'render.png_', end: 0, zeroPad: 0 }), repeat: 0, repeatDelay: 500, frameRate: 60 });
+        this.anims.create({ key: 'crateBigDestroy', frames: this.anims.generateFrameNames('crateBig', { prefix: 'render.png_', end: 60, zeroPad: 0 }), repeat: 0, repeatDelay: 500, frameRate: 60 });
         this.anims.createFromAseprite('skeleton');
         this.anims.createFromAseprite('vampire');
         this.textures.get('floorAtlas');
