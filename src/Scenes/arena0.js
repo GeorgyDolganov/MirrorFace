@@ -163,9 +163,11 @@ export default class Arena0 extends Scene {
         this.spikeLayer = map.createStaticLayer('Spikes', [tiles], 0, 0)
         this.objLayer = map.createStaticLayer('Stones', [tiles], 0, 0)
         this.wallLayer = map.createStaticLayer('Walls', [tiles], 0, 0)
+        this.reflectLayer = map.createStaticLayer('ReflectableWalls', [tiles], 0, 0)
 
         this.objLayer.setCollisionBetween(1, 50);
         this.wallLayer.setCollisionBetween(1, 50);
+        this.reflectLayer.setCollisionBetween(1, 50);
         // this.wallLayer.setCollisionByProperty({collides:true})
         console.log(this.wallLayer)
         this.wallLayer.forEachTile((tile, i)=>{
@@ -224,7 +226,7 @@ export default class Arena0 extends Scene {
         createObstacles(this, obstacles);
 
         this.player = new Player(this);
-        this.physics.add.collider(this.player, [this.wallLayer, this.objLayer])
+        this.physics.add.collider(this.player, [this.wallLayer, this.objLayer, this.reflectLayer])
         this.add.existing(this.player);
         this.mirror = new Mirror(this);
 
@@ -310,7 +312,7 @@ export default class Arena0 extends Scene {
         }
 
         raycaster.mapGameObjects(cratesGroup.getChildren(), true);
-        this.physics.add.collider(cratesGroup, [this.player, this.wallLayer, this.objLayer]);
+        this.physics.add.collider(cratesGroup, [this.player, this.wallLayer, this.objLayer, this.reflectLayer]);
         this.physics.add.collider(cratesGroup, cratesGroup);
 
         this.staticObstacles = cratesGroup;
