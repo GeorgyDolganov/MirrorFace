@@ -227,6 +227,9 @@ export default class Arena0 extends Scene {
         raycaster.mapGameObjects(this.objLayer, false, {
             collisionTiles: [10,11, 18, 19, 20, 21] //array of tiles types which can collide with ray //10,11, 18, 19, 20, 21
         });
+        raycaster.mapGameObjects(this.reflectLayer, false, {
+            collisionTiles: [10,11,12,13,15,17, 18,19,20,21,7, 8, 14, 16] //array of tiles types which can collide with ray // 10,11,12,13,15,17, 18,19,20,21,7, 8, 14, 16
+        });
 
         this.EnemiesManager = new EnemiesManager(this, raycaster);
         this.RoundManager = new RoundManager(this, this.EnemiesManager);

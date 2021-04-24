@@ -64,13 +64,11 @@ export default class ReflectableRay {
         this.damage = this.initialDamage;
         let ray = this._getRay(fromPoint,angle);
 
-        silentLog(ReflectableRay.Raycaster.mappedObjects, this.getMappedObjects(), this.firstIgnoredObjects);
         let intersection = ray.cast({
             objects: this.getMappedObjects()
         });
         this.calculateCircleSegment(intersection);
 
-        //silentLog(intersection);
         let raySegment = new Phaser.Geom.Line(ray.origin.x, ray.origin.y, intersection.x, intersection.y);
         this._raySegments.push(raySegment);
         this._createNextSegment(raySegment, intersection);
@@ -89,7 +87,9 @@ export default class ReflectableRay {
             });
         }
 
-        if( !intersection.object.canReflect ) {
+        let defaultReflect = intersection.object.canReflect;
+        let tileReflect = this.isReflectedTile(intersection.object);
+        if( !defaultReflect && !tileReflect ) {
             return;
         }
 
@@ -105,6 +105,11 @@ export default class ReflectableRay {
         if( this._raySegments.length < this.MAX_REFLECTS) {
             this._createNextSegment(raySegment,nextIntersection);
         }
+    }
+
+    isReflectedTile(possibleTile) {
+        if( !possibleTile.layer ) return false;
+        return possibleTile.layer.name === "ReflectableWalls";
     }
 
     calculateCircleSegment(intersection) {
