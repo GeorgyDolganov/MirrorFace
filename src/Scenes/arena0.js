@@ -164,7 +164,7 @@ export default class Arena0 extends Scene {
             loop: true
         })
 
-        const layers = [this.groundLayer, this.spikeLayer, this.objLayer, this.wallLayer];
+        const layers = [this.groundLayer, this.spikeLayer, this.objLayer, this.wallLayer, this.reflectLayer];
 
         const navMesh = this.navMeshPlugin.buildMeshFromTilemap("mesh1", map, layers);
         this.navMesh = navMesh;
@@ -181,7 +181,7 @@ export default class Arena0 extends Scene {
             drawPortals: true,
         });
         };
-        drawDebug();
+        //drawDebug();
         this.input.keyboard.on("keydown-M", drawDebug);
         
         let bgLoopMusic = this.sound.add('bgloop', {
