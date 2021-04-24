@@ -37,6 +37,9 @@ import vampirePNG from "../assets/SpriteSheets/Vampire.png"
 import vampireJSON from "../assets/SpriteSheets/Vampire.json"
 
 import bgLoopMP3 from "../assets/audio/bgloopNew.wav"
+import mirrorPushWAV from "../assets/audio/mirrorPush.wav"
+import laser0WAV from "../assets/audio/laser0.wav"
+
 import RoundManager from "../Managers/RoundManager";
 import Player from "../GameObjects/Player";
 import Mirror from "../GameObjects/Mirror";
@@ -80,6 +83,8 @@ export default class Arena0 extends Scene {
         this.load.image('Skeleton_head', Skeleton_headPNG)
 
         this.load.audio('bgloop', bgLoopMP3)
+        this.load.audio('mirrorPush', mirrorPushWAV)
+        this.load.audio('laser0', laser0WAV)
 
         this.load.aseprite('skeleton', skeletonPNG, skeletonJSON)
         this.load.spritesheet('reflectParticles', reflectParticlesPNG, { frameWidth: 32, frameHeight: 32 });
@@ -170,6 +175,11 @@ export default class Arena0 extends Scene {
             
         })
 
+        this.mirrorHitSound = this.sound.add('laser0', {
+            volume: 0.10,
+            loop: true
+        })
+
         const layers = [this.groundLayer, this.spikeLayer, this.objLayer, this.wallLayer];
 
         const navMesh = this.navMeshPlugin.buildMeshFromTilemap("mesh1", map, layers);
@@ -228,12 +238,12 @@ export default class Arena0 extends Scene {
         raycaster.mapGameObjects(this.player, true);
         raycaster.mapGameObjects(this.arena.walls.getChildren(), true);
         //TODO: fix corrupted tilemap
-        // raycaster.mapGameObjects(this.wallLayer, false, {
-        //     collisionTiles: [10,11,12,13,15,17, 18,19,20,21,7, 8, 14, 16] //array of tiles types which can collide with ray // 10,11,12,13,15,17, 18,19,20,21,7, 8, 14, 16
-        // });
-        // raycaster.mapGameObjects(this.objLayer, false, {
-        //     collisionTiles: [10,11, 18, 19, 20, 21] //array of tiles types which can collide with ray //10,11, 18, 19, 20, 21
-        // });
+        raycaster.mapGameObjects(this.wallLayer, false, {
+            collisionTiles: [10,11,12,13,15,17, 18,19,20,21,7, 8, 14, 16] //array of tiles types which can collide with ray // 10,11,12,13,15,17, 18,19,20,21,7, 8, 14, 16
+        });
+        raycaster.mapGameObjects(this.objLayer, false, {
+            collisionTiles: [10,11, 18, 19, 20, 21] //array of tiles types which can collide with ray //10,11, 18, 19, 20, 21
+        });
 
         this.EnemiesManager = new EnemiesManager(this, raycaster);
         this.RoundManager = new RoundManager(this, this.EnemiesManager);

@@ -40,6 +40,12 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
 
         this.grenadeType = scene.grenadeType;
 
+        this.mirrorPushSound = scene.sound.add('mirrorPush', {
+            volume: 0.25,
+            loop: false
+        })
+
+
         scene.input.on('pointerdown', function (pointer) {
 
             if (pointer.leftButtonDown())
@@ -101,7 +107,7 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
 
     hit() {
         if ( this.hitReady === false ) return;
-
+        this.mirrorPushSound.play()
         this.hitReady = false;
 
         mirrorTween = scene.tweens.add({
