@@ -28,6 +28,37 @@ export default class Crate extends Phaser.Physics.Arcade.Sprite {
         this.setDamping(true);
         this.setDrag(0.0009);
         this.setCollideWorldBounds(true);
+
+        this.on('animationcomplete', _ => {
+            if ( this.destroyed === false ) return;
+
+            this.setVisible(false);
+            this.setActive(false);
+
+            let type = GRENADES_TYPES[Math.floor(Math.random() * GRENADES_TYPES.length)];
+            let quantity = Math.floor(Math.random() * (this.type === 'crateBig' ? 4 : 2));
+
+            if ( quantity > 0 ) scene.player.addItem(type, quantity);
+
+            scene.tweens.add({
+                targets: this,
+                duration: ( Math.floor(Math.random() * 3) + 2 ) * 1000,
+                x: Math.floor( Math.random() * scene.physics.world.bounds.width ),
+                y: Math.floor( Math.random() * scene.physics.world.bounds.height ),
+                onComplete: tween => {
+                    this.destroyed = false;
+
+                    this.on('animationcomplete', _ => {});
+                    this.play(this.type+'Idle');
+
+                    this.health = this.maxHealth;
+
+                    this.body.setEnable(true);
+                    this.setActive(true);
+                    this.setVisible(true);
+                }
+            });
+        });
     }
 
     damage(damage) {
@@ -40,34 +71,6 @@ export default class Crate extends Phaser.Physics.Arcade.Sprite {
 
             this.body.setEnable(false);
 
-            this.on('animationcomplete', _ => {
-                this.setVisible(false);
-                this.setActive(false);
-
-                let type = GRENADES_TYPES[Math.floor(Math.random() * GRENADES_TYPES.length)];
-                let quantity = Math.floor(Math.random() * (this.type === 'crateBig' ? 4 : 2));
-
-                if ( quantity > 0 ) scene.player.addItem(type, quantity);
-
-                scene.tweens.add({
-                    targets: this,
-                    duration: ( Math.floor(Math.random() * 3) + 2 ) * 1000,
-                    x: Math.floor( Math.random() * scene.physics.world.bounds.width ),
-                    y: Math.floor( Math.random() * scene.physics.world.bounds.height ),
-                    onComplete: tween => {
-                        this.destroyed = false;
-
-                        this.on('animationcomplete', _ => {});
-                        this.play(this.type+'Idle');
-
-                        this.health = this.maxHealth;
-
-                        this.body.setEnable(true);
-                        this.setActive(true);
-                        this.setVisible(true);
-                    }
-                });
-            });
             this.play(this.type+'Destroy');
         }
     }
