@@ -1,13 +1,17 @@
-import PhaserRaycaster from 'phaser-raycaster';
-import NavMeshPlugin from "phaser-navmesh";
+import PhaserRaycaster from 'phaser-raycaster'
+import NavMeshPlugin from "phaser-navmesh"
 
 import Arena0 from './Scenes/arena0'
-import GameMenuScene from "./Scenes/GameMenuScene";
-import {getQueryParams} from "./Helpers";
+import GameMenuScene from "./Scenes/GameMenuScene"
+import RoundShop from "./Scenes/roundShop"
+
+import {getQueryParams} from "./Helpers"
 
 let scenes;
 if( getQueryParams(document.location.search).dev ) {
     scenes = [Arena0, GameMenuScene]
+} else if( getQueryParams(document.location.search).shop ) {
+    scenes = [RoundShop]
 } else {
     scenes = [GameMenuScene, Arena0 ];
 }
