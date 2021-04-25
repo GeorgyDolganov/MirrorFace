@@ -38,13 +38,6 @@ export default class SkeletonEnemy extends RaycasterEnemy {
 
                if (this.currentAction === 'movement') {
                 if ( this.isStacked() ) {
-                    scene.tweens.add({
-                        targets: this,
-                        duration: 100,
-                        x: this.x + 10 * Math.sin(Math.random() * Math.PI * 2),
-                        y: this.y + 10 * Math.cos(Math.random() * Math.PI * 2)
-                    })
-
                     this.findNextPosition();
                 } else {
                     if ( !this.releasePath() ) this.handleMovementAction(time,delta);
