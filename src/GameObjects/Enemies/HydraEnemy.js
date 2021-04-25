@@ -167,7 +167,7 @@ export default class HydraEnemy extends AEnemy {
                 this.turn(this._leftHead)
             } else {
                 this.leftTurn = Math.floor(Math.random() * 750) + 750
-                let item = new Item(scene, this.x + 100 * Math.sin(this._realRotation), this.y + 100 * Math.cos(this._realRotation), 'burn');
+                let item = new Item(scene, this.x + 100 * Math.sin(this._realRotation), this.y + 100 * Math.cos(this._realRotation), 'hydraBurn');
                 this.throw(item, {x: 30, y: 30}, this._leftHead.rotation);
             }
         }
@@ -177,14 +177,14 @@ export default class HydraEnemy extends AEnemy {
                 this.turn(this._rightHead)
             } else {
                 this.rightTurn = Math.floor(Math.random() * 750) + 750
-                let item = new Item(scene, this.x + 100 * Math.sin(this._realRotation), this.y + 100 * Math.cos(this._realRotation), 'burn');
+                let item = new Item(scene, this.x + 100 * Math.sin(this._realRotation), this.y + 100 * Math.cos(this._realRotation), 'hydraBurn');
                 this.throw(item, {x: -30, y: 30}, this._rightHead.rotation);
             }
         }
         if ( this.centerTurn-- <= 0 ) {
             if ( this.state > 3 ) {
                 this.centerTurn = Math.floor(Math.random() * 500) + 500
-                let item = new Item(scene, this.x + 100 * Math.sin(this._realRotation), this.y + 100 * Math.cos(this._realRotation), 'damage');
+                let item = new Item(scene, this.x + 100 * Math.sin(this._realRotation), this.y + 100 * Math.cos(this._realRotation), 'hydraExplode');
                 this.throw(item, {x: -30, y: 30}, this._centerHead.rotation);
             }
         }

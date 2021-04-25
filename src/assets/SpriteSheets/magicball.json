@@ -1,0 +1,650 @@
+{
+	"textures": [
+		{
+			"image": "magicball.png",
+			"format": "RGBA8888",
+			"size": {
+				"w": 173,
+				"h": 196
+			},
+			"scale": 1,
+			"frames": [
+				{
+					"filename": "magicball_22",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 38,
+						"h": 38
+					},
+					"spriteSourceSize": {
+						"x": 2,
+						"y": 0,
+						"w": 34,
+						"h": 32
+					},
+					"frame": {
+						"x": 1,
+						"y": 1,
+						"w": 34,
+						"h": 32
+					}
+				},
+				{
+					"filename": "magicball_15",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 38,
+						"h": 38
+					},
+					"spriteSourceSize": {
+						"x": 3,
+						"y": 0,
+						"w": 35,
+						"h": 31
+					},
+					"frame": {
+						"x": 1,
+						"y": 35,
+						"w": 35,
+						"h": 31
+					}
+				},
+				{
+					"filename": "magicball_16",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 38,
+						"h": 38
+					},
+					"spriteSourceSize": {
+						"x": 3,
+						"y": 0,
+						"w": 35,
+						"h": 31
+					},
+					"frame": {
+						"x": 37,
+						"y": 1,
+						"w": 35,
+						"h": 31
+					}
+				},
+				{
+					"filename": "magicball_29",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 38,
+						"h": 38
+					},
+					"spriteSourceSize": {
+						"x": 1,
+						"y": 0,
+						"w": 34,
+						"h": 32
+					},
+					"frame": {
+						"x": 38,
+						"y": 34,
+						"w": 34,
+						"h": 32
+					}
+				},
+				{
+					"filename": "magicball_12",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 38,
+						"h": 38
+					},
+					"spriteSourceSize": {
+						"x": 3,
+						"y": 1,
+						"w": 35,
+						"h": 30
+					},
+					"frame": {
+						"x": 1,
+						"y": 68,
+						"w": 35,
+						"h": 30
+					}
+				},
+				{
+					"filename": "magicball_13",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 38,
+						"h": 38
+					},
+					"spriteSourceSize": {
+						"x": 3,
+						"y": 0,
+						"w": 34,
+						"h": 31
+					},
+					"frame": {
+						"x": 38,
+						"y": 68,
+						"w": 34,
+						"h": 31
+					}
+				},
+				{
+					"filename": "magicball_19",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 38,
+						"h": 38
+					},
+					"spriteSourceSize": {
+						"x": 3,
+						"y": 0,
+						"w": 32,
+						"h": 32
+					},
+					"frame": {
+						"x": 1,
+						"y": 100,
+						"w": 32,
+						"h": 32
+					}
+				},
+				{
+					"filename": "magicball_14",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 38,
+						"h": 38
+					},
+					"spriteSourceSize": {
+						"x": 3,
+						"y": 0,
+						"w": 34,
+						"h": 31
+					},
+					"frame": {
+						"x": 35,
+						"y": 101,
+						"w": 34,
+						"h": 31
+					}
+				},
+				{
+					"filename": "magicball_17",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 38,
+						"h": 38
+					},
+					"spriteSourceSize": {
+						"x": 4,
+						"y": 0,
+						"w": 34,
+						"h": 30
+					},
+					"frame": {
+						"x": 71,
+						"y": 101,
+						"w": 34,
+						"h": 30
+					}
+				},
+				{
+					"filename": "magicball_26",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 38,
+						"h": 38
+					},
+					"spriteSourceSize": {
+						"x": 1,
+						"y": 0,
+						"w": 34,
+						"h": 30
+					},
+					"frame": {
+						"x": 71,
+						"y": 133,
+						"w": 34,
+						"h": 30
+					}
+				},
+				{
+					"filename": "magicball_11",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 38,
+						"h": 38
+					},
+					"spriteSourceSize": {
+						"x": 3,
+						"y": 2,
+						"w": 34,
+						"h": 28
+					},
+					"frame": {
+						"x": 1,
+						"y": 134,
+						"w": 34,
+						"h": 28
+					}
+				},
+				{
+					"filename": "magicball_27",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 38,
+						"h": 38
+					},
+					"spriteSourceSize": {
+						"x": 2,
+						"y": 1,
+						"w": 32,
+						"h": 31
+					},
+					"frame": {
+						"x": 37,
+						"y": 134,
+						"w": 32,
+						"h": 31
+					}
+				},
+				{
+					"filename": "magicball_20",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 38,
+						"h": 38
+					},
+					"spriteSourceSize": {
+						"x": 2,
+						"y": 0,
+						"w": 33,
+						"h": 31
+					},
+					"frame": {
+						"x": 1,
+						"y": 164,
+						"w": 33,
+						"h": 31
+					}
+				},
+				{
+					"filename": "magicball_24",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 38,
+						"h": 38
+					},
+					"spriteSourceSize": {
+						"x": 1,
+						"y": 0,
+						"w": 33,
+						"h": 31
+					},
+					"frame": {
+						"x": 74,
+						"y": 1,
+						"w": 33,
+						"h": 31
+					}
+				},
+				{
+					"filename": "magicball_10",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 38,
+						"h": 38
+					},
+					"spriteSourceSize": {
+						"x": 4,
+						"y": 0,
+						"w": 33,
+						"h": 30
+					},
+					"frame": {
+						"x": 74,
+						"y": 34,
+						"w": 33,
+						"h": 30
+					}
+				},
+				{
+					"filename": "magicball_25",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 38,
+						"h": 38
+					},
+					"spriteSourceSize": {
+						"x": 1,
+						"y": 1,
+						"w": 33,
+						"h": 30
+					},
+					"frame": {
+						"x": 74,
+						"y": 66,
+						"w": 33,
+						"h": 30
+					}
+				},
+				{
+					"filename": "magicball_28",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 38,
+						"h": 38
+					},
+					"spriteSourceSize": {
+						"x": 3,
+						"y": 0,
+						"w": 32,
+						"h": 31
+					},
+					"frame": {
+						"x": 107,
+						"y": 98,
+						"w": 32,
+						"h": 31
+					}
+				},
+				{
+					"filename": "magicball_9",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 38,
+						"h": 38
+					},
+					"spriteSourceSize": {
+						"x": 4,
+						"y": 1,
+						"w": 33,
+						"h": 30
+					},
+					"frame": {
+						"x": 107,
+						"y": 131,
+						"w": 33,
+						"h": 30
+					}
+				},
+				{
+					"filename": "magicball_21",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 38,
+						"h": 38
+					},
+					"spriteSourceSize": {
+						"x": 3,
+						"y": 0,
+						"w": 32,
+						"h": 30
+					},
+					"frame": {
+						"x": 107,
+						"y": 163,
+						"w": 32,
+						"h": 30
+					}
+				},
+				{
+					"filename": "magicball_23",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 38,
+						"h": 38
+					},
+					"spriteSourceSize": {
+						"x": 3,
+						"y": 0,
+						"w": 31,
+						"h": 30
+					},
+					"frame": {
+						"x": 141,
+						"y": 163,
+						"w": 31,
+						"h": 30
+					}
+				},
+				{
+					"filename": "magicball_7",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 38,
+						"h": 38
+					},
+					"spriteSourceSize": {
+						"x": 5,
+						"y": 1,
+						"w": 32,
+						"h": 29
+					},
+					"frame": {
+						"x": 71,
+						"y": 165,
+						"w": 32,
+						"h": 29
+					}
+				},
+				{
+					"filename": "magicball_8",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 38,
+						"h": 38
+					},
+					"spriteSourceSize": {
+						"x": 5,
+						"y": 2,
+						"w": 32,
+						"h": 28
+					},
+					"frame": {
+						"x": 36,
+						"y": 167,
+						"w": 32,
+						"h": 28
+					}
+				},
+				{
+					"filename": "magicball_6",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 38,
+						"h": 38
+					},
+					"spriteSourceSize": {
+						"x": 5,
+						"y": 1,
+						"w": 31,
+						"h": 30
+					},
+					"frame": {
+						"x": 109,
+						"y": 1,
+						"w": 31,
+						"h": 30
+					}
+				},
+				{
+					"filename": "magicball_18",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 38,
+						"h": 38
+					},
+					"spriteSourceSize": {
+						"x": 4,
+						"y": 0,
+						"w": 30,
+						"h": 30
+					},
+					"frame": {
+						"x": 109,
+						"y": 33,
+						"w": 30,
+						"h": 30
+					}
+				},
+				{
+					"filename": "magicball_2",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 38,
+						"h": 38
+					},
+					"spriteSourceSize": {
+						"x": 4,
+						"y": 2,
+						"w": 31,
+						"h": 28
+					},
+					"frame": {
+						"x": 109,
+						"y": 65,
+						"w": 31,
+						"h": 28
+					}
+				},
+				{
+					"filename": "magicball_3",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 38,
+						"h": 38
+					},
+					"spriteSourceSize": {
+						"x": 5,
+						"y": 1,
+						"w": 30,
+						"h": 29
+					},
+					"frame": {
+						"x": 141,
+						"y": 33,
+						"w": 30,
+						"h": 29
+					}
+				},
+				{
+					"filename": "magicball_4",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 38,
+						"h": 38
+					},
+					"spriteSourceSize": {
+						"x": 5,
+						"y": 1,
+						"w": 30,
+						"h": 29
+					},
+					"frame": {
+						"x": 142,
+						"y": 1,
+						"w": 30,
+						"h": 29
+					}
+				},
+				{
+					"filename": "magicball_5",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 38,
+						"h": 38
+					},
+					"spriteSourceSize": {
+						"x": 5,
+						"y": 1,
+						"w": 30,
+						"h": 29
+					},
+					"frame": {
+						"x": 141,
+						"y": 95,
+						"w": 30,
+						"h": 29
+					}
+				},
+				{
+					"filename": "magicball_1",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 38,
+						"h": 38
+					},
+					"spriteSourceSize": {
+						"x": 6,
+						"y": 3,
+						"w": 29,
+						"h": 27
+					},
+					"frame": {
+						"x": 142,
+						"y": 64,
+						"w": 29,
+						"h": 27
+					}
+				},
+				{
+					"filename": "magicball_0",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 38,
+						"h": 38
+					},
+					"spriteSourceSize": {
+						"x": 7,
+						"y": 2,
+						"w": 27,
+						"h": 29
+					},
+					"frame": {
+						"x": 142,
+						"y": 126,
+						"w": 27,
+						"h": 29
+					}
+				}
+			]
+		}
+	],
+	"meta": {
+		"app": "https://www.codeandweb.com/texturepacker",
+		"version": "3.0",
+		"smartupdate": "$TexturePacker:SmartUpdate:ec03c929e5d28ef57b68691b461bfffd:89e8758edcc5736d80dc8467804178da:e294c6f8b99679270dd5e00dd52bcbb2$"
+	}
+}

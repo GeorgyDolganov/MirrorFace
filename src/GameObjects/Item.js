@@ -6,6 +6,9 @@ export default class Item extends Phaser.Physics.Arcade.Sprite {
     constructor(scene, x, y, type) {
         super(scene, x, y, 'grenade');
 
+        if ( type === 'magicicanAttack' ) this.play('magicball');
+        if ( type === 'hydraBurn' || type === 'hydraExplode' ) this.play('fireball');
+
         this.type = type;
         scene.add.existing(this);
         scene.physics.add.existing(this);
@@ -124,6 +127,7 @@ export default class Item extends Phaser.Physics.Arcade.Sprite {
 
                 break;
             }
+            case 'hydraExplode':
             case 'damage': {
                 let area = this.scene.add.circle(this.x, this.y, 50).setStrokeStyle(1, 0xff0000);
 
@@ -156,6 +160,7 @@ export default class Item extends Phaser.Physics.Arcade.Sprite {
 
                 break;
             }
+            case 'hydraBurn':
             case 'burn': {
                 let area = this.scene.add.circle(this.x, this.y, 100).setStrokeStyle(1, 0xff0000);
 

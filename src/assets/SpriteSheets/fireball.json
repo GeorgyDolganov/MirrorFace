@@ -1,0 +1,650 @@
+{
+	"textures": [
+		{
+			"image": "fireball.png",
+			"format": "RGBA8888",
+			"size": {
+				"w": 45,
+				"h": 1343
+			},
+			"scale": 1,
+			"frames": [
+				{
+					"filename": "fireball_0",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 58,
+						"h": 58
+					},
+					"spriteSourceSize": {
+						"x": 7,
+						"y": 4,
+						"w": 43,
+						"h": 43
+					},
+					"frame": {
+						"x": 1,
+						"y": 1,
+						"w": 43,
+						"h": 43
+					}
+				},
+				{
+					"filename": "fireball_1",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 58,
+						"h": 58
+					},
+					"spriteSourceSize": {
+						"x": 7,
+						"y": 4,
+						"w": 43,
+						"h": 43
+					},
+					"frame": {
+						"x": 1,
+						"y": 46,
+						"w": 43,
+						"h": 43
+					}
+				},
+				{
+					"filename": "fireball_10",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 58,
+						"h": 58
+					},
+					"spriteSourceSize": {
+						"x": 7,
+						"y": 4,
+						"w": 43,
+						"h": 43
+					},
+					"frame": {
+						"x": 1,
+						"y": 91,
+						"w": 43,
+						"h": 43
+					}
+				},
+				{
+					"filename": "fireball_11",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 58,
+						"h": 58
+					},
+					"spriteSourceSize": {
+						"x": 7,
+						"y": 4,
+						"w": 43,
+						"h": 43
+					},
+					"frame": {
+						"x": 1,
+						"y": 136,
+						"w": 43,
+						"h": 43
+					}
+				},
+				{
+					"filename": "fireball_12",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 58,
+						"h": 58
+					},
+					"spriteSourceSize": {
+						"x": 7,
+						"y": 4,
+						"w": 43,
+						"h": 43
+					},
+					"frame": {
+						"x": 1,
+						"y": 181,
+						"w": 43,
+						"h": 43
+					}
+				},
+				{
+					"filename": "fireball_13",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 58,
+						"h": 58
+					},
+					"spriteSourceSize": {
+						"x": 7,
+						"y": 4,
+						"w": 43,
+						"h": 43
+					},
+					"frame": {
+						"x": 1,
+						"y": 226,
+						"w": 43,
+						"h": 43
+					}
+				},
+				{
+					"filename": "fireball_15",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 58,
+						"h": 58
+					},
+					"spriteSourceSize": {
+						"x": 7,
+						"y": 4,
+						"w": 43,
+						"h": 43
+					},
+					"frame": {
+						"x": 1,
+						"y": 271,
+						"w": 43,
+						"h": 43
+					}
+				},
+				{
+					"filename": "fireball_16",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 58,
+						"h": 58
+					},
+					"spriteSourceSize": {
+						"x": 7,
+						"y": 4,
+						"w": 43,
+						"h": 43
+					},
+					"frame": {
+						"x": 1,
+						"y": 316,
+						"w": 43,
+						"h": 43
+					}
+				},
+				{
+					"filename": "fireball_17",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 58,
+						"h": 58
+					},
+					"spriteSourceSize": {
+						"x": 7,
+						"y": 4,
+						"w": 43,
+						"h": 43
+					},
+					"frame": {
+						"x": 1,
+						"y": 361,
+						"w": 43,
+						"h": 43
+					}
+				},
+				{
+					"filename": "fireball_19",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 58,
+						"h": 58
+					},
+					"spriteSourceSize": {
+						"x": 7,
+						"y": 4,
+						"w": 43,
+						"h": 43
+					},
+					"frame": {
+						"x": 1,
+						"y": 406,
+						"w": 43,
+						"h": 43
+					}
+				},
+				{
+					"filename": "fireball_2",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 58,
+						"h": 58
+					},
+					"spriteSourceSize": {
+						"x": 7,
+						"y": 4,
+						"w": 43,
+						"h": 43
+					},
+					"frame": {
+						"x": 1,
+						"y": 451,
+						"w": 43,
+						"h": 43
+					}
+				},
+				{
+					"filename": "fireball_20",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 58,
+						"h": 58
+					},
+					"spriteSourceSize": {
+						"x": 7,
+						"y": 4,
+						"w": 43,
+						"h": 43
+					},
+					"frame": {
+						"x": 1,
+						"y": 496,
+						"w": 43,
+						"h": 43
+					}
+				},
+				{
+					"filename": "fireball_21",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 58,
+						"h": 58
+					},
+					"spriteSourceSize": {
+						"x": 7,
+						"y": 4,
+						"w": 43,
+						"h": 43
+					},
+					"frame": {
+						"x": 1,
+						"y": 541,
+						"w": 43,
+						"h": 43
+					}
+				},
+				{
+					"filename": "fireball_22",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 58,
+						"h": 58
+					},
+					"spriteSourceSize": {
+						"x": 7,
+						"y": 4,
+						"w": 43,
+						"h": 43
+					},
+					"frame": {
+						"x": 1,
+						"y": 586,
+						"w": 43,
+						"h": 43
+					}
+				},
+				{
+					"filename": "fireball_25",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 58,
+						"h": 58
+					},
+					"spriteSourceSize": {
+						"x": 7,
+						"y": 4,
+						"w": 43,
+						"h": 43
+					},
+					"frame": {
+						"x": 1,
+						"y": 631,
+						"w": 43,
+						"h": 43
+					}
+				},
+				{
+					"filename": "fireball_27",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 58,
+						"h": 58
+					},
+					"spriteSourceSize": {
+						"x": 7,
+						"y": 4,
+						"w": 43,
+						"h": 43
+					},
+					"frame": {
+						"x": 1,
+						"y": 676,
+						"w": 43,
+						"h": 43
+					}
+				},
+				{
+					"filename": "fireball_28",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 58,
+						"h": 58
+					},
+					"spriteSourceSize": {
+						"x": 7,
+						"y": 4,
+						"w": 43,
+						"h": 43
+					},
+					"frame": {
+						"x": 1,
+						"y": 721,
+						"w": 43,
+						"h": 43
+					}
+				},
+				{
+					"filename": "fireball_29",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 58,
+						"h": 58
+					},
+					"spriteSourceSize": {
+						"x": 7,
+						"y": 4,
+						"w": 43,
+						"h": 43
+					},
+					"frame": {
+						"x": 1,
+						"y": 766,
+						"w": 43,
+						"h": 43
+					}
+				},
+				{
+					"filename": "fireball_4",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 58,
+						"h": 58
+					},
+					"spriteSourceSize": {
+						"x": 7,
+						"y": 4,
+						"w": 43,
+						"h": 43
+					},
+					"frame": {
+						"x": 1,
+						"y": 811,
+						"w": 43,
+						"h": 43
+					}
+				},
+				{
+					"filename": "fireball_5",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 58,
+						"h": 58
+					},
+					"spriteSourceSize": {
+						"x": 7,
+						"y": 4,
+						"w": 43,
+						"h": 43
+					},
+					"frame": {
+						"x": 1,
+						"y": 856,
+						"w": 43,
+						"h": 43
+					}
+				},
+				{
+					"filename": "fireball_9",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 58,
+						"h": 58
+					},
+					"spriteSourceSize": {
+						"x": 7,
+						"y": 4,
+						"w": 43,
+						"h": 43
+					},
+					"frame": {
+						"x": 1,
+						"y": 901,
+						"w": 43,
+						"h": 43
+					}
+				},
+				{
+					"filename": "fireball_18",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 58,
+						"h": 58
+					},
+					"spriteSourceSize": {
+						"x": 7,
+						"y": 4,
+						"w": 43,
+						"h": 42
+					},
+					"frame": {
+						"x": 1,
+						"y": 946,
+						"w": 43,
+						"h": 42
+					}
+				},
+				{
+					"filename": "fireball_23",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 58,
+						"h": 58
+					},
+					"spriteSourceSize": {
+						"x": 7,
+						"y": 5,
+						"w": 43,
+						"h": 42
+					},
+					"frame": {
+						"x": 1,
+						"y": 990,
+						"w": 43,
+						"h": 42
+					}
+				},
+				{
+					"filename": "fireball_24",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 58,
+						"h": 58
+					},
+					"spriteSourceSize": {
+						"x": 7,
+						"y": 5,
+						"w": 43,
+						"h": 42
+					},
+					"frame": {
+						"x": 1,
+						"y": 1034,
+						"w": 43,
+						"h": 42
+					}
+				},
+				{
+					"filename": "fireball_3",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 58,
+						"h": 58
+					},
+					"spriteSourceSize": {
+						"x": 7,
+						"y": 5,
+						"w": 43,
+						"h": 42
+					},
+					"frame": {
+						"x": 1,
+						"y": 1078,
+						"w": 43,
+						"h": 42
+					}
+				},
+				{
+					"filename": "fireball_6",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 58,
+						"h": 58
+					},
+					"spriteSourceSize": {
+						"x": 7,
+						"y": 5,
+						"w": 43,
+						"h": 42
+					},
+					"frame": {
+						"x": 1,
+						"y": 1122,
+						"w": 43,
+						"h": 42
+					}
+				},
+				{
+					"filename": "fireball_7",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 58,
+						"h": 58
+					},
+					"spriteSourceSize": {
+						"x": 7,
+						"y": 5,
+						"w": 43,
+						"h": 42
+					},
+					"frame": {
+						"x": 1,
+						"y": 1166,
+						"w": 43,
+						"h": 42
+					}
+				},
+				{
+					"filename": "fireball_8",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 58,
+						"h": 58
+					},
+					"spriteSourceSize": {
+						"x": 7,
+						"y": 5,
+						"w": 43,
+						"h": 42
+					},
+					"frame": {
+						"x": 1,
+						"y": 1210,
+						"w": 43,
+						"h": 42
+					}
+				},
+				{
+					"filename": "fireball_14",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 58,
+						"h": 58
+					},
+					"spriteSourceSize": {
+						"x": 8,
+						"y": 4,
+						"w": 42,
+						"h": 43
+					},
+					"frame": {
+						"x": 1,
+						"y": 1254,
+						"w": 42,
+						"h": 43
+					}
+				},
+				{
+					"filename": "fireball_26",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 58,
+						"h": 58
+					},
+					"spriteSourceSize": {
+						"x": 8,
+						"y": 4,
+						"w": 42,
+						"h": 43
+					},
+					"frame": {
+						"x": 1,
+						"y": 1299,
+						"w": 42,
+						"h": 43
+					}
+				}
+			]
+		}
+	],
+	"meta": {
+		"app": "https://www.codeandweb.com/texturepacker",
+		"version": "3.0",
+		"smartupdate": "$TexturePacker:SmartUpdate:c6f48f6dd546b2965ffbcda12ac00cd5:3d869c10394f3232bda48a89381707ed:cf4d7da423ed931a533dcca7b8983428$"
+	}
+}
