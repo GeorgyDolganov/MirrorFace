@@ -155,9 +155,9 @@ export default class Arena0 extends Scene {
         this.anims.create({ key: 'crateBigIdle', frames: this.anims.generateFrameNames('crateBig', { prefix: 'render.png_', end: 0, zeroPad: 0 }), repeat: 0, repeatDelay: 500, frameRate: 60 });
         this.anims.create({ key: 'crateBigDestroy', frames: this.anims.generateFrameNames('crateBig', { prefix: 'render.png_', end: 60, zeroPad: 0 }), repeat: 0, repeatDelay: 500, frameRate: 60 });
 
-        this.anims.create({ key: 'hydra_death', frames: this.anims.generateFrameNames('hydra', { prefix: 'death_', suffix: ".png", end: 38, zeroPad: 0 }), repeat: -1, repeatDelay: 0, frameRate: 24 });
-        this.anims.create({ key: 'hydra_attack', frames: this.anims.generateFrameNames('hydra', { prefix: 'attack_', suffix: ".png",end: 8, zeroPad: 0 }), repeat: -1, repeatDelay: 0, frameRate: 24 });
-        this.anims.create({ key: 'hydra_walk', frames: this.anims.generateFrameNames('hydra', { prefix: 'walk_', suffix: ".png", end: 10, zeroPad: 0 }), repeat: -1, repeatDelay: 0, frameRate: 24 });
+        this.anims.create({ key: 'hydra_death', frames: this.anims.generateFrameNames('hydra', { prefix: 'death_', suffix: ".png", end: 36, zeroPad: 0 }), repeat: -1, repeatDelay: 0, frameRate: 24 });
+        this.anims.create({ key: 'hydra_attack', frames: this.anims.generateFrameNames('hydra', { prefix: 'attack_', suffix: ".png",end: 7, zeroPad: 0 }), repeat: -1, repeatDelay: 0, frameRate: 24 });
+        this.anims.create({ key: 'hydra_walk', frames: this.anims.generateFrameNames('hydra', { prefix: 'walk_', suffix: ".png", end: 9, zeroPad: 0 }), repeat: -1, repeatDelay: 0, frameRate: 24 });
 
         this.anims.createFromAseprite('skeleton');
         this.anims.createFromAseprite('vampire');

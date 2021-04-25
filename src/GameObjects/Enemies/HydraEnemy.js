@@ -58,7 +58,17 @@ export default class HydraEnemy extends AEnemy {
 
     }
 
+    onRayHit(ray) {
+        super.onRayHit(ray);
+        this._leftHead.tint = 0xff0000;
+        this._centerHead.tint = 0xff0000;
+        this._rightHead.tint = 0xff0000;
+    }
+
     onUpdate(time, delta) {
+        this._leftHead.clearTint();
+        this._centerHead.clearTint();
+        this._rightHead.clearTint();
         this._realRotation = Phaser.Math.Angle.Between(this.x, this.y, this.scene.player.x, this.scene.player.y) - Math.PI/2;
 
         this._container.setRotation(this._realRotation);
