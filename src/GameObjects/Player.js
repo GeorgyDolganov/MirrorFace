@@ -4,7 +4,7 @@ import Item from "./Item";
 let mirrorTween
 export default class Player extends Phaser.Physics.Arcade.Sprite {
     hitReady = true;
-    speed = 160;
+    speed = 200;
     items = [
         {
             quantity: 1,
@@ -42,7 +42,7 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
 
         this.setDamping(true);
         this.setDrag(0.0009);
-        this.setMaxVelocity(200);
+        this.setMaxVelocity(500);
         this.health = 100;
 
         this.body.setCircle(15);
