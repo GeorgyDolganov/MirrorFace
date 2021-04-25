@@ -22,10 +22,10 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
     mirror = 'small'
     perks = [
         {
-            name: 'lightArmor',
+            name: 'mediumArmor',
             img: '',
-            health: -20,
-            speed: 20
+            health: 0,
+            speed: 0
         }
     ]
     currentItem = false;
