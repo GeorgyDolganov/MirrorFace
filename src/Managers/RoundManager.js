@@ -4,6 +4,7 @@ import RaycasterEnemy from "../GameObjects/Enemies/RaycasterEnemy";
 import SkeletonEnemy from "../GameObjects/Enemies/SkeletonEnemy";
 import VampireEnemy from "../GameObjects/Enemies/VampireEnemy";
 import HydraEnemy from "../GameObjects/Enemies/HydraEnemy";
+import MagicianEnemy from "../GameObjects/Enemies/MagicianEnemy";
 
 export default class RoundManager {
     _scene;
@@ -15,6 +16,7 @@ export default class RoundManager {
     _enemiesRemaining = [];
 
     _enemyTypesMap = {
+        ["MagicianEnemy"]: MagicianEnemy,
         ["TankEnemy"]: TankEnemy,
         ["RaycasterEnemy"]: RaycasterEnemy,
         ["SkeletonEnemy"]: SkeletonEnemy,

@@ -96,7 +96,7 @@ export default class AEnemy extends Phaser.Physics.Arcade.Sprite {
 
             if (distance < 5) {
                 // If there is path left, grab the next point. Otherwise, null the target.
-                if (this.path.length > 0) this.currentTarget = this.path.shift();
+                if (this.path && this.path.length > 0) this.currentTarget = this.path.shift();
                 else this.currentTarget = null;
             }
         

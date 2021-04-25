@@ -41,6 +41,8 @@ import bonePNG from "../assets/bone.png"
 import infoPNG from "../assets/info.png"
 import coinAtlasPNG from "../assets/SpriteSheets/coin.png"
 
+import magicianPNG from "../assets/SpriteSheets/magician.png"
+import magicianJSON from "../assets/SpriteSheets/magician.json"
 import skeletonPNG from "../assets/SpriteSheets/Skeleton.png"
 import skeletonJSON from "../assets/SpriteSheets/Skeleton.json"
 import floorPNG from "../assets/SpriteSheets/floor.png"
@@ -126,6 +128,7 @@ export default class Arena0 extends Scene {
         this.load.audio('mirrorPush', mirrorPushWAV)
         this.load.audio('laser0', laser0WAV)
 
+        this.load.aseprite('magician', magicianPNG, magicianJSON)
         this.load.aseprite('skeleton', skeletonPNG, skeletonJSON)
         this.load.spritesheet('explode', explodePNG, { frameWidth: 48, frameHeight: 48 });
         this.load.spritesheet('reflectParticles', reflectParticlesPNG, { frameWidth: 32, frameHeight: 32 });
@@ -193,6 +196,7 @@ export default class Arena0 extends Scene {
         this.anims.create({ key: 'hydra_attack', frames: this.anims.generateFrameNames('hydra', { prefix: 'attack_', suffix: ".png",end: 7, zeroPad: 0 }), repeat: -1, repeatDelay: 0, frameRate: 24 });
         this.anims.create({ key: 'hydra_walk', frames: this.anims.generateFrameNames('hydra', { prefix: 'walk_', suffix: ".png", end: 9, zeroPad: 0 }), repeat: -1, repeatDelay: 0, frameRate: 24 });
 
+        this.anims.createFromAseprite('magician');
         this.anims.createFromAseprite('skeleton');
         this.anims.createFromAseprite('vampire');
         this.anims.createFromAseprite('pyramidhead_walk');

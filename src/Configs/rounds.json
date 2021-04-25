@@ -103,7 +103,7 @@
             "x": 500,
             "y": 500
           },
-          "enemyType": "TankEnemy",
+          "enemyType": "MagicianEnemy",
           "delayBeforeSpawn": 2000,
           "spawnRate": 1,
           "totalSpawns": 1
@@ -193,7 +193,7 @@
             "x": 500,
             "y": 500
           },
-          "enemyType": "TankEnemy",
+          "enemyType": "MagicianEnemy",
           "delayBeforeSpawn": 2000,
           "spawnRate": 1,
           "totalSpawns": 1
