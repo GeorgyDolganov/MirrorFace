@@ -256,6 +256,11 @@ export default class Arena0 extends Scene {
         });
         
         bgLoopMusic.play();
+
+        this.gameStats = {
+            kills: 0,
+            roundsSurvived: 0
+        }
         
         //create raycaster
         raycaster = this.raycasterPlugin.createRaycaster();
@@ -310,6 +315,7 @@ export default class Arena0 extends Scene {
         this.cameras.main.startFollow(this.player);
 
         this.input.on('pointermove', function (pointer) {
+            if( this.player.isDead() ) return;
             this.player.rotation = Phaser.Math.Angle.Between(800 / 2, 600 / 2, pointer.x, pointer.y)
         }, this);
 

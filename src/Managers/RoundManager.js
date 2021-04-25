@@ -30,6 +30,7 @@ export default class RoundManager {
     }
 
     setNextRound() {
+        this._scene.gameStats.roundsSurvived += 1;
         console.log("------ Next round -----");
         this.setRound(this._currentRound.round + 1);
     }

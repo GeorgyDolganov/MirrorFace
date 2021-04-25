@@ -56,7 +56,9 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
         })
 
 
-        scene.input.on('pointerdown', function (pointer) {
+        scene.input.on('pointerdown', (pointer) => {
+
+            if (this.isDead()) return;
 
             if (pointer.leftButtonDown())
             {
@@ -150,28 +152,68 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
     }
 
     onRayHit(ray) {
+        if( this.isDead() ) return;
         this.tint = 0xff0000;
         this.changeHealth(-ray.damage);
     }
 
-    dead() {
-        alert("YOU ARE DAED");
-        this.scene.scene.start("GameMenuScene")
+    showGameOverScreen() {
+        let container = this.scene.add.container();
+        let blackout = this.scene.add.graphics();
+        blackout.fillStyle(0x000000, 0.8);
+        blackout.fillRect(0, 0, 800, 600);
+        blackout.setScrollFactor(0);
+        let text = this.scene.add.text(400,  200, "YOU DIED", { fontFamily: '"Press Start 2P"', align: 'center', fontSize: 40, color: "#f15c5c" });
+        text.setScrollFactor(0);
+        text.setOrigin(0.5);
+
+        let roundSurvived = this.scene.add.text(400, 250, "Rounds survived: " + this.scene.gameStats.roundsSurvived, {
+            fontFamily: '"Press Start 2P"', align: 'center', fontSize: 15, color: "#ff7836"
+        });
+        roundSurvived.setOrigin(0.5).setScrollFactor(0);
+        let kills = this.scene.add.text(400, 270, "Kills: " + this.scene.gameStats.kills, {
+            fontFamily: '"Press Start 2P"', align: 'center', fontSize: 15, color: "#ff7836"
+        });
+        kills.setOrigin(0.5).setScrollFactor(0);
+        let t = this.scene.add.text(400, 320, "Return to main menu", { fontFamily: '"Press Start 2P"', align: 'center', fontSize: 18, color: "#3b9a52" });
+        t.setPosition(t.x - t.width/2, t.y);
+        this.scene.input.enableDebug(t);
+        t.setScrollFactor(0);
+        t.setInteractive({ cursor: 'pointer' });
+        t.on("pointerdown", () => {
+            this.scene.scene.start("GameMenuScene")
+        });
+        t.on('pointerover', (pointer) => {
+            t.setColor("#4fd06e")
+        });
+        t.on('pointerout',  (pointer) => {
+            t.setColor("#3b9a52")
+        });
+
+        container.add(blackout);
+        container.add(text);
+        container.add(t);
+        container.add(kills);
+        container.add(roundSurvived);
+        container.setDepth(100);
+
+        container.setAlpha(0);
+        this.scene.tweens.add({
+            targets: container,
+            alpha: 1,
+            duration: 600,
+        });
     }
 
     changeHealth(changeBy) {
         this.health += changeBy;
         this.scene.healthBar.update(this.health);
-        if(this.health <= 0 ) this.dead();
-    }
-
-    onHit(bullet) {
-        this.health -= 10;
-        this.healthBar.update(this.health);
+        if(this.health <= 0 ) this.showGameOverScreen();
     }
 
     preUpdate(time, delta) {
         this.tint = 0xffffff;
+        if( this.isDead() ) this.body.stop();
     }
 
     throw() {
@@ -224,5 +266,9 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
             min: angle - 20, max: angle + 20
         });
         this._bloodEmitter.explode(100, this.x,this.y);
+    }
+
+    isDead() {
+        return this.health <= 0;
     }
 }
