@@ -99,8 +99,13 @@ export default class Arena0 extends Scene {
         super("Arena0");
     }
 
-    initialize() {
-        Phaser.Scene.call(this, { "key": "arena0" });
+    init(data){
+        if(typeof data?.cb === 'function') 
+            data?.cb();
+    }
+
+    wake() {
+        this.bgLoopMusic.play();
     }
 
     preload() {
@@ -265,13 +270,16 @@ export default class Arena0 extends Scene {
         //drawDebug();
         this.input.keyboard.on("keydown-M", drawDebug);
         
-        let bgLoopMusic = this.sound.add('bgloop', {
+        this.bgLoopMusic = this.sound.add('bgloop', {
             loop: true,
             volume: 1
         });
         
-        bgLoopMusic.play();
-
+        this.bgLoopMusic.play();
+        let ctx = this
+        this.events.on('wake', function(){
+            ctx.bgLoopMusic.play();
+        });
         this.gameStats = {
             kills: 0,
             roundsSurvived: 0

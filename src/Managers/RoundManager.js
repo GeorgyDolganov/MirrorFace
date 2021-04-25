@@ -72,7 +72,10 @@ export default class RoundManager {
 
         if( !roundInProgress && this._enemiesManager.countEnemies() === 0 ) {
             //TODO: handle last round
-            // scene.scene.switch('roundShop', {cb:this.setNextRound});
+            this.setNextRound()
+            scene.bgLoopMusic.stop();
+            scene.scene.sleep()
+            scene.scene.run('roundShop', scene.wallet.amount.text);
         }
     }
 

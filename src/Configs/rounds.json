@@ -8,7 +8,7 @@
             "x": 200,
             "y": 200
           },
-          "enemyType": "RaycasterEnemy",
+          "enemyType": "MagicianEnemy",
           "delayBeforeSpawn": 0,
           "spawnRate": 2,
           "totalSpawns": 1

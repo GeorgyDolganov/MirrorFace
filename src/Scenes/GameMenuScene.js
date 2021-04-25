@@ -17,10 +17,6 @@ export default class GameMenuScene extends Phaser.Scene {
         
     }
 
-    initialize() {
-        Phaser.Scene.call(this, { "key": "gameMenu" });
-    }
-
     create() {
         console.log("Game Menu loaded.");
 

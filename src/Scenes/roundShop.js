@@ -15,7 +15,7 @@ import menuSoundWAV from "../assets/audio/coin.wav"
 let optionSound
 
 export default class RoundShop extends Scene {
-
+    coins = '300'
     constructor() {
         super("roundShop")
     }
@@ -25,7 +25,9 @@ export default class RoundShop extends Scene {
 
     init(data) {
         console.log(data)
-        data?.cb
+        if (typeof data === 'string') {
+            this.coins = data
+        }
     }
 
     preload() {
@@ -63,8 +65,8 @@ export default class RoundShop extends Scene {
         this.wallet = this.add.container()
         this.wallet.bg = this.add.image(752, 50, 'info')
         this.wallet.bg.setScale(1.5)
-        this.wallet.amount = this.add.text(795, 48, '300', { fontFamily: '"Press Start 2P"', align: 'center', fontSize: 32, color: "#fff8e1" })
-        this.wallet.amount.setOrigin(0.5)
+        this.wallet.amount = this.add.text(725, 40, this.coins, { fontFamily: '"Press Start 2P"', align: 'center', fontSize: 32, color: "#fff8e1" })
+        this.wallet.amount.setOrigin(0)
         this.wallet.amount.setScale(1.5)
         this.wallet.amount.visible = false
 
@@ -140,7 +142,7 @@ export default class RoundShop extends Scene {
                     onClick: () => {
                         console.log("Back to arena...");
                         this.bgMusic.stop()
-                        this.scene.run("Arena0")
+                        this.scene.switch("Arena0")
                     }
                 });
                 this.items.forEach(el=>{
