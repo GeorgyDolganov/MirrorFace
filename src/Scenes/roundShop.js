@@ -181,6 +181,7 @@ export default class RoundShop extends Scene {
                 this.items[i].btnBuy.setTint(0x000000)
                 this.items[i].price.setTint(0x000000)
                 this.items[i].active = false
+                this.mirror = itemKey
                 this.tweens.add({
                     targets: [this.items[i]],
                     y: 0,
@@ -225,7 +226,13 @@ export default class RoundShop extends Scene {
                     onClick: () => {
                         console.log("Back to arena...");
                         this.bgMusic.stop()
-                        this.scene.run("Arena0", { coins: this.wallet.amount.text})
+                        let response = {
+                            coins: this.wallet.amount.text
+                        }
+                        if (this.mirror) {
+                            response['mirror'] = this.mirror
+                        }
+                        this.scene.run("Arena0", response)
                         this.scene.stop()
                     }
                 });

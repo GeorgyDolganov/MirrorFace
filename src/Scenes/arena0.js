@@ -405,11 +405,7 @@ export default class Arena0 extends Scene {
         });
 
         this.bgLoopMusic.play();
-        let ctx = this
-        this.events.on('wake', function (data, data1) {
-            console.log(data, data1)
-            ctx.bgLoopMusic.play();
-        });
+        
         let paused = false
         this.input.keyboard.on('keydown-ESC', ()=>{
             switch (paused) {
@@ -528,6 +524,16 @@ export default class Arena0 extends Scene {
 
         // let sprite = this.add.image(0, 0, "player");
         // sprite.setPosition(200, 200);
+
+        let ctx = this
+        this.events.on('wake', function (data, data1) {
+            console.log(data, data1)
+            ctx.wallet.amount.text = data1.coins
+            ctx.bgLoopMusic.play();
+            if(data1.mirror) {
+                ctx.mirror.setTexture(data1.mirror);
+            }
+        });
     }
 
     update(time, delta) {

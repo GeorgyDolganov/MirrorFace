@@ -19,7 +19,7 @@
             "Overheats fast, but has",
             "bigger reflective zone."
         ],
-        "price": 300,
+        "price": 150,
         "item": {
             "type": "mirror",
             "durability": 60
