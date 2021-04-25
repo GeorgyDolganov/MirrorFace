@@ -90,7 +90,12 @@ export default class Item extends Phaser.Physics.Arcade.Sprite {
                 this.checkCollisions(area, (unit) => {
                     let defaultSpeed = unit.speed;
                     unit.speed = unit.speed / 10;
-                    this.delayedCall(2000, _ => unit.speed = defaultSpeed);
+
+                    scene.tweens.add({
+                        targets: unit,
+                        speed: defaultSpeed,
+                        duration: 6000
+                    });
                 })
 
                 this.delayedCall(100, _ => {area.destroy()});
