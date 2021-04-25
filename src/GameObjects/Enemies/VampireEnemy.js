@@ -7,6 +7,7 @@ export default class VampireEnemy extends AEnemy {
     health = this.maxHealth;
 
     speed = 120;
+    recalcPath = 0;
 
     currentAction;
     timestamp;
@@ -76,7 +77,7 @@ export default class VampireEnemy extends AEnemy {
             }
         } else {
             if( distance > 40 ) {
-                this.scene.physics.moveToObject(this, gameObject, this.speed);
+                this.goTo(gameObject);
             } else {
                 this.doTheHit();
                 this.body.stop();
@@ -151,7 +152,12 @@ export default class VampireEnemy extends AEnemy {
     }
 
     handleMovementAction(time,delta) {
-        this.moveTowardsTo(this.scene.player);
+        if ( this.recalcPath++ > 100 ) {
+            this.recalcPath = 0;
+            this.moveTowardsTo(this.scene.player);
+        } else {
+            if ( !this.releasePath() ) this.moveTowardsTo(this.scene.player);
+        }
     }
 
     setAction(actionName) {
