@@ -12,6 +12,7 @@ export default class RaycasterEnemy extends AEnemy {
      * @type {ReflectableRay[]}
      */
     rays = [];
+    recalcPath = 0;
 
     /**
      * RaycasterEnemy constructor
@@ -38,7 +39,6 @@ export default class RaycasterEnemy extends AEnemy {
      * @param time
      * @param delta
      */
-    recalcPath = 0
     onUpdate(time, delta) {
         // this.moveTowardsTo(this.scene.player);
         if (Phaser.Math.Distance.Between(this.x, this.y, scene.player.x, scene.player.y) > 150) {
