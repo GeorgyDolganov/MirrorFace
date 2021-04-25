@@ -19,6 +19,9 @@ export default class HydraEnemy extends AEnemy {
 
     _realRotation;
 
+    leftTrun = Math.floor(Math.random() * 1000) + 1000
+    rughtTrun = Math.floor(Math.random() * 1000) + 1000
+
     constructor(scene, x, y) {
         super(scene, x, y, "hydra");
 
@@ -27,8 +30,8 @@ export default class HydraEnemy extends AEnemy {
         this._leftHead = scene.add.image(30, 15, "hydra_head");
         this._rightHead =  scene.add.image(-30, 15, "hydra_head");
 
-        this._leftHead.rotation = -0.6;
-        this._rightHead.rotation = 0.6;
+        this._leftHead.rotation = 0.1;
+        this._rightHead.rotation = -0.1;
         this._container.add(this._rightHead);
         this._container.add(this._leftHead);
         this._container.add(this._centerHead);
@@ -65,6 +68,29 @@ export default class HydraEnemy extends AEnemy {
         this._rightHead.tint = 0xff0000;
     }
 
+    turn(head) {
+        if ( head.turning === true ) return;
+        head.turning = true;
+
+        let baseRotation = head.rotation;
+
+        scene.tweens.add({
+            targets: head,
+            duration: 1000,
+            rotation: baseRotation < 0 ? Math.PI / 4 : -Math.PI / 4,
+            onComplete: tween => {
+                scene.tweens.add({
+                    targets: head,
+                    duration: 1000,
+                    rotation: baseRotation,
+                    onComplete: tween => {
+                        head.turning = false;
+                    }
+                })
+            }
+        })
+    }
+
     onUpdate(time, delta) {
         this._leftHead.clearTint();
         this._centerHead.clearTint();
@@ -75,6 +101,14 @@ export default class HydraEnemy extends AEnemy {
         this._container.setPosition(this.x, this.y);
         this.healthBar.setPosition(this.x - 25, this.y + 60);
 
+        if ( this.leftTrun-- <= 0 ) {
+            this.leftTrun = Math.floor(Math.random() * 1000) + 500
+            this.turn(this._leftHead)
+        }
+        if ( this.rughtTrun-- <= 0 ) {
+            this.rughtTrun = Math.floor(Math.random() * 1000) + 500
+            this.turn(this._rightHead)
+        }
 
         if (Phaser.Math.Distance.Between(this.x, this.y, scene.player.x, scene.player.y) > 150) {
             if ( this.recalcPath++ > 100 ) {
@@ -111,20 +145,25 @@ export default class HydraEnemy extends AEnemy {
         //     centerTranslate.x, centerTranslate.y
         // ));
         // this._centerRay.update();
-        this.updateRay(this._centerRay, {x: 0, y: 34})
-        this.updateRay(this._leftRay, {x: 38, y: 25})
-        this.updateRay(this._rightRay, {x: -38, y: 25})
+        this.updateRay(this._centerRay, {x: 0, y: 34}, this._centerHead.rotation)
+        this.updateRay(this._leftRay, {x: 30, y: 30}, this._leftHead.rotation)
+        this.updateRay(this._rightRay, {x: -30, y: 30}, this._rightHead.rotation)
     }
 
-    updateRay(ray, offset) {
-        let translate = this.translatePoint2(offset.x, offset.y, this.x, this.y, this._realRotation);
+    updateRay(ray, offset, headRotation) {
+        let translate = this.translatePoint2(offset.x, offset.y, this.x, this.y, this._realRotation + headRotation / 3);
         ray.setOrigin({
-            x:  translate.x, y:   translate.y
+            x: translate.x,
+            y: translate.y
         });
-        ray.setAngle(Phaser.Math.Angle.Between(
-            this.scene.player.x, this.scene.player.y,
-            translate.x, translate.y
-        ) - Math.PI);
+        if ( headRotation == 0 ) {
+            ray.setAngle(Phaser.Math.Angle.Between(
+                this.scene.player.x, this.scene.player.y,
+                translate.x, translate.y
+            ) - Math.PI);
+        } else {
+            ray.setAngle(this._realRotation + Math.PI / 2 + headRotation);
+        }
         ray.update();
     }
 
