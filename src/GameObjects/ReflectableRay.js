@@ -77,15 +77,18 @@ export default class ReflectableRay {
     _createNextSegment(prevRaySegment, intersection) {
         this.calculateCircleSegment(intersection);
 
-        if( intersection.segment === undefined ) return;
+        let reflectionAngle = intersection.segment === undefined ? 0 : Phaser.Geom.Line.ReflectAngle(prevRaySegment, intersection.segment);
 
-        let reflectionAngle = Phaser.Geom.Line.ReflectAngle(prevRaySegment, intersection.segment);
-
-        if( intersection.object.onRayHit ) {
+        if( intersection.object && intersection.object.onRayHit ) {
             intersection.object.onRayHit(this, {
                 intersection, reflectionAngle, beforeReflectRayLine: prevRaySegment
             });
         }
+
+        if( this._raySegments.length > this.MAX_REFLECTS) {
+            return;
+        }
+        if( intersection.segment === undefined ) return;
 
         let defaultReflect = intersection.object.canReflect;
         let tileReflect = this.isReflectedTile(intersection.object);
@@ -102,9 +105,8 @@ export default class ReflectableRay {
 
         let raySegment = new Phaser.Geom.Line(ray.origin.x, ray.origin.y, nextIntersection.x, nextIntersection.y);
         this._raySegments.push(raySegment);
-        if( this._raySegments.length < this.MAX_REFLECTS) {
-            this._createNextSegment(raySegment,nextIntersection);
-        }
+
+        this._createNextSegment(raySegment,nextIntersection);
     }
 
     isReflectedTile(possibleTile) {
