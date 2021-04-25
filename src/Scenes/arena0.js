@@ -45,6 +45,8 @@ import floorJSON from "../assets/SpriteSheets/floor.json"
 import vampirePNG from "../assets/SpriteSheets/Vampire.png"
 import vampireJSON from "../assets/SpriteSheets/Vampire.json"
 
+import explodePNG from "../assets/SpriteSheets/explode.png"
+
 import hydraPNG from "../assets/hydra/hydra.png"
 import hydraJSON from "../assets/hydra/hydra.json"
 import hydraHeadPNG from "../assets/hydra/head.png"
@@ -115,6 +117,7 @@ export default class Arena0 extends Scene {
         this.load.audio('laser0', laser0WAV)
 
         this.load.aseprite('skeleton', skeletonPNG, skeletonJSON)
+        this.load.spritesheet('explode', explodePNG, { frameWidth: 48, frameHeight: 48 });
         this.load.spritesheet('reflectParticles', reflectParticlesPNG, { frameWidth: 32, frameHeight: 32 });
         this.load.spritesheet('coin', coinAtlasPNG, { frameWidth: 16, frameHeight: 16 })
         this.load.atlas('floorAtlas', floorPNG, floorJSON);
@@ -174,6 +177,8 @@ export default class Arena0 extends Scene {
         this.anims.createFromAseprite('skeleton');
         this.anims.createFromAseprite('vampire');
         this.textures.get('floorAtlas');
+
+        this.anims.create({ key: 'explode', frames: this.anims.generateFrameNumbers('explode'), frameRate: 30, repeat: 0 });
 
         //Создаем арену
         this.arena = this.add.group()
