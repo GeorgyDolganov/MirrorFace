@@ -3,8 +3,8 @@
         "name": "CIRCLED MIRROR",
         "description": [
             "Mirror in circle shape.",
-            "Overheats in a second, but",
-            "protects from all angles."
+            "Overheats in a second,",
+            "but doesn't let you open."
         ],
         "price": 300,
         "item": {
@@ -25,29 +25,27 @@
             "durability": 60
         }
     },
-    "mirrorPrism": {
-        "name": "PRISM MIRROR",
+    "mirror": {
+        "name": "MEDIOCRE MIRROR",
         "description": [
-            "Mirror in triangle shape.",
-            "Overheats not that fast,",
-            "but not that effective",
-            "when attacked from the front."
+            "Just a good old mirror.",
+            "Has a great durability,",
+            "and a neat reflect angles."
         ],
-        "price": 300,
+        "price": 30,
         "item": {
             "type": "mirror",
-            "durability": 120
+            "durability": 100
         }
     },
-    "mirrorNormal": {
-        "name": "NORMAL MIRROR",
+    "mirrorSmall": {
+        "name": "SMALL MIRROR",
         "description": [
-            "Just a big old mirror.",
-            "Overheats not that fast,",
-            "and has a neat reflect",
-            "angles."
+            "Just a good old mirror.",
+            "Has a great durability,",
+            "and a neat reflect angles."
         ],
-        "price": 100,
+        "price": 20,
         "item": {
             "type": "mirror",
             "durability": 100

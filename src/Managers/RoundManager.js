@@ -28,6 +28,12 @@ export default class RoundManager {
         this._scene = scene;
         this._enemiesManager = enemiesManager;
 
+        this.blackout = scene.add.graphics();
+        this.blackout.fillStyle(0x000000, 1);
+        this.blackout.fillRect(0, 0, 800, 600);
+        this.blackout.alpha = 0
+        this.blackout.setScrollFactor(0);
+        this.blackout.setDepth(10)
         this.setRound(1);
     }
 
@@ -39,7 +45,7 @@ export default class RoundManager {
 
     setRound(roundNumber) {
         let roundConfig = config.rounds.find(r => r.round === roundNumber);
-        if( roundConfig === undefined ) {
+        if (roundConfig === undefined) {
             return;
         }
 
@@ -47,7 +53,7 @@ export default class RoundManager {
             ...roundConfig
         };
 
-        this._currentRound.spawns.forEach((spawn,index) => {
+        this._currentRound.spawns.forEach((spawn, index) => {
             this._timestamps[index] = 0;
             this._enemiesRemaining[index] = spawn.totalSpawns;
         });
@@ -58,30 +64,46 @@ export default class RoundManager {
     update(time, delta, scene) {
         let roundInProgress = false;
         this._currentRound.spawns.forEach((spawn, index) => {
-            if( this._enemiesRemaining[index] <= 0 ) return;
+            if (this._enemiesRemaining[index] <= 0) return;
 
             roundInProgress = true;
             this._timestamps[index] += delta;
 
-            if(this._timestamps[index] > spawn.spawnRate * 1000) {
+            if (this._timestamps[index] > spawn.spawnRate * 1000) {
                 this._enemiesManager.spawnAt(spawn.position, this.getEnemyType(spawn.enemyType));
                 this._enemiesRemaining[index] -= 1;
                 this._timestamps[index] = 0;
             }
         });
 
-        if( !roundInProgress && this._enemiesManager.countEnemies() === 0 ) {
+        if (!roundInProgress && this._enemiesManager.countEnemies() === 0) {
             //TODO: handle last round
             this.setNextRound()
-            scene.bgLoopMusic.stop();
-            scene.scene.sleep()
-            scene.scene.run('roundShop', scene.wallet.amount.text);
+            let ctx = this
+            scene.tweens.add({
+                targets: ctx.blackout,
+                alpha: 1,
+                duration: 1000,
+                ease: 'Power2',
+                onComplete: () => {
+                    scene.game.sound.stopAll();
+                    scene.scene.sleep()
+                    scene.scene.run('roundShop');
+                    scene.registry.set('coins',  scene.wallet.amount.text)
+                    scene.tweens.add({
+                        targets: ctx.blackout,
+                        alpha: 0,
+                        duration: 1000,
+                        ease: 'Power2',
+                    })
+                }
+            })
         }
     }
 
     getEnemyType(stringType) {
         let type = this._enemyTypesMap[stringType];
-        if( type === undefined ) throw new Error(`Trying to get unsupported enemy type ${stringType}`);
+        if (type === undefined) throw new Error(`Trying to get unsupported enemy type ${stringType}`);
         return this._enemyTypesMap[stringType];
     }
 }

@@ -23,6 +23,7 @@ export default class GameMenuScene extends Phaser.Scene {
         this.logo = this.add.image(380, 280, "game_logo");
         this.logo.setOrigin(0.5)
         this.logo.setScale(1)
+        
         optionSound = this.sound.add('option', {
             volume: 0.25,
             loop: false

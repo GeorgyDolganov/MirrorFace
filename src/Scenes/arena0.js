@@ -102,12 +102,12 @@ export default class Arena0 extends Scene {
         super("Arena0");
     }
 
-    init(data){
-        if(typeof data?.cb === 'function') 
-            data?.cb();
+    init(data) {
+        console.log(data)
     }
 
     wake() {
+        console.log(data)
         this.bgLoopMusic.play();
     }
 
@@ -116,7 +116,11 @@ export default class Arena0 extends Scene {
         this.load.image('grenade', grenadePNG)
         this.load.image('shard', shardPNG)
         this.load.image('pyramidHead', pyramidHeadPNG)
-        this.load.image({key:'tilefloor',url:tilefloorPNG, normalMap:tilefloorNormal})
+        this.load.image({
+            key: 'tilefloor',
+            url: tilefloorPNG,
+            normalMap: tilefloorNormal
+        })
         this.load.image('mirrorwall', mirrorwallPNG)
 
         this.load.image('bone', bonePNG)
@@ -138,14 +142,23 @@ export default class Arena0 extends Scene {
 
         this.load.aseprite('magician', magicianPNG, magicianJSON)
         this.load.aseprite('skeleton', skeletonPNG, skeletonJSON)
-        this.load.spritesheet('explode', explodePNG, { frameWidth: 48, frameHeight: 48 });
-        this.load.spritesheet('reflectParticles', reflectParticlesPNG, { frameWidth: 32, frameHeight: 32 });
-        this.load.spritesheet('coin', coinAtlasPNG, { frameWidth: 16, frameHeight: 16 })
+        this.load.spritesheet('explode', explodePNG, {
+            frameWidth: 48,
+            frameHeight: 48
+        });
+        this.load.spritesheet('reflectParticles', reflectParticlesPNG, {
+            frameWidth: 32,
+            frameHeight: 32
+        });
+        this.load.spritesheet('coin', coinAtlasPNG, {
+            frameWidth: 16,
+            frameHeight: 16
+        })
         this.load.atlas('fire', firePNG, fireJSON);
         this.load.atlas('floorAtlas', floorPNG, floorJSON);
 
         this.load.image('tileset', tilesetPNG)
-        this.load.tilemapTiledJSON( 'map', arenaSkullMap);
+        this.load.tilemapTiledJSON('map', arenaSkullMap);
         this.load.image('spark', blueSparkPNG);
 
         this.load.aseprite('vampire', vampirePNG, vampireJSON);
@@ -194,18 +207,121 @@ export default class Arena0 extends Scene {
         this.physics.world.setBounds(0, 0, 64 * 32, 64 * 32);
 
         //Анимации
-        this.anims.create({ key: 'crateIdle', frames: this.anims.generateFrameNames('crate', { prefix: 'particles.png_', end: 0, zeroPad: 0 }), repeat: 0, repeatDelay: 500, frameRate: 60 });
-        this.anims.create({ key: 'crateDestroy', frames: this.anims.generateFrameNames('crate', { prefix: 'particles.png_', end: 60, zeroPad: 0 }), repeat: 0, repeatDelay: 500, frameRate: 60 });
-        this.anims.create({ key: 'crate2Idle', frames: this.anims.generateFrameNames('crate2', { prefix: 'crate2.png_', end: 0, zeroPad: 0 }), repeat: 0, repeatDelay: 500, frameRate: 60 });
-        this.anims.create({ key: 'crate2Destroy', frames: this.anims.generateFrameNames('crate2', { prefix: 'crate2.png_', end: 60, zeroPad: 0 }), repeat: 0, repeatDelay: 500, frameRate: 60 });
-        this.anims.create({ key: 'crateBigIdle', frames: this.anims.generateFrameNames('crateBig', { prefix: 'render.png_', end: 0, zeroPad: 0 }), repeat: 0, repeatDelay: 500, frameRate: 60 });
-        this.anims.create({ key: 'crateBigDestroy', frames: this.anims.generateFrameNames('crateBig', { prefix: 'render.png_', end: 60, zeroPad: 0 }), repeat: 0, repeatDelay: 500, frameRate: 60 });
+        this.anims.create({
+            key: 'crateIdle',
+            frames: this.anims.generateFrameNames('crate', {
+                prefix: 'particles.png_',
+                end: 0,
+                zeroPad: 0
+            }),
+            repeat: 0,
+            repeatDelay: 500,
+            frameRate: 60
+        });
+        this.anims.create({
+            key: 'crateDestroy',
+            frames: this.anims.generateFrameNames('crate', {
+                prefix: 'particles.png_',
+                end: 60,
+                zeroPad: 0
+            }),
+            repeat: 0,
+            repeatDelay: 500,
+            frameRate: 60
+        });
+        this.anims.create({
+            key: 'crate2Idle',
+            frames: this.anims.generateFrameNames('crate2', {
+                prefix: 'crate2.png_',
+                end: 0,
+                zeroPad: 0
+            }),
+            repeat: 0,
+            repeatDelay: 500,
+            frameRate: 60
+        });
+        this.anims.create({
+            key: 'crate2Destroy',
+            frames: this.anims.generateFrameNames('crate2', {
+                prefix: 'crate2.png_',
+                end: 60,
+                zeroPad: 0
+            }),
+            repeat: 0,
+            repeatDelay: 500,
+            frameRate: 60
+        });
+        this.anims.create({
+            key: 'crateBigIdle',
+            frames: this.anims.generateFrameNames('crateBig', {
+                prefix: 'render.png_',
+                end: 0,
+                zeroPad: 0
+            }),
+            repeat: 0,
+            repeatDelay: 500,
+            frameRate: 60
+        });
+        this.anims.create({
+            key: 'crateBigDestroy',
+            frames: this.anims.generateFrameNames('crateBig', {
+                prefix: 'render.png_',
+                end: 60,
+                zeroPad: 0
+            }),
+            repeat: 0,
+            repeatDelay: 500,
+            frameRate: 60
+        });
 
-        this.anims.create({ key: 'hydra_death', frames: this.anims.generateFrameNames('hydra', { prefix: 'death_', suffix: ".png", end: 36, zeroPad: 0 }), repeat: -1, repeatDelay: 0, frameRate: 24 });
-        this.anims.create({ key: 'hydra_attack', frames: this.anims.generateFrameNames('hydra', { prefix: 'attack_', suffix: ".png",end: 7, zeroPad: 0 }), repeat: -1, repeatDelay: 0, frameRate: 24 });
-        this.anims.create({ key: 'hydra_walk', frames: this.anims.generateFrameNames('hydra', { prefix: 'walk_', suffix: ".png", end: 9, zeroPad: 0 }), repeat: -1, repeatDelay: 0, frameRate: 24 });
+        this.anims.create({
+            key: 'hydra_death',
+            frames: this.anims.generateFrameNames('hydra', {
+                prefix: 'death_',
+                suffix: ".png",
+                end: 36,
+                zeroPad: 0
+            }),
+            repeat: -1,
+            repeatDelay: 0,
+            frameRate: 24
+        });
+        this.anims.create({
+            key: 'hydra_attack',
+            frames: this.anims.generateFrameNames('hydra', {
+                prefix: 'attack_',
+                suffix: ".png",
+                end: 7,
+                zeroPad: 0
+            }),
+            repeat: -1,
+            repeatDelay: 0,
+            frameRate: 24
+        });
+        this.anims.create({
+            key: 'hydra_walk',
+            frames: this.anims.generateFrameNames('hydra', {
+                prefix: 'walk_',
+                suffix: ".png",
+                end: 9,
+                zeroPad: 0
+            }),
+            repeat: -1,
+            repeatDelay: 0,
+            frameRate: 24
+        });
 
-        this.anims.create({ key: 'fire', frames: this.anims.generateFrameNames('fire', { prefix: 'fire_', end: 60, zeroPad: 0 }), repeat: -1, repeatDelay: 0, frameRate: 60 });
+        this.anims.create({
+            key: 'fire',
+            frames: this.anims.generateFrameNames('fire', {
+                prefix: 'fire_',
+                end: 60,
+                zeroPad: 0
+            }),
+            repeat: -1,
+            repeatDelay: 0,
+            frameRate: 60
+        });
 
         this.anims.createFromAseprite('magician');
         this.anims.createFromAseprite('skeleton');
@@ -213,7 +329,12 @@ export default class Arena0 extends Scene {
         this.anims.createFromAseprite('pyramidhead_walk');
         this.textures.get('floorAtlas');
 
-        this.anims.create({ key: 'explode', frames: this.anims.generateFrameNumbers('explode'), frameRate: 30, repeat: 0 });
+        this.anims.create({
+            key: 'explode',
+            frames: this.anims.generateFrameNumbers('explode'),
+            frameRate: 30,
+            repeat: 0
+        });
 
         //Создаем арену
         this.arena = this.add.group()
@@ -221,7 +342,7 @@ export default class Arena0 extends Scene {
         // this.arena.floor.setScale(1)
         // this.arena.add(this.arena.floor)
 
-        this.playerlight  = this.lights.addLight(0, 0, 250, undefined, 1.);
+        this.playerlight = this.lights.addLight(0, 0, 250, undefined, 1.);
 
         this.lights.enable().setAmbientColor(0xdddddd);
 
@@ -229,7 +350,11 @@ export default class Arena0 extends Scene {
         this.arena.add(this.arena.walls)
 
 
-        const map = this.make.tilemap({ key: 'map', tileWidth: 32, tileHeight: 32  });
+        const map = this.make.tilemap({
+            key: 'map',
+            tileWidth: 32,
+            tileHeight: 32
+        });
         console.log(map)
         const tiles = map.addTilesetImage('tileset', 'tileset');
 
@@ -244,7 +369,7 @@ export default class Arena0 extends Scene {
         this.reflectLayer.setCollisionBetween(1, 50);
         // this.wallLayer.setCollisionByProperty({collides:true})
         console.log(this.wallLayer)
-        this.wallLayer.forEachTile((tile, i)=>{
+        this.wallLayer.forEachTile((tile, i) => {
             if (tile.properties.canReflect) {
                 tile.canReflect = true
                 console.log(tile)
@@ -265,42 +390,56 @@ export default class Arena0 extends Scene {
         const graphics = this.add.graphics(0, 0).setAlpha(0.5);
         navMesh.enableDebug(graphics);
         const drawDebug = () => {
-        navMesh.debugDrawClear();
-        navMesh.debugDrawMesh({
-            drawCentroid: true,
-            drawBounds: true,
-            drawNeighbors: true,
-            drawPortals: true,
-        });
+            navMesh.debugDrawClear();
+            navMesh.debugDrawMesh({
+                drawCentroid: true,
+                drawBounds: true,
+                drawNeighbors: true,
+                drawPortals: true,
+            });
         };
         //drawDebug();
         this.input.keyboard.on("keydown-M", drawDebug);
-        
+
         this.bgLoopMusic = this.sound.add('bgloop', {
             loop: true,
             volume: 1
         });
-        
+
         this.bgLoopMusic.play();
         let ctx = this
-        this.events.on('wake', function(){
+        this.events.on('wake', function (data) {
+            console.log(data)
             ctx.bgLoopMusic.play();
         });
+        let paused = false
+        this.input.keyboard.on('keydown-ESC', ()=>{
+            switch (paused) {
+                case true:
+                    !paused
+                    this.scene.pause()
+                    break
+                case false:
+                    !paused
+                    this.scene.resume()
+                    break
+            }
+        })
         this.gameStats = {
             kills: 0,
             roundsSurvived: 0
         }
-        
+        this.registry.events.on('changedata', this.updateData, this);
         //create raycaster
         raycaster = this.raycasterPlugin.createRaycaster();
         this.raycaster = raycaster;
 
         ReflectableRay.Raycaster = raycaster;
-        
+
         //Create game ui
         this.gameUI = new GameUI(this);
         this.add.existing(this.gameUI);
-        
+
         //create obstacles
         obstacles = this.add.group();
         createObstacles(this, obstacles);
@@ -314,7 +453,7 @@ export default class Arena0 extends Scene {
 
         //Debug info
         window.scene = this;
-        
+
         //map obstacles
         raycaster.mapGameObjects(obstacles.getChildren(), true);
         raycaster.mapGameObjects(this.mirror, true);
@@ -322,13 +461,13 @@ export default class Arena0 extends Scene {
         raycaster.mapGameObjects(this.arena.walls.getChildren(), true);
         //TODO: set correct ids instead of them all
         raycaster.mapGameObjects(this.wallLayer, false, {
-            collisionTiles: [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21, ] //array of tiles types which can collide with ray // 10,11,12,13,15,17, 18,19,20,21,7, 8, 14, 16
+            collisionTiles: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, ] //array of tiles types which can collide with ray // 10,11,12,13,15,17, 18,19,20,21,7, 8, 14, 16
         });
         raycaster.mapGameObjects(this.objLayer, false, {
-            collisionTiles:  [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21, ] //array of tiles types which can collide with ray //10,11, 18, 19, 20, 21
+            collisionTiles: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, ] //array of tiles types which can collide with ray //10,11, 18, 19, 20, 21
         });
         raycaster.mapGameObjects(this.reflectLayer, false, {
-            collisionTiles:  [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21, ] //array of tiles types which can collide with ray // 10,11,12,13,15,17, 18,19,20,21,7, 8, 14, 16
+            collisionTiles: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, ] //array of tiles types which can collide with ray // 10,11,12,13,15,17, 18,19,20,21,7, 8, 14, 16
         });
 
         this.EnemiesManager = new EnemiesManager(this, raycaster);
@@ -344,7 +483,7 @@ export default class Arena0 extends Scene {
         this.cameras.main.startFollow(this.player);
 
         this.input.on('pointermove', function (pointer) {
-            if( this.player.isDead() ) return;
+            if (this.player.isDead()) return;
             this.player.rotation = Phaser.Math.Angle.Between(800 / 2, 600 / 2, pointer.x, pointer.y)
         }, this);
 
@@ -360,15 +499,26 @@ export default class Arena0 extends Scene {
         this.wallet = this.add.container()
         this.wallet.bg = this.add.image(752, 50, 'info')
         this.wallet.bg.setScale(1.5)
-        this.wallet.amount = this.add.text(735, 50, '0', { fontFamily: '"Press Start 2P"', align: 'center', fontSize: 12, color: "#fff8e1" })
+        this.wallet.amount = this.add.text(735, 50, '0', {
+            fontFamily: '"Press Start 2P"',
+            align: 'center',
+            fontSize: 12,
+            color: "#fff8e1"
+        })
         this.wallet.amount.setOrigin(0.5)
         this.wallet.amount.setScale(1.0)
         this.wallet.amount.visible = true
         this.wallet.addCoins = coins => {
-            this.wallet.amount.text = parseInt( this.wallet.amount.text ) + coins;
+            this.wallet.amount.text = parseInt(this.wallet.amount.text) + coins;
         }
 
-        this.anims.create({key: 'spin', frames: this.anims.generateFrameNames('coin'), frameRate: 16, repeat: -1, yoyo: true})
+        this.anims.create({
+            key: 'spin',
+            frames: this.anims.generateFrameNames('coin'),
+            frameRate: 16,
+            repeat: -1,
+            yoyo: true
+        })
         this.wallet.coin = this.add.sprite(769, 48, 'coin').setScale(1.5);
 
         this.wallet.add(this.wallet.bg);
@@ -403,17 +553,17 @@ export default class Arena0 extends Scene {
         const objects = ['crate', 'crate2', 'crateBig']
 
         let bonesGroup = this.add.group();
-        for (let i = 0; i < 20;  i++) {
+        for (let i = 0; i < 20; i++) {
             let bones = this.add.sprite(Math.random() * 1200, Math.random() * 1200, 'bone').setPipeline('Light2D')
             bones.rotation = Math.random() - Math.random()
             bonesGroup.add(bones);
         }
 
         let cratesGroup = this.add.group();
-        for (let i = 0; i < 10;  i++) {
+        for (let i = 0; i < 10; i++) {
             let crateType = Math.round(Math.random() * 2);
             let crate = new Crate(this, Math.random() * 1200 + 100, Math.random() * 1200 + 100, objects[crateType]);
- 
+
             cratesGroup.add(crate);
         }
 
@@ -423,5 +573,10 @@ export default class Arena0 extends Scene {
 
         this.staticObstacles = cratesGroup;
         this.cosmeticObstacles = bonesGroup;
+    }
+
+    updateData (parent, key, data)
+    {
+        console.log('coins ' + data)
     }
 }
