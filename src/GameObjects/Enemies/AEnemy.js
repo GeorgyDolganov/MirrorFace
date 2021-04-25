@@ -172,6 +172,7 @@ export default class AEnemy extends Phaser.Physics.Arcade.Sprite {
      * Internal method for killing this enemy.
      */
     die() {
+        scene.wallet.addCoins(this.reward);
         this.setActive(false);
         this.setVisible(false);
         this.body.stop();
@@ -179,7 +180,7 @@ export default class AEnemy extends Phaser.Physics.Arcade.Sprite {
         this.healthBar.setVisible(false);
         this.onDeath();
 
-        scene.wallet.addCoins(this.reward);
+        
     }
 
     /**

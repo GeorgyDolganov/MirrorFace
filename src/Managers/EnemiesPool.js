@@ -32,10 +32,10 @@ export default class EnemiesPool {
     }
 
     kill(object) {
+        object?.die();
         this._scene.gameStats.kills += 1;
         this._objectGroup.killAndHide(object);
         this._physicsGroup.killAndHide(object);
         this._raycaster.disableMaps(object);
-        if( object.die ) object.die();
     }
 }

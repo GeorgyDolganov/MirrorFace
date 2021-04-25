@@ -80,23 +80,26 @@ export default class RoundManager {
             //TODO: handle last round
             this.setNextRound()
             let ctx = this
-            scene.tweens.add({
-                targets: ctx.blackout,
-                alpha: 1,
-                duration: 1000,
-                ease: 'Power2',
-                onComplete: () => {
-                    scene.game.sound.stopAll();
-                    scene.scene.sleep()
-                    scene.scene.run('roundShop');
-                    scene.registry.set('coins',  scene.wallet.amount.text)
-                    scene.tweens.add({
-                        targets: ctx.blackout,
-                        alpha: 0,
-                        duration: 1000,
-                        ease: 'Power2',
-                    })
-                }
+            new Promise((res)=>{
+                scene.tweens.add({
+                    targets: ctx.blackout,
+                    alpha: 1,
+                    duration: 1000,
+                    ease: 'Power2',
+                    onComplete: () => {
+                        res()
+                    }
+                })
+            }).then(_=>{
+                scene.game.sound.stopAll();
+                scene.scene.sleep()
+                scene.scene.run('roundShop',  scene.wallet.amount.text);
+                scene.tweens.add({
+                    targets: ctx.blackout,
+                    alpha: 0,
+                    duration: 1000,
+                    ease: 'Power2',
+                })
             })
         }
     }

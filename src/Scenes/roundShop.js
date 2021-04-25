@@ -18,7 +18,7 @@ import menuSoundWAV from "../assets/audio/coin.wav"
 let optionSound
 
 export default class RoundShop extends Scene {
-    coins = '300'
+    coins = '0'
     constructor() {
         super("roundShop")
     }

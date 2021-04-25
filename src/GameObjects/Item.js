@@ -88,7 +88,7 @@ export default class Item extends Phaser.Physics.Arcade.Sprite {
                 break;
             }
             case 'freeze': {
-                let area = this.scene.add.circle(this.x, this.y, 50).setStrokeStyle(1, 0xff0000);
+                let area = this.scene.add.circle(this.x, this.y, 50)//.setStrokeStyle(1, 0xff0000);
 
                 this.checkCollisions(area, (unit) => {
                     let defaultSpeed = unit.speed;
@@ -129,7 +129,7 @@ export default class Item extends Phaser.Physics.Arcade.Sprite {
             }
             case 'hydraExplode':
             case 'damage': {
-                let area = this.scene.add.circle(this.x, this.y, 50).setStrokeStyle(1, 0xff0000);
+                let area = this.scene.add.circle(this.x, this.y, 50)//.setStrokeStyle(1, 0xff0000);
 
                 let explode = this.scene.add.sprite(this.x, this.y, 'explode').play('explode');
                 explode.scale = 2;
@@ -145,7 +145,7 @@ export default class Item extends Phaser.Physics.Arcade.Sprite {
                 break;
             }
             case 'magicicanAttack': {
-                let area = this.scene.add.circle(this.x, this.y, 25).setStrokeStyle(1, 0xff0000);
+                let area = this.scene.add.circle(this.x, this.y, 25)//.setStrokeStyle(1, 0xff0000);
 
                 let explode = this.scene.add.sprite(this.x, this.y, 'explode').play('explode');
                 explode.scale = 1;
@@ -162,7 +162,7 @@ export default class Item extends Phaser.Physics.Arcade.Sprite {
             }
             case 'hydraBurn':
             case 'burn': {
-                let area = this.scene.add.circle(this.x, this.y, 100).setStrokeStyle(1, 0xff0000);
+                let area = this.scene.add.circle(this.x, this.y, 100)//.setStrokeStyle(1, 0xff0000);
 
                 let burn = this.scene.add.sprite(this.x, this.y, 'fire').play('fire');
                 burn.scale = 2;
