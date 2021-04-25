@@ -260,15 +260,15 @@ export default class Arena0 extends Scene {
         raycaster.mapGameObjects(this.mirror, true);
         raycaster.mapGameObjects(this.player, true);
         raycaster.mapGameObjects(this.arena.walls.getChildren(), true);
-        //TODO: fix corrupted tilemap
+        //TODO: set correct ids instead of them all
         raycaster.mapGameObjects(this.wallLayer, false, {
-            collisionTiles: [10,11,12,13,15,17, 18,19,20,21,7, 8, 14, 16] //array of tiles types which can collide with ray // 10,11,12,13,15,17, 18,19,20,21,7, 8, 14, 16
+            collisionTiles: [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21, ] //array of tiles types which can collide with ray // 10,11,12,13,15,17, 18,19,20,21,7, 8, 14, 16
         });
         raycaster.mapGameObjects(this.objLayer, false, {
-            collisionTiles: [10,11, 18, 19, 20, 21] //array of tiles types which can collide with ray //10,11, 18, 19, 20, 21
+            collisionTiles:  [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21, ] //array of tiles types which can collide with ray //10,11, 18, 19, 20, 21
         });
         raycaster.mapGameObjects(this.reflectLayer, false, {
-            collisionTiles: [10,11,12,13,15,17, 18,19,20,21,7, 8, 14, 16] //array of tiles types which can collide with ray // 10,11,12,13,15,17, 18,19,20,21,7, 8, 14, 16
+            collisionTiles:  [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21, ] //array of tiles types which can collide with ray // 10,11,12,13,15,17, 18,19,20,21,7, 8, 14, 16
         });
 
         this.EnemiesManager = new EnemiesManager(this, raycaster);
