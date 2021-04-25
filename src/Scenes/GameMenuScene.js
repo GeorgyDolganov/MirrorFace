@@ -1,5 +1,5 @@
 import Phaser from 'phaser';
-import logoPNG from "../assets/game_logo.png"
+import logoPNG from "../assets/menuLogo.png"
 import menuSound from "../assets/audio/coin.wav"
 
 let optionSound
@@ -20,7 +20,9 @@ export default class GameMenuScene extends Phaser.Scene {
     create() {
         console.log("Game Menu loaded.");
 
-        this.add.image(400, 180, "game_logo");
+        this.logo = this.add.image(380, 280, "game_logo");
+        this.logo.setOrigin(0.5)
+        this.logo.setScale(1)
         optionSound = this.sound.add('option', {
             volume: 0.25,
             loop: false
@@ -34,27 +36,19 @@ export default class GameMenuScene extends Phaser.Scene {
                 console.log("Webfonts loaded.");
                 this.createMenuItem({
                     label: "START",
-                    position: {x: 400, y: 400},
+                    position: {x: 400, y: 500},
                     onClick: () => {
                         console.log("Starting new game...");
                         this.scene.start("Arena0")
                     }
                 });
                 this.createMenuItem({
-                    label: "MIRROR SHOP",
-                    position: {x: 400, y: 425},
+                    label: "CREDITS",
+                    position: {x: 400, y: 525},
                     onClick: () => {
                         alert("In development");
                     }
                 });
-                this.createMenuItem({
-                    label: "SETTINGS",
-                    position: {x: 400, y: 450},
-                    onClick: () => {
-                        alert("In development");
-                    }
-                });
-
             }
         });
     }

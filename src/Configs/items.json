@@ -1,0 +1,56 @@
+{
+    "mirrorCircle": {
+        "name": "CIRCLED MIRROR",
+        "description": [
+            "Mirror in circle shape.",
+            "Overheats in a second, but",
+            "protects from all angles."
+        ],
+        "price": 300,
+        "item": {
+            "type": "mirror",
+            "durability": 20
+        }
+    },
+    "mirrorLong": {
+        "name": "PROLONGED MIRROR",
+        "description": [
+            "Big and effective mirror.",
+            "Overheats fast, but has",
+            "bigger reflective zone."
+        ],
+        "price": 300,
+        "item": {
+            "type": "mirror",
+            "durability": 60
+        }
+    },
+    "mirrorPrism": {
+        "name": "PRISM MIRROR",
+        "description": [
+            "Mirror in triangle shape.",
+            "Overheats not that fast,",
+            "but not that effective",
+            "when attacked from the front."
+        ],
+        "price": 300,
+        "item": {
+            "type": "mirror",
+            "durability": 120
+        }
+    },
+    "mirrorNormal": {
+        "name": "NORMAL MIRROR",
+        "description": [
+            "Just a big old mirror.",
+            "Overheats not that fast,",
+            "and has a neat reflect",
+            "angles."
+        ],
+        "price": 100,
+        "item": {
+            "type": "mirror",
+            "durability": 100
+        }
+    }
+}

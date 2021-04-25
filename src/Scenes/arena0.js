@@ -31,6 +31,9 @@ import crateBigPNG from "../assets/SpriteSheets/crateBigDestroy.png"
 import crateBigJSON from "../assets/SpriteSheets/crateBigDestroy.json"
 import bonePNG from "../assets/bone.png"
 
+import infoPNG from "../assets/info.png"
+import coinAtlasPNG from "../assets/SpriteSheets/coin.png"
+
 import skeletonPNG from "../assets/SpriteSheets/Skeleton.png"
 import skeletonJSON from "../assets/SpriteSheets/Skeleton.json"
 import floorPNG from "../assets/SpriteSheets/floor.png"
@@ -95,6 +98,7 @@ export default class Arena0 extends Scene {
         this.load.atlas('crate', cratePNG, crateJSON)
         this.load.atlas('crate2', crate2PNG, crate2JSON)
         this.load.atlas('crateBig', crateBigPNG, crateBigJSON)
+        this.load.image('info', infoPNG)
 
         this.load.image('Skeleton_body', Skeleton_bodyPNG)
         this.load.image('Skeleton_head', Skeleton_headPNG)
@@ -105,6 +109,7 @@ export default class Arena0 extends Scene {
 
         this.load.aseprite('skeleton', skeletonPNG, skeletonJSON)
         this.load.spritesheet('reflectParticles', reflectParticlesPNG, { frameWidth: 32, frameHeight: 32 });
+        this.load.spritesheet('coin', coinAtlasPNG, { frameWidth: 16, frameHeight: 16 })
         this.load.atlas('floorAtlas', floorPNG, floorJSON);
 
         this.load.image('tileset', tilesetPNG)
@@ -295,6 +300,20 @@ export default class Arena0 extends Scene {
         });
 
         this.input.mouse.disableContextMenu();
+
+        this.wallet = this.add.container()
+        this.wallet.bg = this.add.image(752, 50, 'info')
+        this.wallet.bg.setScale(1.5)
+        this.wallet.amount = this.add.text(795, 48, '300', { fontFamily: '"Press Start 2P"', align: 'center', fontSize: 32, color: "#fff8e1" })
+        this.wallet.amount.setOrigin(0.5)
+        this.wallet.amount.setScale(1.5)
+        this.wallet.amount.visible = false
+
+        this.anims.create({key: 'spin', frames: this.anims.generateFrameNames('coin'), frameRate: 16, repeat: -1, yoyo: true})
+        this.wallet.coin = this.add.sprite(769, 48, 'coin').setScale(1.5);
+        
+        this.wallet.coin.anims.load('spin');
+        this.wallet.coin.play('spin')
 
         // let sprite = this.add.image(0, 0, "player");
         // sprite.setPosition(200, 200);

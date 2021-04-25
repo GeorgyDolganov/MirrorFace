@@ -19,6 +19,15 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
             type: 'freeze'
         },
     ];
+    mirror = 'small'
+    perks = [
+        {
+            name: 'lightArmor',
+            img: '',
+            health: -20,
+            speed: 20
+        }
+    ]
     currentItem = false;
 
     _bloodEmitter;
