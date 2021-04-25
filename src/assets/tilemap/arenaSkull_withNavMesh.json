@@ -1,4 +1,12 @@
 { "compressionlevel":-1,
+ "editorsettings":
+    {
+     "export":
+        {
+         "format":"json",
+         "target":"arenaSkull_withNavMesh.json"
+        }
+    },
  "height":64,
  "infinite":false,
  "layers":[
@@ -129,7 +137,7 @@
                  "rotation":0,
                  "type":"",
                  "visible":true,
-                 "width":124,
+                 "width":132,
                  "x":268,
                  "y":48
                 }, 
@@ -140,19 +148,19 @@
                  "rotation":0,
                  "type":"",
                  "visible":true,
-                 "width":144,
-                 "x":392,
+                 "width":128,
+                 "x":400,
                  "y":48
                 }, 
                 {
-                 "height":424,
+                 "height":416,
                  "id":36,
                  "name":"",
                  "rotation":0,
                  "type":"",
                  "visible":true,
-                 "width":480,
-                 "x":536,
+                 "width":488,
+                 "x":528,
                  "y":48
                 }, 
                 {
@@ -393,8 +401,8 @@
                  "rotation":0,
                  "type":"",
                  "visible":true,
-                 "width":144,
-                 "x":392,
+                 "width":128,
+                 "x":400,
                  "y":496
                 }, 
                 {
@@ -461,7 +469,7 @@
                  "visible":true,
                  "width":368,
                  "x":648,
-                 "y":472
+                 "y":464
                 }, 
                 {
                  "height":312,
@@ -475,7 +483,7 @@
                  "y":472
                 }, 
                 {
-                 "height":88,
+                 "height":96,
                  "id":93,
                  "name":"",
                  "rotation":0,
@@ -483,7 +491,7 @@
                  "visible":true,
                  "width":328,
                  "x":688,
-                 "y":504
+                 "y":496
                 }, 
                 {
                  "height":192,
@@ -1207,7 +1215,7 @@
          "y":0
         }],
  "nextlayerid":8,
- "nextobjectid":212,
+ "nextobjectid":214,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.5.0",
