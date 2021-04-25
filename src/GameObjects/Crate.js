@@ -27,35 +27,49 @@ export default class Crate extends Phaser.Physics.Arcade.Sprite {
         this.setDrag(0.0009);
         this.setCollideWorldBounds(true);
 
-        this.on('animationcomplete', _ => {
-            if ( this.destroyed === false ) return;
+        this.on('animationcomplete', this.onDestroy );
+    }
 
-            this.setVisible(false);
-            this.setActive(false);
+    onDestroy() {
+        if ( this.destroyed === false ) return;
 
-            let type = GRENADES_TYPES[Math.floor(Math.random() * GRENADES_TYPES.length)];
-            let quantity = Math.floor(Math.random() * (this.type === 'crateBig' ? 4 : 2));
+        this.setVisible(false);
+        this.setActive(false);
 
-            if ( quantity > 0 ) scene.player.addItem(type, quantity);
+        scene.tweens.add({
+            targets: this,
+            duration: ( Math.floor(Math.random() * 3) + 2 ) * 1000,
+            x: Math.floor( Math.random() * scene.physics.world.bounds.width ),
+            y: Math.floor( Math.random() * scene.physics.world.bounds.height ),
+            onComplete: tween => {
+                this.destroyed = false;
 
-            scene.tweens.add({
-                targets: this,
-                duration: ( Math.floor(Math.random() * 3) + 2 ) * 1000,
-                x: Math.floor( Math.random() * scene.physics.world.bounds.width ),
-                y: Math.floor( Math.random() * scene.physics.world.bounds.height ),
-                onComplete: tween => {
-                    this.destroyed = false;
+                this.setTexture(this.type+'Idle');
 
-                    this.setTexture(this.type+'Idle');
+                this.health = this.maxHealth;
 
-                    this.health = this.maxHealth;
-
-                    this.body.setEnable(true);
-                    this.setActive(true);
-                    this.setVisible(true);
-                }
-            });
+                this.body.setEnable(true);
+                this.setActive(true);
+                this.setVisible(true);
+            }
         });
+    }
+
+    spawnItem() {
+        let newItem = {
+            type: GRENADES_TYPES[Math.floor(Math.random() * GRENADES_TYPES.length)],
+            quantity: Math.floor(Math.random() * (this.type === 'crateBig' ? 4 : 2))
+        }
+
+        if ( newItem.quantity > 0 ) {
+            let item = scene.add.sprite(this.x, this.y, 'grenade')
+            scene.physics.world.enable([ item ]);
+            let collider = scene.physics.add.collider(scene.player, item, _ => {
+                scene.player.addItem(newItem.type, newItem.quantity);
+                item.destroy();
+                collider.destroy();
+            })
+        }
     }
 
     damage(damage) {
@@ -68,6 +82,7 @@ export default class Crate extends Phaser.Physics.Arcade.Sprite {
 
             this.body.setEnable(false);
 
+            this.spawnItem();
             this.play(this.type+'Destroy');
         }
     }
