@@ -122,7 +122,7 @@ export default class SkeletonEnemy extends RaycasterEnemy {
     }
 
     _calculateRayOrigin() {
-        let point = this.translatePoint(this.x - 16, this.y + 28, this.x, this.y, Phaser.Math.Angle.Normalize(this.rotation ))
+        let point = this.translatePoint(this.x - 28, this.y - 14, this.x, this.y, Phaser.Math.Angle.Normalize(this.rotation ))
         return {
             x: point.x + this.x,
             y: point.y + this.y,
