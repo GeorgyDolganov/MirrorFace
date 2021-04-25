@@ -1,0 +1,86 @@
+{ "frames": [
+   {
+    "filename": "0",
+    "frame": { "x": 0, "y": 0, "w": 39, "h": 61 },
+    "rotated": false,
+    "trimmed": true,
+    "spriteSourceSize": { "x": 29, "y": 24, "w": 39, "h": 61 },
+    "sourceSize": { "w": 34, "h": 59 },
+    "duration": 100
+   },
+   {
+    "filename": "1",
+    "frame": { "x": 39, "y": 0, "w": 34, "h": 59 },
+    "rotated": false,
+    "trimmed": true,
+    "spriteSourceSize": { "x": 32, "y": 25, "w": 34, "h": 59 },
+    "sourceSize": { "w": 34, "h": 59 },
+    "duration": 100
+   },
+   {
+    "filename": "2",
+    "frame": { "x": 73, "y": 0, "w": 34, "h": 59 },
+    "rotated": false,
+    "trimmed": true,
+    "spriteSourceSize": { "x": 32, "y": 25, "w": 34, "h": 59 },
+    "sourceSize": { "w": 34, "h": 59 },
+    "duration": 100
+   },
+   {
+    "filename": "3",
+    "frame": { "x": 107, "y": 0, "w": 33, "h": 59 },
+    "rotated": false,
+    "trimmed": true,
+    "spriteSourceSize": { "x": 32, "y": 25, "w": 33, "h": 59 },
+    "sourceSize": { "w": 34, "h": 59 },
+    "duration": 100
+   },
+   {
+    "filename": "4",
+    "frame": { "x": 140, "y": 0, "w": 39, "h": 61 },
+    "rotated": false,
+    "trimmed": true,
+    "spriteSourceSize": { "x": 29, "y": 23, "w": 39, "h": 61 },
+    "sourceSize": { "w": 34, "h": 59 },
+    "duration": 100
+   },
+   {
+    "filename": "5",
+    "frame": { "x": 179, "y": 0, "w": 34, "h": 59 },
+    "rotated": false,
+    "trimmed": true,
+    "spriteSourceSize": { "x": 32, "y": 25, "w": 34, "h": 59 },
+    "sourceSize": { "w": 34, "h": 59 },
+    "duration": 100
+   },
+   {
+    "filename": "6",
+    "frame": { "x": 213, "y": 0, "w": 34, "h": 59 },
+    "rotated": false,
+    "trimmed": true,
+    "spriteSourceSize": { "x": 32, "y": 25, "w": 34, "h": 59 },
+    "sourceSize": { "w": 34, "h": 59 },
+    "duration": 100
+   },
+   {
+    "filename": "7",
+    "frame": { "x": 247, "y": 0, "w": 33, "h": 59 },
+    "rotated": false,
+    "trimmed": true,
+    "spriteSourceSize": { "x": 32, "y": 25, "w": 33, "h": 59 },
+    "sourceSize": { "w": 34, "h": 59 },
+    "duration": 100
+   }
+ ],
+ "meta": {
+  "app": "http://www.aseprite.org/",
+  "version": "1.2.27-x64",
+  "image": "pyramidhead walk.png",
+  "format": "RGBA8888",
+  "size": { "w": 280, "h": 61 },
+  "scale": "1",
+  "frameTags": [
+   { "name": "pyramidhead_walk", "from": 0, "to": 7, "direction": "forward" }
+  ]
+ }
+}

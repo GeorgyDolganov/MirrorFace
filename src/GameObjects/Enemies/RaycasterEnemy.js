@@ -23,7 +23,10 @@ export default class RaycasterEnemy extends AEnemy {
      */
     constructor(scene, x, y, spriteName = "pyramidHead") {
         super(scene, x, y, spriteName);
-        this.setName('pyramidHead')
+        this.setName('pyramidHead');
+        this.setOffset(70,30);
+        this.setOrigin(0.5,0.5);
+        this.play({key: "pyramidhead_walk", repeat: -1});
         this.rays.push(new ReflectableRay({
             scene, fromPoint: {x: 0, y: 0}, angle: 0
         }));

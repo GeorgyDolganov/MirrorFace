@@ -32,6 +32,8 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
 
     _bloodEmitter;
 
+    isGameOverShown;
+
     /**
      * @param {Phaser.Scene} scene 
      */
@@ -158,6 +160,8 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
     }
 
     showGameOverScreen() {
+        if( this.isGameOverShown ) return;
+        this.isGameOverShown = true;
         let container = this.scene.add.container();
         let blackout = this.scene.add.graphics();
         blackout.fillStyle(0x000000, 0.8);

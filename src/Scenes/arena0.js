@@ -49,6 +49,9 @@ import floorJSON from "../assets/SpriteSheets/floor.json"
 import vampirePNG from "../assets/SpriteSheets/Vampire.png"
 import vampireJSON from "../assets/SpriteSheets/Vampire.json"
 
+import pyramidPNG from "../assets/SpriteSheets/pyramidhead_walk.png"
+import pyramidJSON from "../assets/SpriteSheets/pyramidhead_walk.json"
+
 import explodePNG from "../assets/SpriteSheets/explode.png"
 
 import hydraPNG from "../assets/hydra/hydra.png"
@@ -131,6 +134,7 @@ export default class Arena0 extends Scene {
 
         this.load.aseprite('vampire', vampirePNG, vampireJSON);
 
+        this.load.aseprite('pyramidhead_walk', pyramidPNG, pyramidJSON);
         //HYDRA
         this.load.atlas('hydra', hydraPNG, hydraJSON);
         this.load.image("hydra_head", hydraHeadPNG);
@@ -187,6 +191,7 @@ export default class Arena0 extends Scene {
 
         this.anims.createFromAseprite('skeleton');
         this.anims.createFromAseprite('vampire');
+        this.anims.createFromAseprite('pyramidhead_walk');
         this.textures.get('floorAtlas');
 
         this.anims.create({ key: 'explode', frames: this.anims.generateFrameNumbers('explode'), frameRate: 30, repeat: 0 });
@@ -333,16 +338,20 @@ export default class Arena0 extends Scene {
         this.wallet = this.add.container()
         this.wallet.bg = this.add.image(752, 50, 'info')
         this.wallet.bg.setScale(1.5)
-        this.wallet.amount = this.add.text(795, 48, '300', { fontFamily: '"Press Start 2P"', align: 'center', fontSize: 32, color: "#fff8e1" })
+        this.wallet.amount = this.add.text(735, 50, '300', { fontFamily: '"Press Start 2P"', align: 'center', fontSize: 12, color: "#fff8e1" })
         this.wallet.amount.setOrigin(0.5)
-        this.wallet.amount.setScale(1.5)
-        this.wallet.amount.visible = false
+        this.wallet.amount.setScale(1.0)
+        this.wallet.amount.visible = true
 
         this.anims.create({key: 'spin', frames: this.anims.generateFrameNames('coin'), frameRate: 16, repeat: -1, yoyo: true})
         this.wallet.coin = this.add.sprite(769, 48, 'coin').setScale(1.5);
-        
+
+        this.wallet.add(this.wallet.bg);
+        this.wallet.add(this.wallet.amount);
+        this.wallet.add(this.wallet.coin);
         this.wallet.coin.anims.load('spin');
-        this.wallet.coin.play('spin')
+        this.wallet.coin.play('spin');
+        this.wallet.setScrollFactor(0);
 
         // let sprite = this.add.image(0, 0, "player");
         // sprite.setPosition(200, 200);
