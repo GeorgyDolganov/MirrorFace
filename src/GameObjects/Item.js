@@ -140,6 +140,22 @@ export default class Item extends Phaser.Physics.Arcade.Sprite {
 
                 break;
             }
+            case 'magicicanAttack': {
+                let area = this.scene.add.circle(this.x, this.y, 25).setStrokeStyle(1, 0xff0000);
+
+                let explode = this.scene.add.sprite(this.x, this.y, 'explode').play('explode');
+                explode.scale = 1;
+                explode.on('animationcomplete', _ => { explode.destroy() });
+
+                this.scene.cameras.main.shake(100, .0025);
+                this.checkCollisions(area, (unit) => {
+                    unit.changeHealth(-25);
+                })
+
+                this.delayedCall(100, _ => {area.destroy()});
+
+                break;
+            }
             case 'burn': {
                 let area = this.scene.add.circle(this.x, this.y, 100).setStrokeStyle(1, 0xff0000);
 
