@@ -1,6 +1,6 @@
 import Phaser from "phaser";
 
-const GRENADES_TYPES = ['burn','damage','freeze','blink','reflection'];
+const GRENADES_TYPES = ['burn','damage','freeze','blink','reflection','health'];
 
 export default class Crate extends Phaser.Physics.Arcade.Sprite {
     type

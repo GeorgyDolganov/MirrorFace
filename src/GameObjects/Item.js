@@ -19,6 +19,8 @@ export default class Item extends Phaser.Physics.Arcade.Sprite {
     throw(x, y) {
         let time = Math.sqrt( Math.pow(x - this.x, 2) + Math.pow(y - this.y, 2) ) / 500 * 1000;
 
+        if ( this.type === 'health' ) time = 0;
+
         this.tweens.add({
             targets: this,
             x: x,
@@ -46,13 +48,17 @@ export default class Item extends Phaser.Physics.Arcade.Sprite {
         }
     }
 
-    delayedCall(delay, callback) {
+    delayedCall(delay, callback, repeat = 0) {
         let fakeObject = { iterator: 0 };
 
         this.tweens.add({
             targets: fakeObject,
             iterator: delay,
             duration: delay,
+            repeat: repeat - 1,
+            onRepeat: tween => {
+                callback();
+            },
             onComplete: tween => {
                 callback();
             }
@@ -64,6 +70,13 @@ export default class Item extends Phaser.Physics.Arcade.Sprite {
             case 'blink': {
                 this.scene.player.x = this.x;
                 this.scene.player.y = this.y;
+                break;
+            }
+            case 'health': {
+                this.delayedCall(100, _ => {
+                    console.log('healht!')
+                    scene.player.changeHealth(5 + Math.floor(Math.random() * 5));
+                }, 10);
                 break;
             }
             case 'freeze': {
