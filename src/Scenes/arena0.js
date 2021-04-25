@@ -61,7 +61,7 @@ import Player from "../GameObjects/Player";
 import Mirror from "../GameObjects/Mirror";
 
 import arena0Map from "../assets/tilemap/arena0.json"
-import arenaSkullMap from "../assets/tilemap/arenaSkull.json"
+import arenaSkullMap from "../assets/tilemap/arenaSkull_withNavMesh.json"
 import tilesetPNG from "../assets/SpriteSheets/tileset.png"
 
 var raycaster;
@@ -204,9 +204,9 @@ export default class Arena0 extends Scene {
             loop: true
         })
 
-        const layers = [this.groundLayer, this.spikeLayer, this.objLayer, this.wallLayer, this.reflectLayer];
+        const objectLayer = map.getObjectLayer("navmesh");
 
-        const navMesh = this.navMeshPlugin.buildMeshFromTilemap("mesh1", map, layers);
+        const navMesh = this.navMeshPlugin.buildMeshFromTiled("navmesh", objectLayer, 12.5);
         this.navMesh = navMesh;
 
         // Graphics overlay for visualizing path
