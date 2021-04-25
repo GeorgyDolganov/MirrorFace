@@ -58,6 +58,10 @@ import explodePNG from "../assets/SpriteSheets/explode.png"
 
 import firePNG from "../assets/SpriteSheets/fire.png"
 import fireJSON from "../assets/SpriteSheets/fire.json"
+import fireballPNG from "../assets/SpriteSheets/fireball.png"
+import fireballJSON from "../assets/SpriteSheets/fireball.json"
+import magicballPNG from "../assets/SpriteSheets/magicball.png"
+import magicballJSON from "../assets/SpriteSheets/magicball.json"
 
 import hydraPNG from "../assets/hydra/hydra.png"
 import hydraJSON from "../assets/hydra/hydra.json"
@@ -142,6 +146,8 @@ export default class Arena0 extends Scene {
         this.load.spritesheet('reflectParticles', reflectParticlesPNG, { frameWidth: 32, frameHeight: 32 });
         this.load.spritesheet('coin', coinAtlasPNG, { frameWidth: 16, frameHeight: 16 })
         this.load.atlas('fire', firePNG, fireJSON);
+        this.load.atlas('fireball', fireballPNG, fireballJSON);
+        this.load.atlas('magicball', magicballPNG, magicballJSON);
         this.load.atlas('floorAtlas', floorPNG, floorJSON);
 
         this.load.image('tileset', tilesetPNG)
@@ -206,6 +212,8 @@ export default class Arena0 extends Scene {
         this.anims.create({ key: 'hydra_walk', frames: this.anims.generateFrameNames('hydra', { prefix: 'walk_', suffix: ".png", end: 9, zeroPad: 0 }), repeat: -1, repeatDelay: 0, frameRate: 24 });
 
         this.anims.create({ key: 'fire', frames: this.anims.generateFrameNames('fire', { prefix: 'fire_', end: 60, zeroPad: 0 }), repeat: -1, repeatDelay: 0, frameRate: 60 });
+        this.anims.create({ key: 'fireball', frames: this.anims.generateFrameNames('fireball', { prefix: 'fireball_', end: 30, zeroPad: 0 }), repeat: -1, repeatDelay: 0, frameRate: 30 });
+        this.anims.create({ key: 'magicball', frames: this.anims.generateFrameNames('magicball', { prefix: 'magicball_', end: 30, zeroPad: 0 }), repeat: -1, repeatDelay: 0, frameRate: 30 });
 
         this.anims.createFromAseprite('magician');
         this.anims.createFromAseprite('skeleton');
