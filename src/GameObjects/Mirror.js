@@ -56,7 +56,7 @@ export default class Mirror extends Phaser.Physics.Arcade.Sprite {
      * Amount of damage this mirror can absorb before being broken
      * @type {number}
      */
-    maxStability = 10000;
+    maxStability = 100;
     /**
      * Amount of current stability
      * @type {number}
