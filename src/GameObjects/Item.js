@@ -159,6 +159,9 @@ export default class Item extends Phaser.Physics.Arcade.Sprite {
             case 'burn': {
                 let area = this.scene.add.circle(this.x, this.y, 100).setStrokeStyle(1, 0xff0000);
 
+                let burn = this.scene.add.sprite(this.x, this.y, 'fire').play('fire');
+                burn.scale = 2;
+
                 this.checkCollisions(area, (unit) => {
                     if ( unit ) unit.changeHealth(-5);
 
@@ -219,6 +222,7 @@ export default class Item extends Phaser.Physics.Arcade.Sprite {
                     },
                     onComplete: tween => {
                         area.destroy();
+                        burn.destroy();
                     }
                 });
 
