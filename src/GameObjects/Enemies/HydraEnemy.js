@@ -196,12 +196,7 @@ export default class HydraEnemy extends AEnemy {
             } else
             if ( this.releasePath() ) {
                 if ( this.isStacked() ) {
-                    scene.tweens.add({
-                        targets: this,
-                        duration: 100,
-                        x: this.x + 10 * Math.sin(Math.random() * Math.PI * 2),
-                        y: this.y + 10 * Math.cos(Math.random() * Math.PI * 2)
-                    })
+                    // nothing
                 }
             } else {
                 this.goTo(scene.player);

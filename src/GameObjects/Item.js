@@ -19,7 +19,7 @@ export default class Item extends Phaser.Physics.Arcade.Sprite {
     throw(x, y) {
         let time = Math.sqrt( Math.pow(x - this.x, 2) + Math.pow(y - this.y, 2) ) / 500 * 1000;
 
-        if ( this.type === 'health' ) time = 0;
+        if ( this.type === 'health' || this.type === 'regeneration' ) time = 0;
 
         this.tweens.add({
             targets: this,
@@ -73,15 +73,15 @@ export default class Item extends Phaser.Physics.Arcade.Sprite {
                 break;
             }
             case 'health': {
-                if ( Math.random() > .5 ) {
-                    this.delayedCall(100, _ => {
-                        scene.player.changeHealth(5 + Math.floor(Math.random() * 6));
-                    }, 10);
-                } else {
-                    this.delayedCall(1000, _ => {
-                        scene.player.changeHealth(1 + Math.floor(Math.random() * 2));
-                    }, 50);
-                }
+                this.delayedCall(100, _ => {
+                    scene.player.changeHealth(5 + Math.floor(Math.random() * 6));
+                }, 10);
+                break;
+            }
+            case 'regeneration': {
+                this.delayedCall(500, _ => {
+                    scene.player.changeHealth(1);
+                }, Math.floor( Math.random() * 100 ) + 50);
                 break;
             }
             case 'freeze': {

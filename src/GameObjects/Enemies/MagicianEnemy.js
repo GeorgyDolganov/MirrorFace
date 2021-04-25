@@ -11,6 +11,8 @@ export default class MagicianEnemy extends AEnemy {
 
     speed = 200
 
+    reward = 50
+
     constructor(scene, x, y) {
         super(scene, x, y, "magician");
     }
