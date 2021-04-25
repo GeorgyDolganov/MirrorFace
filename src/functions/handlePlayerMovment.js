@@ -1,4 +1,5 @@
 export default function handlePlayerMovement(player, cursors) {
+    if( player.isDead() ) return;
     const angle = cursors.up.isDown && cursors.left.isDown ||
         cursors.up.isDown && cursors.right.isDown ||
         cursors.down.isDown && cursors.left.isDown ||
