@@ -73,10 +73,15 @@ export default class Item extends Phaser.Physics.Arcade.Sprite {
                 break;
             }
             case 'health': {
-                this.delayedCall(100, _ => {
-                    console.log('healht!')
-                    scene.player.changeHealth(5 + Math.floor(Math.random() * 5));
-                }, 10);
+                if ( Math.random() > .5 ) {
+                    this.delayedCall(100, _ => {
+                        scene.player.changeHealth(5 + Math.floor(Math.random() * 6));
+                    }, 10);
+                } else {
+                    this.delayedCall(1000, _ => {
+                        scene.player.changeHealth(1 + Math.floor(Math.random() * 2));
+                    }, 50);
+                }
                 break;
             }
             case 'freeze': {
