@@ -8,9 +8,9 @@
             "x": 200,
             "y": 200
           },
-          "enemyType": "HydraEnemy",
+          "enemyType": "RaycasterEnemy",
           "delayBeforeSpawn": 0,
-          "spawnRate": 1,
+          "spawnRate": 2,
           "totalSpawns": 1
         }
       ]
@@ -26,33 +26,13 @@
           "enemyType": "RaycasterEnemy",
           "delayBeforeSpawn": 0,
           "spawnRate": 2,
-          "totalSpawns": 10
-        },
-        {
-          "position": {
-            "x": 1000,
-            "y": 1000
-          },
-          "enemyType": "SkeletonEnemy",
-          "delayBeforeSpawn": 0,
-          "spawnRate": 3,
-          "totalSpawns": 10
+          "totalSpawns": 6
         }
       ]
     },
     {
-      "round": 3,
+      "round":3,
       "spawns": [
-        {
-          "position": {
-            "x": 1400,
-            "y": 1400
-          },
-          "enemyType": "VampireEnemy",
-          "delayBeforeSpawn": 0,
-          "spawnRate": 4,
-          "totalSpawns": 3
-        },
         {
           "position": {
             "x": 1000,
@@ -60,8 +40,8 @@
           },
           "enemyType": "SkeletonEnemy",
           "delayBeforeSpawn": 0,
-          "spawnRate": 3,
-          "totalSpawns": 10
+          "spawnRate": 1,
+          "totalSpawns": 3
         },
         {
           "position": {
@@ -71,17 +51,7 @@
           "enemyType": "RaycasterEnemy",
           "delayBeforeSpawn": 0,
           "spawnRate": 2,
-          "totalSpawns": 10
-        },
-        {
-          "position": {
-            "x": 1000,
-            "y": 1000
-          },
-          "enemyType": "SkeletonEnemy",
-          "delayBeforeSpawn": 0,
-          "spawnRate": 3,
-          "totalSpawns": 10
+          "totalSpawns": 6
         }
       ]
     },
@@ -95,8 +65,8 @@
           },
           "enemyType": "RaycasterEnemy",
           "delayBeforeSpawn": 0,
-          "spawnRate": 4,
-          "totalSpawns": 10
+          "spawnRate": 1,
+          "totalSpawns": 2
         },
         {
           "position": {
@@ -105,8 +75,8 @@
           },
           "enemyType": "SkeletonEnemy",
           "delayBeforeSpawn": 0,
-          "spawnRate": 3,
-          "totalSpawns": 10
+          "spawnRate": 1,
+          "totalSpawns": 2
         },
         {
           "position": {
@@ -115,8 +85,8 @@
           },
           "enemyType": "RaycasterEnemy",
           "delayBeforeSpawn": 0,
-          "spawnRate": 2,
-          "totalSpawns": 10
+          "spawnRate": 1,
+          "totalSpawns": 2
         },
         {
           "position": {
@@ -125,8 +95,8 @@
           },
           "enemyType": "SkeletonEnemy",
           "delayBeforeSpawn": 0,
-          "spawnRate": 3,
-          "totalSpawns": 10
+          "spawnRate": 1,
+          "totalSpawns": 2
         },
         {
           "position": {
@@ -134,9 +104,9 @@
             "y": 500
           },
           "enemyType": "TankEnemy",
-          "delayBeforeSpawn": 0,
-          "spawnRate": 5,
-          "totalSpawns": 2
+          "delayBeforeSpawn": 2000,
+          "spawnRate": 1,
+          "totalSpawns": 1
         }
       ]
     },
@@ -148,20 +118,40 @@
             "x": 100,
             "y": 100
           },
-          "enemyType": "RaycasterEnemy",
+          "enemyType": "VampireEnemy",
           "delayBeforeSpawn": 0,
-          "spawnRate": 4,
-          "totalSpawns": 10
-        },
+          "spawnRate": 1,
+          "totalSpawns": 1
+        }
+      ]
+    },
+    {
+      "round": 6,
+      "spawns": [
         {
           "position": {
-            "x": 1000,
+            "x": 100,
             "y": 100
           },
-          "enemyType": "SkeletonEnemy",
-          "delayBeforeSpawn": 0,
-          "spawnRate": 3,
-          "totalSpawns": 10
+          "enemyType": "VampireEnemy",
+          "delayBeforeSpawn": 10000,
+          "spawnRate": 1,
+          "totalSpawns": 2
+        }
+      ]
+    },
+    {
+      "round": 7,
+      "spawns": [
+        {
+          "position": {
+            "x": 100,
+            "y": 100
+          },
+          "enemyType": "VampireEnemy",
+          "delayBeforeSpawn": 10000,
+          "spawnRate": 1,
+          "totalSpawns": 2
         },
         {
           "position": {
@@ -170,18 +160,33 @@
           },
           "enemyType": "RaycasterEnemy",
           "delayBeforeSpawn": 0,
-          "spawnRate": 2,
-          "totalSpawns": 10
+          "spawnRate": 1,
+          "totalSpawns": 4
+        }
+      ]
+    },
+    {
+      "round": 8,
+      "spawns": [
+        {
+          "position": {
+            "x": 100,
+            "y": 100
+          },
+          "enemyType": "VampireEnemy",
+          "delayBeforeSpawn": 10000,
+          "spawnRate": 1,
+          "totalSpawns": 2
         },
         {
           "position": {
-            "x": 1000,
+            "x": 100,
             "y": 1000
           },
-          "enemyType": "SkeletonEnemy",
+          "enemyType": "RaycasterEnemy",
           "delayBeforeSpawn": 0,
-          "spawnRate": 3,
-          "totalSpawns": 10
+          "spawnRate": 1,
+          "totalSpawns": 4
         },
         {
           "position": {
@@ -189,9 +194,24 @@
             "y": 500
           },
           "enemyType": "TankEnemy",
-          "delayBeforeSpawn": 0,
-          "spawnRate": 5,
-          "totalSpawns": 5
+          "delayBeforeSpawn": 2000,
+          "spawnRate": 1,
+          "totalSpawns": 1
+        }
+      ]
+    },
+    {
+      "round": 6,
+      "spawns": [
+        {
+          "position": {
+            "x": 100,
+            "y": 100
+          },
+          "enemyType": "HydraEnemy",
+          "delayBeforeSpawn": 10000,
+          "spawnRate": 1,
+          "totalSpawns": 2
         }
       ]
     }

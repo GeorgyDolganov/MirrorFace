@@ -19,6 +19,8 @@ export default class Item extends Phaser.Physics.Arcade.Sprite {
     throw(x, y) {
         let time = Math.sqrt( Math.pow(x - this.x, 2) + Math.pow(y - this.y, 2) ) / 500 * 1000;
 
+        if ( this.type === 'health' ) time = 0;
+
         this.tweens.add({
             targets: this,
             x: x,
@@ -46,13 +48,17 @@ export default class Item extends Phaser.Physics.Arcade.Sprite {
         }
     }
 
-    delayedCall(delay, callback) {
+    delayedCall(delay, callback, repeat = 0) {
         let fakeObject = { iterator: 0 };
 
         this.tweens.add({
             targets: fakeObject,
             iterator: delay,
             duration: delay,
+            repeat: repeat - 1,
+            onRepeat: tween => {
+                callback();
+            },
             onComplete: tween => {
                 callback();
             }
@@ -66,13 +72,30 @@ export default class Item extends Phaser.Physics.Arcade.Sprite {
                 this.scene.player.y = this.y;
                 break;
             }
+            case 'health': {
+                if ( Math.random() > .5 ) {
+                    this.delayedCall(100, _ => {
+                        scene.player.changeHealth(5 + Math.floor(Math.random() * 6));
+                    }, 10);
+                } else {
+                    this.delayedCall(1000, _ => {
+                        scene.player.changeHealth(1 + Math.floor(Math.random() * 2));
+                    }, 50);
+                }
+                break;
+            }
             case 'freeze': {
                 let area = this.scene.add.circle(this.x, this.y, 50).setStrokeStyle(1, 0xff0000);
 
                 this.checkCollisions(area, (unit) => {
                     let defaultSpeed = unit.speed;
                     unit.speed = unit.speed / 10;
-                    this.delayedCall(2000, _ => unit.speed = defaultSpeed);
+
+                    scene.tweens.add({
+                        targets: unit,
+                        speed: defaultSpeed,
+                        duration: 6000
+                    });
                 })
 
                 this.delayedCall(100, _ => {area.destroy()});

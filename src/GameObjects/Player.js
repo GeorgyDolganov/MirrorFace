@@ -18,6 +18,10 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
             quantity: 1,
             type: 'freeze'
         },
+        {
+            quantity: 1,
+            type: 'health'
+        }
     ];
     mirror = 'mirrorSmall'
     perks = [
@@ -45,7 +49,8 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
         this.setDamping(true);
         this.setDrag(0.0009);
         this.setMaxVelocity(500);
-        this.health = 100;
+        this.maxHealth = 100;
+        this.health = this.maxHealth;
 
         this.body.setCircle(15);
         this.body.setOffset(0, 15);
@@ -211,6 +216,7 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
 
     changeHealth(changeBy) {
         this.health += changeBy;
+        if ( this.health > this.maxHealth ) this.health = this.maxHealth;
         this.scene.healthBar.update(this.health);
         if(this.health <= 0 ) this.showGameOverScreen();
     }
