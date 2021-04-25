@@ -15,6 +15,9 @@ import grenadePNG from "../assets/grenade.png"
 import shardPNG from "../assets/shard.png"
 import pyramidHeadPNG from "../assets/PyramidHead.png"
 import mirrorPNG from "../assets/mirror.png";
+import mirrorSmallPNG from "../assets/mirrormini.png";
+import mirrorLongPNG from "../assets/mirrorbig.png";
+import mirrorCirclePNG from "../assets/mirrorcircle.png";
 import tilefloorPNG from "../assets/floor.png"
 import tilefloorNormal from "../assets/floor_n.png"
 import mirrorwallPNG from "../assets/mirrorwall.png"
@@ -95,7 +98,6 @@ export default class Arena0 extends Scene {
         this.load.image('grenade', grenadePNG)
         this.load.image('shard', shardPNG)
         this.load.image('pyramidHead', pyramidHeadPNG)
-        this.load.image('mirror', mirrorPNG);
         this.load.image({key:'tilefloor',url:tilefloorPNG, normalMap:tilefloorNormal})
         this.load.image('mirrorwall', mirrorwallPNG)
 
@@ -128,6 +130,7 @@ export default class Arena0 extends Scene {
 
         this.load.aseprite('vampire', vampirePNG, vampireJSON);
 
+        //HYDRA
         this.load.atlas('hydra', hydraPNG, hydraJSON);
         this.load.image("hydra_head", hydraHeadPNG);
 
@@ -140,6 +143,12 @@ export default class Arena0 extends Scene {
         this.load.image("hydra_piece6", hydraPiece6PNG);
         this.load.image("hydra_piece7", hydraPiece7PNG);
         this.load.image("hydra_piece8", hydraPiece8PNG);
+
+        //ITEMS
+        this.load.image("mirrorCircle", mirrorCirclePNG)
+        this.load.image("mirrorLong", mirrorLongPNG)
+        this.load.image("mirrorSmall", mirrorSmallPNG)
+        this.load.image('mirror', mirrorPNG);
     }
 
     create() {

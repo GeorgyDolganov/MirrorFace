@@ -87,7 +87,7 @@ export default class Mirror extends Phaser.Physics.Arcade.Sprite {
     _reflectEmitters = [];
 
     constructor(scene) {
-        super(scene, 0, 0, "mirror");
+        super(scene, 0, 0, scene.player.mirror);
         scene.physics.add.existing(this);
         this._scene = scene
         this.setImmovable();

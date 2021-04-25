@@ -118,7 +118,7 @@ export default class AEnemy extends Phaser.Physics.Arcade.Sprite {
     goTo(targetPoint) {
         // Find a path to the target
         this.path = scene.navMesh.findPath(new Phaser.Math.Vector2(this.x, this.y), targetPoint);
-        scene.navMesh.debugDrawPath(this.path, 0xffd900);
+        // scene.navMesh.debugDrawPath(this.path, 0xffd900);
     
         // If there is a valid path, grab the first point from the path and set it as the target
         if (this.path && this.path.length > 0) this.currentTarget = this.path.shift();
