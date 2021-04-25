@@ -61,8 +61,8 @@ export default class HydraEnemy extends AEnemy {
         this._leftRay.initialDamage = 0.14;
         this._rightRay.initialDamage = 0.14;
 
-        this.body.setCircle(22);
-        this.body.setOffset(0, 40);
+        this.body.setCircle(15);
+        this.body.setOffset(10, 40);
 
     }
 
