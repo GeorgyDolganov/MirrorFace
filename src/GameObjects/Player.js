@@ -88,6 +88,8 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
 
         });
         this._bloodEmitter.stop();
+
+        this.setDepth(8);
     }
 
     cooldownMirror() {

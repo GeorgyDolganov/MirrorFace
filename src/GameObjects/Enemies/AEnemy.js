@@ -67,7 +67,7 @@ export default class AEnemy extends Phaser.Physics.Arcade.Sprite {
         this.healthBar.setPosition(this.x -this.width * 0.75, this.y + 30);
         this.tint = 0xffffff;
 
-        this.rotation = Phaser.Math.Angle.Between(this.x, this.y, scene.player.x, scene.player.y);
+        //this.rotation = Phaser.Math.Angle.Between(this.x, this.y, scene.player.x, scene.player.y);
 
         this.onUpdate(...args);
     }
@@ -112,7 +112,7 @@ export default class AEnemy extends Phaser.Physics.Arcade.Sprite {
         const angle = Phaser.Math.Angle.Between(this.x, this.y, x, y);
     
         this.scene.physics.velocityFromRotation(angle, this.speed, this.body.velocity);
-        this.rotation = angle;
+        //this.rotation = angle;
     }
 
     goTo(targetPoint) {

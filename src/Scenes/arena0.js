@@ -39,6 +39,19 @@ import floorJSON from "../assets/SpriteSheets/floor.json"
 import vampirePNG from "../assets/SpriteSheets/Vampire.png"
 import vampireJSON from "../assets/SpriteSheets/Vampire.json"
 
+import hydraPNG from "../assets/hydra/hydra.png"
+import hydraJSON from "../assets/hydra/hydra.json"
+import hydraHeadPNG from "../assets/hydra/head.png"
+import hydraPiece0PNG from "../assets/hydra/piece_0.png";
+import hydraPiece1PNG from "../assets/hydra/piece_1.png"
+import hydraPiece2PNG from "../assets/hydra/piece_2.png";
+import hydraPiece3PNG from "../assets/hydra/piece_3.png"
+import hydraPiece4PNG from "../assets/hydra/piece_4.png";
+import hydraPiece5PNG from "../assets/hydra/piece_5.png"
+import hydraPiece6PNG from "../assets/hydra/piece_6.png";
+import hydraPiece7PNG from "../assets/hydra/piece_7.png";
+import hydraPiece8PNG from "../assets/hydra/piece_8.png";
+
 import bgLoopMP3 from "../assets/audio/moom.mp3"
 import mirrorPushWAV from "../assets/audio/mirrorPush.wav"
 import laser0WAV from "../assets/audio/laser0.wav"
@@ -99,6 +112,19 @@ export default class Arena0 extends Scene {
         this.load.image('spark', blueSparkPNG);
 
         this.load.aseprite('vampire', vampirePNG, vampireJSON);
+
+        this.load.atlas('hydra', hydraPNG, hydraJSON);
+        this.load.image("hydra_head", hydraHeadPNG);
+
+        this.load.image("hydra_piece0", hydraPiece0PNG);
+        this.load.image("hydra_piece1", hydraPiece1PNG);
+        this.load.image("hydra_piece2", hydraPiece2PNG);
+        this.load.image("hydra_piece3", hydraPiece3PNG);
+        this.load.image("hydra_piece4", hydraPiece4PNG);
+        this.load.image("hydra_piece5", hydraPiece5PNG);
+        this.load.image("hydra_piece6", hydraPiece6PNG);
+        this.load.image("hydra_piece7", hydraPiece7PNG);
+        this.load.image("hydra_piece8", hydraPiece8PNG);
     }
 
     create() {
@@ -128,6 +154,11 @@ export default class Arena0 extends Scene {
         this.anims.create({ key: 'crate2Destroy', frames: this.anims.generateFrameNames('crate2', { prefix: 'crate2.png_', end: 60, zeroPad: 0 }), repeat: 0, repeatDelay: 500, frameRate: 60 });
         this.anims.create({ key: 'crateBigIdle', frames: this.anims.generateFrameNames('crateBig', { prefix: 'render.png_', end: 0, zeroPad: 0 }), repeat: 0, repeatDelay: 500, frameRate: 60 });
         this.anims.create({ key: 'crateBigDestroy', frames: this.anims.generateFrameNames('crateBig', { prefix: 'render.png_', end: 60, zeroPad: 0 }), repeat: 0, repeatDelay: 500, frameRate: 60 });
+
+        this.anims.create({ key: 'hydra_death', frames: this.anims.generateFrameNames('hydra', { prefix: 'death_', suffix: ".png", end: 38, zeroPad: 0 }), repeat: -1, repeatDelay: 0, frameRate: 24 });
+        this.anims.create({ key: 'hydra_attack', frames: this.anims.generateFrameNames('hydra', { prefix: 'attack_', suffix: ".png",end: 8, zeroPad: 0 }), repeat: -1, repeatDelay: 0, frameRate: 24 });
+        this.anims.create({ key: 'hydra_walk', frames: this.anims.generateFrameNames('hydra', { prefix: 'walk_', suffix: ".png", end: 10, zeroPad: 0 }), repeat: -1, repeatDelay: 0, frameRate: 24 });
+
         this.anims.createFromAseprite('skeleton');
         this.anims.createFromAseprite('vampire');
         this.textures.get('floorAtlas');
@@ -265,7 +296,8 @@ export default class Arena0 extends Scene {
 
         this.input.mouse.disableContextMenu();
 
-        
+        // let sprite = this.add.image(0, 0, "player");
+        // sprite.setPosition(200, 200);
     }
 
     update(time, delta) {

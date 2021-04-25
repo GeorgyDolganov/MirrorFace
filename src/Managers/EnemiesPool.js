@@ -16,7 +16,7 @@ export default class EnemiesPool {
 
 
         this._scene.physics.add.collider(this._physicsGroup, this._physicsGroup);
-        this._scene.physics.add.collider(this._physicsGroup, [scene.staticObstacles, scene.wallLayer, scene.objLayer, scene.reflectLayer]);
+        //this._scene.physics.add.collider(this._physicsGroup, [scene.staticObstacles, scene.wallLayer, scene.objLayer, scene.reflectLayer]);
     }
 
     create(type, position) {
