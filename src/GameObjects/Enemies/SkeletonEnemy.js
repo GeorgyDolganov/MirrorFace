@@ -34,16 +34,16 @@ export default class SkeletonEnemy extends RaycasterEnemy {
     processSkeletonAction(time, delta) {
        switch (this.currentAction) {
            case "movement":
-               this.handleMovementAction(time,delta);
+                this.handleMovementAction(time,delta);
 
-               if (this.currentAction === 'movement') {
-                if ( this.isStacked() ) {
-                    this.findNextPosition();
-                } else {
+                if (this.currentAction === 'movement') {
                     if ( !this.releasePath() ) this.handleMovementAction(time,delta);
+
+                    if ( this.isStacked() ) {
+                        this.findNextPosition();
+                    }
                 }
-               }
-               break;
+                break;
            case "charge":
                this.handleChargeAction(time,delta);
                break;
