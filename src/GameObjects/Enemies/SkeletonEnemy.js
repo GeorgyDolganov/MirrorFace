@@ -13,6 +13,7 @@ export default class SkeletonEnemy extends RaycasterEnemy {
     health = this.maxHealth;
 
     speed = 200;
+    reward = 20;
 
     constructor(scene, x, y, children) {
         super(scene, x, y, "skeleton")

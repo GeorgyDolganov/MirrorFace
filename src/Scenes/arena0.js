@@ -338,10 +338,13 @@ export default class Arena0 extends Scene {
         this.wallet = this.add.container()
         this.wallet.bg = this.add.image(752, 50, 'info')
         this.wallet.bg.setScale(1.5)
-        this.wallet.amount = this.add.text(735, 50, '300', { fontFamily: '"Press Start 2P"', align: 'center', fontSize: 12, color: "#fff8e1" })
+        this.wallet.amount = this.add.text(735, 50, '0', { fontFamily: '"Press Start 2P"', align: 'center', fontSize: 12, color: "#fff8e1" })
         this.wallet.amount.setOrigin(0.5)
         this.wallet.amount.setScale(1.0)
         this.wallet.amount.visible = true
+        this.wallet.addCoins = coins => {
+            this.wallet.amount.text = parseInt( this.wallet.amount.text ) + coins;
+        }
 
         this.anims.create({key: 'spin', frames: this.anims.generateFrameNames('coin'), frameRate: 16, repeat: -1, yoyo: true})
         this.wallet.coin = this.add.sprite(769, 48, 'coin').setScale(1.5);

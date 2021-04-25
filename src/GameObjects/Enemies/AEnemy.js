@@ -30,6 +30,8 @@ export default class AEnemy extends Phaser.Physics.Arcade.Sprite {
     currentDistance = 0;
     next = 0;
 
+    reward = 1;
+
     /**
      * AEnemy constructor
      * @param scene
@@ -176,6 +178,8 @@ export default class AEnemy extends Phaser.Physics.Arcade.Sprite {
         this.body.setEnable(false);
         this.healthBar.setVisible(false);
         this.onDeath();
+
+        scene.wallet.addCoins(this.reward);
     }
 
     /**

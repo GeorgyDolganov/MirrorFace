@@ -13,6 +13,7 @@ export default class RaycasterEnemy extends AEnemy {
      */
     rays = [];
     recalcPath = 0;
+    reward = 10;
 
     /**
      * RaycasterEnemy constructor

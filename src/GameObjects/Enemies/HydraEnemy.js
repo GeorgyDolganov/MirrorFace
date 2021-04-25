@@ -27,6 +27,7 @@ export default class HydraEnemy extends AEnemy {
     rightTurn = Math.floor(Math.random() * 1000) + 1000
 
     state = 1
+    reward = 200
 
     constructor(scene, x, y) {
         super(scene, x, y, "hydra");

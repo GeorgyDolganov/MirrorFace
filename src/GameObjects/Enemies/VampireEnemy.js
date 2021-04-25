@@ -21,6 +21,8 @@ export default class VampireEnemy extends AEnemy {
     _isRetreated = false;
     _blinkTween;
 
+    reward = 50;
+
     constructor(scene, x, y) {
         super(scene, x, y, "vampire");
         this.play({key: 'vampire_walk', repeat: -1});
