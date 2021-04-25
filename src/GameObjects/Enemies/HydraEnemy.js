@@ -2,6 +2,7 @@ import AEnemy from "./AEnemy";
 import ReflectableRay from "../ReflectableRay";
 import {silentLog} from "../../Helpers";
 import Phaser from "phaser";
+import Item from "../Item";
 
 export default class HydraEnemy extends AEnemy {
 
@@ -21,6 +22,8 @@ export default class HydraEnemy extends AEnemy {
 
     leftTrun = Math.floor(Math.random() * 1000) + 1000
     rughtTrun = Math.floor(Math.random() * 1000) + 1000
+
+    state = 1
 
     constructor(scene, x, y) {
         super(scene, x, y, "hydra");
@@ -92,6 +95,39 @@ export default class HydraEnemy extends AEnemy {
     }
 
     onUpdate(time, delta) {
+        if ( this.health < this.maxHealth * 0.66 && this.state === 1 ) {
+            this.state = 2
+
+            this._leftHead.scale = 0;
+            this.scene.tweens.add({
+                targets: this._leftHead,
+                scale: 1,
+                duration: 1000
+            })
+            this._leftRay.disable();
+            console.log(this._leftRay)
+            const image = this.scene.add.image(this.x, this.y, 'hydra_piece' + Math.floor(Math.random() * 3));
+            image.setDepth(0);
+        }
+
+        if ( this.health < this.maxHealth * 0.33 && this.state === 2 ) {
+            this.state = 3
+
+            this._rightHead.scale = 0;
+            this.scene.tweens.add({
+                targets: this._rightHead,
+                scale: 1,
+                duration: 1000
+            })
+            this._rightRay.disable();
+            console.log(this._rightRay)
+            const image = this.scene.add.image(this.x, this.y, 'hydra_piece' + Math.floor(Math.random() * 3));
+            image.setDepth(0);
+        }
+
+        // slowly regenerate
+        this.changeHealth(0.01);
+
         this._leftHead.clearTint();
         this._centerHead.clearTint();
         this._rightHead.clearTint();
@@ -102,12 +138,26 @@ export default class HydraEnemy extends AEnemy {
         this.healthBar.setPosition(this.x - 25, this.y + 60);
 
         if ( this.leftTrun-- <= 0 ) {
-            this.leftTrun = Math.floor(Math.random() * 1000) + 500
-            this.turn(this._leftHead)
+            if ( this.state < 2 ) {
+                this.leftTrun = Math.floor(Math.random() * 1000) + 500
+                this.turn(this._leftHead)
+            }
+            if ( this.state >= 2 ) {
+                this.leftTrun = Math.floor(Math.random() * 1000) + 1000
+                let item = new Item(scene, this.x + 100 * Math.sin(this._realRotation), this.y + 100 * Math.cos(this._realRotation), 'burn');
+                this.throw(item, {x: 30, y: 30}, this._leftHead.rotation);
+            }
         }
         if ( this.rughtTrun-- <= 0 ) {
-            this.rughtTrun = Math.floor(Math.random() * 1000) + 500
-            this.turn(this._rightHead)
+            if ( this.state < 3 ) {
+                this.rughtTrun = Math.floor(Math.random() * 1000) + 500
+                this.turn(this._rightHead)
+            }
+            if ( this.state >= 3 ) {
+                this.rughtTrun = Math.floor(Math.random() * 1000) + 1000
+                let item = new Item(scene, this.x + 100 * Math.sin(this._realRotation), this.y + 100 * Math.cos(this._realRotation), 'burn');
+                this.throw(item, {x: -30, y: 30}, this._rightHead.rotation);
+            }
         }
 
         if (Phaser.Math.Distance.Between(this.x, this.y, scene.player.x, scene.player.y) > 150) {
@@ -135,6 +185,17 @@ export default class HydraEnemy extends AEnemy {
         this.updateRays();
     }
 
+    throw(item, offset, headRotation) {
+        let translate = this.translatePoint2(offset.x, offset.y, this.x, this.y, this._realRotation + headRotation / 3);
+
+        item.x = translate.x
+        item.y = translate.y
+
+        item.update();
+        
+       item.throw(scene.player.x, scene.player.y)
+    }
+
     updateRays() {
         // let centerTranslate = this.translatePoint2(0, 34, this.x, this.y, Phaser.Math.Angle.Normalize(this.rotation));
         // this._centerRay.setOrigin({
@@ -146,8 +207,8 @@ export default class HydraEnemy extends AEnemy {
         // ));
         // this._centerRay.update();
         this.updateRay(this._centerRay, {x: 0, y: 34}, this._centerHead.rotation)
-        this.updateRay(this._leftRay, {x: 30, y: 30}, this._leftHead.rotation)
-        this.updateRay(this._rightRay, {x: -30, y: 30}, this._rightHead.rotation)
+        if ( this.state < 2 ) this.updateRay(this._leftRay, {x: 30, y: 30}, this._leftHead.rotation)
+        if ( this.state < 3 ) this.updateRay(this._rightRay, {x: -30, y: 30}, this._rightHead.rotation)
     }
 
     updateRay(ray, offset, headRotation) {
