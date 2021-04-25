@@ -16,6 +16,7 @@ import shardPNG from "../assets/shard.png"
 import pyramidHeadPNG from "../assets/PyramidHead.png"
 import mirrorPNG from "../assets/mirror.png";
 import mirrorSmallPNG from "../assets/mirrormini.png";
+import mirrorPrismPNG from "../assets/mirrorprism.png";
 import mirrorLongPNG from "../assets/mirrorbig.png";
 import mirrorCirclePNG from "../assets/mirrorcircle.png";
 import tilefloorPNG from "../assets/floor.png"
@@ -148,6 +149,7 @@ export default class Arena0 extends Scene {
         this.load.image("mirrorCircle", mirrorCirclePNG)
         this.load.image("mirrorLong", mirrorLongPNG)
         this.load.image("mirrorSmall", mirrorSmallPNG)
+        this.load.image("mirrorPrism", mirrorPrismPNG)
         this.load.image('mirror', mirrorPNG);
     }
 

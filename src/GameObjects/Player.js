@@ -19,7 +19,7 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
             type: 'freeze'
         },
     ];
-    mirror = 'mirrorLong'
+    mirror = 'mirrorSmall'
     perks = [
         {
             name: 'mediumArmor',
