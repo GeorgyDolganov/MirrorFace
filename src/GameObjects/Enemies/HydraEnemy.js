@@ -20,6 +20,8 @@ export default class HydraEnemy extends AEnemy {
 
     _realRotation;
 
+    nonCollidable = true;
+
     leftTrun = Math.floor(Math.random() * 1000) + 1000
     rughtTrun = Math.floor(Math.random() * 1000) + 1000
 
@@ -61,8 +63,8 @@ export default class HydraEnemy extends AEnemy {
         this._leftRay.initialDamage = 0.14;
         this._rightRay.initialDamage = 0.14;
 
-        this.body.setCircle(15);
-        this.body.setOffset(10, 40);
+        this.body.setCircle(5);
+        this.body.setOffset(30, 30);
 
     }
 

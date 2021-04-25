@@ -22,7 +22,10 @@ export default class EnemiesPool {
     create(type, position) {
         let enemy = new type(this._scene, position.x, position.y).setPipeline('Light2D');
         this._raycaster.mapGameObjects(enemy, true);
-        this._physicsGroup.add(enemy);
+        if( !enemy.nonCollidable ) {
+            this._physicsGroup.add(enemy);
+        }
+
         this._objectGroup.add(enemy);
 
         return enemy;
