@@ -97,6 +97,10 @@ export default class Arena0 extends Scene {
         super("Arena0");
     }
 
+    initialize() {
+        Phaser.Scene.call(this, { "key": "arena0" });
+    }
+
     preload() {
         this.load.image('player', playerPNG)
         this.load.image('grenade', grenadePNG)
@@ -364,7 +368,7 @@ export default class Arena0 extends Scene {
         stats.begin();
 
         this.EnemiesManager.update(time, delta);
-        this.RoundManager.update(time, delta);
+        this.RoundManager.update(time, delta, scene);
 
         handlePlayerMovement(this.player, cursors);
         updateMirrorPosition(this);

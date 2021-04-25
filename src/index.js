@@ -7,6 +7,8 @@ import RoundShop from "./Scenes/roundShop"
 
 import {getQueryParams} from "./Helpers"
 
+window.RoundShop = RoundShop
+
 let scenes;
 if( getQueryParams(document.location.search).dev ) {
     scenes = [Arena0, RoundShop, GameMenuScene]

@@ -53,7 +53,7 @@ export default class RoundManager {
         this._scene.gameUI.currentRound.setRound(roundNumber);
     }
 
-    update(time, delta) {
+    update(time, delta, scene) {
         let roundInProgress = false;
         this._currentRound.spawns.forEach((spawn, index) => {
             if( this._enemiesRemaining[index] <= 0 ) return;
@@ -70,7 +70,7 @@ export default class RoundManager {
 
         if( !roundInProgress && this._enemiesManager.countEnemies() === 0 ) {
             //TODO: handle last round
-            this.setNextRound();
+            // scene.scene.switch('roundShop', {cb:this.setNextRound});
         }
     }
 

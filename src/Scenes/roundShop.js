@@ -16,6 +16,18 @@ let optionSound
 
 export default class RoundShop extends Scene {
 
+    constructor() {
+        super("roundShop")
+    }
+
+    wake() {
+    }
+
+    init(data) {
+        console.log(data)
+        data?.cb
+    }
+
     preload() {
         this.load.atlas('bg', bgAtlasPNG, bgAtlasJSON);
         this.load.spritesheet('coin', coinAtlasPNG, { frameWidth: 16, frameHeight: 16 })
@@ -128,7 +140,7 @@ export default class RoundShop extends Scene {
                     onClick: () => {
                         console.log("Back to arena...");
                         this.bgMusic.stop()
-                        this.scene.start("Arena0")
+                        this.scene.run("Arena0")
                     }
                 });
                 this.items.forEach(el=>{
@@ -147,7 +159,6 @@ export default class RoundShop extends Scene {
     }
 
     update(time, delta) {
-        
     }
 
     createMenuItem({label, onClick, position}) {
