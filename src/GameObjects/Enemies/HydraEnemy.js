@@ -38,8 +38,8 @@ export default class HydraEnemy extends AEnemy {
         this._container.add(this._rightHead);
         this._container.add(this._leftHead);
         this._container.add(this._centerHead);
-        this._container.setScale(2)
-        this.setScale(2)
+        this._container.setScale(1.75)
+        this.setScale(1.75)
         this.play("hydra_walk");
 
         this._leftRay = new ReflectableRay({
@@ -109,7 +109,7 @@ export default class HydraEnemy extends AEnemy {
             this._leftRay.disable();
             console.log(this._leftRay)
             const image = this.scene.add.image(this.x, this.y, 'hydra_piece' + Math.floor(Math.random() * 3));
-            image.setScale(2)
+            image.setScale(1.75)
             image.setDepth(0);
         }
 
@@ -125,7 +125,7 @@ export default class HydraEnemy extends AEnemy {
             this._rightRay.disable();
             console.log(this._rightRay)
             const image = this.scene.add.image(this.x, this.y, 'hydra_piece' + Math.floor(Math.random() * 3));
-            image.setScale(2)
+            image.setScale(1.75)
             image.setDepth(0);
         }
 
@@ -210,9 +210,9 @@ export default class HydraEnemy extends AEnemy {
         //     centerTranslate.x, centerTranslate.y
         // ));
         // this._centerRay.update();
-        this.updateRay(this._centerRay, {x: 0, y: 74}, this._centerHead.rotation)
-        if ( this.state < 2 ) this.updateRay(this._leftRay, {x: 60, y: 60}, this._leftHead.rotation)
-        if ( this.state < 3 ) this.updateRay(this._rightRay, {x: -60, y: 60}, this._rightHead.rotation)
+        this.updateRay(this._centerRay, {x: 0, y: 66.5}, this._centerHead.rotation)
+        if ( this.state < 2 ) this.updateRay(this._leftRay, {x: 52.5, y: 52.5}, this._leftHead.rotation)
+        if ( this.state < 3 ) this.updateRay(this._rightRay, {x: -52.5, y: 52.5}, this._rightHead.rotation)
     }
 
     updateRay(ray, offset, headRotation) {
@@ -259,7 +259,7 @@ export default class HydraEnemy extends AEnemy {
 
         pieces.forEach(p => {
             const image = this.scene.add.image(this.x, this.y, p);
-            image.setScale(2)
+            image.setScale(1.75)
             const targetPos = new Phaser.Geom.Circle(this.x,this.y, 120).getRandomPoint();
             this.scene.tweens.add({
                 targets: image,
