@@ -23,6 +23,9 @@ import Skeleton_headPNG from "../assets/Skeleton_head.png"
 import blueSparkPNG from "../assets/blue.png"
 import reflectParticlesPNG from "../assets/particles.png"
 
+import crateIdle from "../assets/crate.png"
+import crate2Idle from "../assets/crate2.png"
+import crateBigIdle from "../assets/crateBig.png"
 import cratePNG from "../assets/SpriteSheets/crateDestroy.png"
 import crateJSON from "../assets/SpriteSheets/crateDestroy.json"
 import crate2PNG from "../assets/SpriteSheets/crate2Destroy.png"
@@ -64,7 +67,7 @@ import Player from "../GameObjects/Player";
 import Mirror from "../GameObjects/Mirror";
 
 import arena0Map from "../assets/tilemap/arena0.json"
-import arenaSkullMap from "../assets/tilemap/arenaSkull.json"
+import arenaSkullMap from "../assets/tilemap/arenaSkull_withNavMesh.json"
 import tilesetPNG from "../assets/SpriteSheets/tileset.png"
 
 var raycaster;
@@ -95,6 +98,10 @@ export default class Arena0 extends Scene {
         this.load.image('mirrorwall', mirrorwallPNG)
 
         this.load.image('bone', bonePNG)
+
+        this.load.image('crateIdle', crateIdle)
+        this.load.image('crate2Idle', crate2Idle)
+        this.load.image('crateBigIdle', crateBigIdle)
         this.load.atlas('crate', cratePNG, crateJSON)
         this.load.atlas('crate2', crate2PNG, crate2JSON)
         this.load.atlas('crateBig', crateBigPNG, crateBigJSON)
@@ -209,9 +216,9 @@ export default class Arena0 extends Scene {
             loop: true
         })
 
-        const layers = [this.groundLayer, this.spikeLayer, this.objLayer, this.wallLayer, this.reflectLayer];
+        const objectLayer = map.getObjectLayer("navmesh");
 
-        const navMesh = this.navMeshPlugin.buildMeshFromTilemap("mesh1", map, layers);
+        const navMesh = this.navMeshPlugin.buildMeshFromTiled("navmesh", objectLayer, 12.5);
         this.navMesh = navMesh;
 
         // Graphics overlay for visualizing path

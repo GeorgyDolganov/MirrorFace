@@ -6,7 +6,7 @@ export default class Crate extends Phaser.Physics.Arcade.Sprite {
     type
 
     constructor(scene, x, y, type) {
-        super(scene, x, y, type);
+        super(scene, x, y, type + 'Idle');
 
         this.setPipeline('Light2D');
 
@@ -16,9 +16,7 @@ export default class Crate extends Phaser.Physics.Arcade.Sprite {
         scene.add.existing(this);
         scene.physics.add.existing(this);
 
-        this.body.setSize(side, side, x, y)
-
-        this.play(type+'Idle');
+        this.setTexture(type+'Idle');
 
         this.maxHealth = type === 'crateBig' ? 50 : 25;
         this.health = this.maxHealth;
@@ -48,7 +46,7 @@ export default class Crate extends Phaser.Physics.Arcade.Sprite {
                 onComplete: tween => {
                     this.destroyed = false;
 
-                    this.play(this.type+'Idle');
+                    this.setTexture(this.type+'Idle');
 
                     this.health = this.maxHealth;
 
