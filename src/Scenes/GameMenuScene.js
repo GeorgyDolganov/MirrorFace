@@ -33,6 +33,15 @@ export default class GameMenuScene extends Phaser.Scene {
         blackout.setScrollFactor(0);
         this.controlsContainer.visible = false
 
+        this.creditsContainer = this.add.container();
+        this.creditsContainer.setDepth(100)
+        let blackoutCredits = this.add.graphics();
+        this.creditsContainer.add(blackoutCredits)
+        blackoutCredits.fillStyle(0x000000, 1);
+        blackoutCredits.fillRect(0, 0, 800, 600);
+        blackoutCredits.setScrollFactor(0);
+        this.creditsContainer.visible = false
+
         optionSound = this.sound.add('option', {
             volume: 0.25,
             loop: false
@@ -56,20 +65,57 @@ export default class GameMenuScene extends Phaser.Scene {
                     label: "CONTROLS",
                     position: { x: 400, y: 525 },
                     onClick: () => {
-                        this.controlsContainer.visible = true
+                        this.controlsContainer.visible = true;
                     }
                 });
                 this.createMenuItem({
                     label: "CREDITS",
                     position: { x: 400, y: 550 },
                     onClick: () => {
-                        alert("In development");
+                        this.creditsContainer.visible = true;
                     }
                 });
 
                 this.createControls();
+                this.createCredits();
             }
         });
+    }
+
+    createCredits() {
+        let text = this.add.text(400, 150, "CREDITS", { fontFamily: '"Press Start 2P"', align: 'center', fontSize: 40, color: "#fff8e1" });
+        this.creditsContainer.add(text)
+        text.setScrollFactor(0);
+        text.setOrigin(0.5);
+        let creditsText = this.add.text(400, 350, [
+            "Programming", "",
+            "George Dolganov",
+            "Ilya Seleznev",
+            "Denis Moiseev", "",
+            "Art",
+            "Ksenia Belova",
+            "UncleWind",
+        ], {
+            fixedWidth: 400,
+            lineSpacing: 10,
+            fontFamily: '"Press Start 2P"',
+            align: 'center',
+            fontSize: 10,
+            color: "#c8b89f",
+        });
+        creditsText.setScrollFactor(0);
+        creditsText.setOrigin(0.5);
+        this.creditsContainer.add(creditsText)
+        let btn = this.createMenuItem({
+            label: "Return",
+            position: { x: 400, y: 500 },
+            onClick: () => {
+                console.log("Return to menu");
+                this.creditsContainer.visible = false
+
+            }
+        });
+        this.creditsContainer.add(btn)
     }
 
     createControls() {
