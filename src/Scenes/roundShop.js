@@ -11,6 +11,7 @@ import bgAtlasJSON from "../assets/SpriteSheets/shopbg.json"
 import shopCardPNG from "../assets/shopCard.png"
 import mirrorCirclePNG from "../assets/mirrorcircle.png"
 import infoPNG from "../assets/info.png"
+import syringesPNG from "../assets/SpriteSheets/syringes.png"
 
 import shopBGWAV from "../assets/audio/shopBG.wav"
 import menuSoundWAV from "../assets/audio/coin.wav"
@@ -19,6 +20,7 @@ let optionSound
 
 export default class RoundShop extends Scene {
     coins = '0'
+    dopes = []
     constructor() {
         super("roundShop")
     }
@@ -39,9 +41,16 @@ export default class RoundShop extends Scene {
             frameHeight: 16
         })
 
-        this.load.image('shopCard', shopCardPNG)
+        
         this.load.image('mirrorCircle', mirrorCirclePNG)
+        
+        this.load.image('shopCard', shopCardPNG)
         this.load.image('info', infoPNG)
+
+        this.load.spritesheet('syringes', syringesPNG, {
+            frameWidth: 34,
+            frameHeight: 34
+        });
 
         this.load.audio('shopBG', shopBGWAV)
         this.load.audio('option', menuSoundWAV)
@@ -101,7 +110,7 @@ export default class RoundShop extends Scene {
 
         let itemsKeys = Object.keys(shopItems)
         this.items = []
-        for (let i = 0; i < 4; i++) {
+        for (let i = 0; i < ((itemsKeys.length > 3) ? 4 : itemsKeys.length); i++) {
             let randomIndex = Math.floor(Math.random() * itemsKeys.length)
             let itemKey = itemsKeys[randomIndex]
             itemsKeys.splice(randomIndex, 1)
@@ -119,7 +128,7 @@ export default class RoundShop extends Scene {
                 cursor: 'pointer'
             });
 
-            this.items[i].image = this.add.image(115 + i * 150, 214, itemKey)
+            this.items[i].image = this.add.image(115 + i * 150, 214, itemData.img, itemData.frame)
             this.items[i].add(this.items[i].image)
             this.items[i].image.setOrigin(0.5, 0.5)
 
@@ -181,8 +190,16 @@ export default class RoundShop extends Scene {
                 this.items[i].btnBuy.setTint(0x000000)
                 this.items[i].price.setTint(0x000000)
                 this.items[i].active = false
-                this.mirror = itemKey
-                this.tweens.add({
+                if (itemData.item.type === 'mirror') {
+                    this.mirror = itemKey
+                } else if (itemData.item.type === 'dope') {
+                    this.dopes.push({
+                        frame: itemData.frame,
+                        img: itemData.img,
+                        data: itemData.item
+                    })
+                }
+                 this.tweens.add({
                     targets: [this.items[i]],
                     y: 0,
                     duration: 250,
@@ -231,6 +248,9 @@ export default class RoundShop extends Scene {
                         }
                         if (this.mirror) {
                             response['mirror'] = this.mirror
+                        }
+                        if (this.dopes.length > 0) {
+                            response['dopes'] = this.dopes
                         }
                         this.scene.run("Arena0", response)
                         this.scene.stop()

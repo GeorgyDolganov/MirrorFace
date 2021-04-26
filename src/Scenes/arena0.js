@@ -526,12 +526,36 @@ export default class Arena0 extends Scene {
         // sprite.setPosition(200, 200);
 
         let ctx = this
+
+        // Return from shop handle
         this.events.on('wake', function (data, data1) {
             console.log(data, data1)
             ctx.wallet.amount.text = data1.coins
             ctx.bgLoopMusic.play();
             if(data1.mirror) {
                 ctx.mirror.setTexture(data1.mirror);
+            }
+            if(data.dopes) {
+                data.dopes.forEach(el=>{
+                    let itemKey = Object.keys(el.data)[1]
+                    switch (itemKey){
+                        case "damage":
+                            this.mirror.reflectDamageMultiplier += el.data[itemKey]
+                            break;
+                        case "durability":
+                            this.mirror.maxStability += el.data[itemKey]
+                            break;
+                        case "health":
+                            this.player.maxHealth += el.data[itemKey]
+                            break;
+                        case "speed":
+                            this.player.speed += el.data[itemKey]
+                            break;
+                        default: 
+                            console.warn('Unregistered item:', el)
+                            break;
+                    }
+                })
             }
         });
     }

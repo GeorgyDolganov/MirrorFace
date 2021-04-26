@@ -24,14 +24,6 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
         }
     ];
     mirror = 'mirrorSmall'
-    perks = [
-        {
-            name: 'mediumArmor',
-            img: '',
-            health: 0,
-            speed: 0
-        }
-    ]
     currentItem = false;
 
     _bloodEmitter;

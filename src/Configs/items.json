@@ -1,6 +1,7 @@
 {
     "mirrorCircle": {
         "name": "CIRCLED MIRROR",
+        "img": "mirrorCircle",
         "description": [
             "Mirror in circle shape.",
             "Overheats in a second,",
@@ -14,6 +15,7 @@
     },
     "mirrorLong": {
         "name": "PROLONGED MIRROR",
+        "img": "mirrorLong",
         "description": [
             "Big and effective mirror.",
             "Overheats fast, but has",
@@ -27,6 +29,7 @@
     },
     "mirror": {
         "name": "MEDIOCRE MIRROR",
+        "img": "mirror",
         "description": [
             "Just a good old mirror.",
             "Has a great durability,",
@@ -40,6 +43,7 @@
     },
     "mirrorSmall": {
         "name": "SMALL MIRROR",
+        "img": "mirrorSmall",
         "description": [
             "Just a good old mirror.",
             "Has a great durability,",
@@ -49,6 +53,174 @@
         "item": {
             "type": "mirror",
             "durability": 100
+        }
+    },
+    "syringe0": {
+        "name": "DMG UP",
+        "img": "syringes",
+        "frame": 0,
+        "description": [
+            "Raise player damage",
+            "by +x1.50 points!,"
+        ],
+        "price": 50,
+        "item": {
+            "type": "dope",
+            "damage": 0.50
+        }
+    },
+    "syringe1": {
+        "name": "DURABILITY UP",
+        "img": "syringes",
+        "frame": 1,
+        "description": [
+            "Raise mirror durability",
+            "by 50 points!,"
+        ],
+        "price": 50,
+        "item": {
+            "type": "dope",
+            "durability": 50
+        }
+    },
+    "syringe2": {
+        "name": "HEALTH UP",
+        "img": "syringes",
+        "frame": 2,
+        "description": [
+            "Raise player health",
+            "by 50 points!,"
+        ],
+        "price": 50,
+        "item": {
+            "type": "dope",
+            "health": 50
+        }
+    },
+    "syringe3": {
+        "name": "HEALTH UP",
+        "img": "syringes",
+        "frame": 3,
+        "description": [
+            "Raise player health",
+            "by 25 points!,"
+        ],
+        "price": 25,
+        "item": {
+            "type": "dope",
+            "health": 25
+        }
+    },
+    "syringe4": {
+        "name": "SPEED UP",
+        "img": "syringes",
+        "frame": 4,
+        "description": [
+            "Raise player speed",
+            "by 25 points!,"
+        ],
+        "price": 25,
+        "item": {
+            "type": "dope",
+            "speed": 25
+        }
+    },
+    "syringe5": {
+        "name": "DURABILITY UP",
+        "img": "syringes",
+        "frame": 5,
+        "description": [
+            "Raise player durability",
+            "by 25 points!,"
+        ],
+        "price": 25,
+        "item": {
+            "type": "dope",
+            "durability": 25
+        }
+    },
+    "syringe6": {
+        "name": "DMG UP",
+        "img": "syringes",
+        "frame": 6,
+        "description": [
+            "Raise player damage",
+            "by +x1.25 points!,"
+        ],
+        "price": 25,
+        "item": {
+            "type": "dope",
+            "damage": 0.25
+        }
+    },
+    "syringe7": {
+        "name": "DMG UP",
+        "img": "syringes",
+        "frame": 7,
+        "description": [
+            "Raise player damage",
+            "by +x1.75 points!,"
+        ],
+        "price": 75,
+        "item": {
+            "type": "dope",
+            "damage": 0.75
+        }
+    },
+    "syringe8": {
+        "name": "DMG UP",
+        "img": "syringes",
+        "frame": 8,
+        "description": [
+            "Raise player damage",
+            "by +x2 points!,"
+        ],
+        "price": 100,
+        "item": {
+            "type": "dope",
+            "damage": 1
+        }
+    },
+    "syringe9": {
+        "name": "SPEED UP",
+        "img": "syringes",
+        "frame": 9,
+        "description": [
+            "Raise player damage",
+            "by 50 points!,"
+        ],
+        "price": 50,
+        "item": {
+            "type": "dope",
+            "speed": 50
+        }
+    },
+    "syringe10": {
+        "name": "SPEED UP",
+        "img": "syringes",
+        "frame": 11,
+        "description": [
+            "Raise player damage",
+            "by 75 points!,"
+        ],
+        "price": 75,
+        "item": {
+            "type": "dope",
+            "speed": 75
+        }
+    },
+    "syringe11": {
+        "name": "SPEED UP",
+        "img": "syringes",
+        "frame": 11,
+        "description": [
+            "Raise player speed",
+            "by 100 points!,"
+        ],
+        "price": 100,
+        "item": {
+            "type": "dope",
+            "speed": 100
         }
     }
 }
