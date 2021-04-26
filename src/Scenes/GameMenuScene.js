@@ -88,11 +88,14 @@ export default class GameMenuScene extends Phaser.Scene {
         text.setScrollFactor(0);
         text.setOrigin(0.5);
         let creditsText = this.add.text(400, 350, [
-            "Programming", "",
+            "Game Design",
+            "George Dolganov", "",
+            "Programming",
             "George Dolganov",
             "Ilya Seleznev",
             "Denis Moiseev", "",
             "Art",
+            "George Dolganov",
             "Ksenia Belova",
             "UncleWind",
         ], {
