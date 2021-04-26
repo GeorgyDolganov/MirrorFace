@@ -242,16 +242,6 @@
           "delayBeforeSpawn": 2000,
           "spawnRate": 1,
           "totalSpawns": 3
-        },
-        {
-          "position": {
-            "x": 500,
-            "y": 500
-          },
-          "enemyType": "TankEnemy",
-          "delayBeforeSpawn": 2000,
-          "spawnRate": 1,
-          "totalSpawns": 1
         }
       ]
     },

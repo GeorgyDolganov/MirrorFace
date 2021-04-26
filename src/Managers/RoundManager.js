@@ -46,6 +46,7 @@ export default class RoundManager {
     setRound(roundNumber) {
         let roundConfig = config.rounds.find(r => r.round === roundNumber);
         if (roundConfig === undefined) {
+            alert('YOU WON!!!')
             return;
         }
 
