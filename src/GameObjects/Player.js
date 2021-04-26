@@ -48,7 +48,7 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
         this.body.setOffset(0, 15);
 
         this.grenadeType = scene.grenadeType;
-        this.grenadeType.scale = 2;
+        this.grenadeType.scale = 1.5;
 
         this.mirrorPushSound = scene.sound.add('mirrorPush', {
             volume: 0.25,

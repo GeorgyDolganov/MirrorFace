@@ -27,14 +27,14 @@ export default class GameUI extends Phaser.GameObjects.Container {
         this.mirrorStabilityBar.setPosition(250, 534);
         this.add(this.mirrorStabilityBar);
 
-        this._addItem = new Phaser.GameObjects.Text(scene, 700, 575, '+1 test', { font: '"Press Start 2P"', align: 'center', color: '#FFFF00' });
+        this._addItem = new Phaser.GameObjects.Text(scene, 565, 570, '+1 test', { font: '"Press Start 2P"', align: 'center', color: '#FFFF00' });
         this._addItem.alpha = 0
         this._addItem.setDepth(2)
 
         this._grenadeType = new Phaser.GameObjects.Text(
             scene,
-            680,
-            535,
+            565,
+            533,
             'Item Type:\nnone', { font: '"Press Start 2P"', align: 'left' }
         );
         this._grenadeType.setDepth(2)
@@ -58,7 +58,7 @@ export default class GameUI extends Phaser.GameObjects.Container {
         scene.grenadeType = this._grenadeType;
 
         this.currentRound = new CurrentRound(scene);
-        this.currentRound.scale = 2;
+        this.currentRound.scale = 1.5;
         this.add(this.currentRound);
         this.add(this._addItem)
         this.add(this._grenadeType)
