@@ -202,6 +202,7 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
         this.scene.tweens.add({
             targets: container,
             alpha: 1,
+            ease: "Power2",
             duration: 600,
         });
     }

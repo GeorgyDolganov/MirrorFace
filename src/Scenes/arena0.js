@@ -529,27 +529,33 @@ export default class Arena0 extends Scene {
 
         // Return from shop handle
         this.events.on('wake', function (data, data1) {
-            console.log(data, data1)
+            // console.log(data, data1)
             ctx.wallet.amount.text = data1.coins
             ctx.bgLoopMusic.play();
             if(data1.mirror) {
                 ctx.mirror.setTexture(data1.mirror);
             }
-            if(data.dopes) {
-                data.dopes.forEach(el=>{
+            if(data1.dopes) {
+                console.log(data1.dopes)
+                data1.dopes.forEach(el=>{
                     let itemKey = Object.keys(el.data)[1]
+                    console.log(el, itemKey)
                     switch (itemKey){
                         case "damage":
-                            this.mirror.reflectDamageMultiplier += el.data[itemKey]
+                            ctx.mirror.reflectDamageMultiplier += el.data[itemKey]
+                            console.log(ctx.mirror.reflectDamageMultiplier)
                             break;
                         case "durability":
-                            this.mirror.maxStability += el.data[itemKey]
+                            ctx.mirror.maxStability += el.data[itemKey]
+                            console.log(ctx.mirror.maxStability)
                             break;
                         case "health":
-                            this.player.maxHealth += el.data[itemKey]
+                            ctx.player.maxHealth += el.data[itemKey]
+                            console.log(ctx.player.maxHealth)
                             break;
                         case "speed":
-                            this.player.speed += el.data[itemKey]
+                            ctx.player.speed += el.data[itemKey]
+                            console.log(ctx.player.speed)
                             break;
                         default: 
                             console.warn('Unregistered item:', el)
