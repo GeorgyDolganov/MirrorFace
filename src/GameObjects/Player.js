@@ -217,7 +217,7 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
     changeHealth(changeBy) {
         this.health += changeBy;
         if ( this.health > this.maxHealth ) this.health = this.maxHealth;
-        this.scene.healthBar.update(this.health);
+        this.scene.healthBar.update(this.health/this.maxHealth * 100);
         if(this.health <= 0 ) this.showGameOverScreen();
     }
 
