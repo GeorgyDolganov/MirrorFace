@@ -256,7 +256,7 @@
           "enemyType": "HydraEnemy",
           "delayBeforeSpawn": 10000,
           "spawnRate": 1,
-          "totalSpawns": 2
+          "totalSpawns": 1
         }
       ]
     }
