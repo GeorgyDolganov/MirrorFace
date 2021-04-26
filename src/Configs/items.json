@@ -45,11 +45,10 @@
         "name": "SMALL MIRROR",
         "img": "mirrorSmall",
         "description": [
-            "Just a good old mirror.",
-            "Has a great durability,",
-            "and a neat reflect angles."
+            "How are you suppose to",
+            "fight monsters with this?"
         ],
-        "price": 20,
+        "price": 5,
         "item": {
             "type": "mirror",
             "durability": 100
@@ -186,7 +185,7 @@
         "img": "syringes",
         "frame": 9,
         "description": [
-            "Raise player damage",
+            "Raise player speed",
             "by 50 points!,"
         ],
         "price": 35,
@@ -200,7 +199,7 @@
         "img": "syringes",
         "frame": 11,
         "description": [
-            "Raise player damage",
+            "Raise player speed",
             "by 75 points!,"
         ],
         "price": 35,

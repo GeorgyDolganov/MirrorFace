@@ -18,7 +18,6 @@ export default class PlayerHealthBar extends Phaser.GameObjects.Container {
                 color: 0x6d6d6d
             }
         });
-
         this._innerBar = scene.add.graphics({
             lineStyle: {
                 width: 1,
@@ -37,6 +36,7 @@ export default class PlayerHealthBar extends Phaser.GameObjects.Container {
         this._innerBar.fillRect(3, 3, 300-6, 20-6);
         this._background.setDepth(9)
         this._innerBar.setDepth(9)
+        this.setDepth(10)
     }
 
     update(health) {

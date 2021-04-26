@@ -46,8 +46,41 @@ export default class RoundManager {
     setRound(roundNumber) {
         let roundConfig = config.rounds.find(r => r.round === roundNumber);
         if (roundConfig === undefined) {
+            let container = this.scene.add.container();
+            let blackout = this.scene.add.graphics();
+            blackout.fillStyle(0x000000, 0.9);
+            blackout.fillRect(0, 0, 800, 600);
+            blackout.setScrollFactor(0);
+            let text = this.scene.add.text(400, 100, "YOU DIED", {
+                fontFamily: '"Press Start 2P"',
+                align: 'center',
+                fontSize: 40,
+                color: "#f15c5c"
+            });
+            text.setScrollFactor(0);
+            text.setOrigin(0.5);
+            let roundSurvived = this.scene.add.text(400, 450, "Rounds survived: " + this.scene.gameStats.roundsSurvived, {
+                fontFamily: '"Press Start 2P"',
+                align: 'center',
+                fontSize: 15,
+                color: "#ff7836"
+            });
+            roundSurvived.setOrigin(0.5).setScrollFactor(0);
+            let kills = this.scene.add.text(400, 470, "Kills: " + this.scene.gameStats.kills, {
+                fontFamily: '"Press Start 2P"',
+                align: 'center',
+                fontSize: 15,
+                color: "#ff7836"
+            });
+            kills.setOrigin(0.5).setScrollFactor(0);
+
+            container.add(blackout);
+            container.add(text);
+            container.add(kills);
+            container.add(roundSurvived);
+            container.setDepth(100);
+
             this._scene.scene.sleep()
-            alert('YOU WON!!!')
             return;
         }
 
@@ -82,7 +115,7 @@ export default class RoundManager {
             //TODO: handle last round
             this.setNextRound()
             let ctx = this
-            new Promise((res)=>{
+            new Promise((res) => {
                 scene.tweens.add({
                     targets: ctx.blackout,
                     alpha: 1,
@@ -92,10 +125,10 @@ export default class RoundManager {
                         res()
                     }
                 })
-            }).then(_=>{
+            }).then(_ => {
                 scene.game.sound.stopAll();
                 scene.scene.sleep()
-                scene.scene.run('roundShop',  scene.wallet.amount.text);
+                scene.scene.run('roundShop', scene.wallet.amount.text);
                 scene.tweens.add({
                     targets: ctx.blackout,
                     alpha: 0,
