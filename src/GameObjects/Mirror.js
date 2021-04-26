@@ -239,7 +239,7 @@ export default class Mirror extends Phaser.Physics.Arcade.Sprite {
     changeStability(changeBy) {
         this.stability += changeBy;
         this.setTint(0xffffff)
-        if (this.stability > this.maxStability) this.stability = 100;
+        if (this.stability > this.maxStability) this.stability = this.maxStability;
         if (this.stability < 0) {
             this.stability = 0;
             this.disableReflect();
