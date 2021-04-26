@@ -248,9 +248,11 @@ export default class RoundShop extends Scene {
                         }
                         if (this.mirror) {
                             response['mirror'] = this.mirror
+                            this.mirror = undefined
                         }
                         if (this.dopes.length > 0) {
                             response['dopes'] = this.dopes
+                            this.dopes = []
                         }
                         this.scene.run("Arena0", response)
                         this.scene.stop()
