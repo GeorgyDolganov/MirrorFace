@@ -1,5 +1,5 @@
 export default function handlePlayerMovement(player, cursors) {
-    if( player.isDead() ) return;
+    if (player.isDead()) return;
     const angle = cursors.up.isDown && cursors.left.isDown ||
         cursors.up.isDown && cursors.right.isDown ||
         cursors.down.isDown && cursors.left.isDown ||
@@ -22,14 +22,16 @@ export default function handlePlayerMovement(player, cursors) {
 }
 
 window.addEventListener('keypress', e => {
-    switch(e.code) {
-        case 'Space': {
-            scene.player.throw();
-            break;
-        }
-        case 'KeyG': {
-            scene.player.changeItem();
-            break;
-        }
+    switch (e.code) {
+        case 'KeyG':
+            {
+                scene.player.throw();
+                break;
+            }
+        case 'KeyQ':
+            {
+                scene.player.changeItem();
+                break;
+            }
     }
 })
