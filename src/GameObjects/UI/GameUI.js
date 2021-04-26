@@ -17,21 +17,25 @@ export default class GameUI extends Phaser.GameObjects.Container {
 
         this.setScrollFactor(0);
         this._healthBar = new PlayerHealthBar(scene);
+        this._healthBar.setDepth(2)
         this._healthBar.setPosition(250, 550);
         scene.healthBar = this._healthBar;
         this.add(this._healthBar);
 
         this.mirrorStabilityBar = new MirrorStabilityBar(scene);
+        this.mirrorStabilityBar.setDepth(2)
         this.mirrorStabilityBar.setPosition(250, 534);
         this.add(this.mirrorStabilityBar);
 
         this._addItem = new Phaser.GameObjects.Text(scene, 700, 575, '+1 test', { font: '"Press Start 2P"', align: 'center', color: '#FFFF00' });
         this._addItem.alpha = 0
+        this._addItem.setDepth(2)
 
-        this._grenadeType = new Phaser.GameObjects.Text(scene, 700, 550, 'Grenade Type:\nnone', { font: '"Press Start 2P"', align: 'center' });
+        this._grenadeType = new Phaser.GameObjects.Text(scene, 700, 550, 'Item Type:\nnone', { font: '"Press Start 2P"', align: 'center' });
+        this._grenadeType.setDepth(2)
         this._grenadeType.set = grenade => {
-            if ( grenade ) this._grenadeType.text = 'Grenade Type:\n' + grenade.type + ' x' + grenade.quantity;
-            else this._grenadeType.text = 'Grenade Type:\nnone';
+            if ( grenade ) this._grenadeType.text = 'Item Type:\n' + grenade.type + ' x' + grenade.quantity;
+            else this._grenadeType.text = 'Item Type:\nnone';
         };
         this._grenadeType.add = (type, quantity) => {
             this._addItem.text = '+' + quantity + ' ' + type;

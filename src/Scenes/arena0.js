@@ -26,6 +26,7 @@ import Skeleton_bodyPNG from "../assets/Skeleton_body.png"
 import Skeleton_headPNG from "../assets/Skeleton_head.png"
 import blueSparkPNG from "../assets/blue.png"
 import reflectParticlesPNG from "../assets/particles.png"
+import healthPNG from "../assets/health.png"
 
 import crateIdle from "../assets/crate.png"
 import crate2Idle from "../assets/crate2.png"
@@ -37,6 +38,8 @@ import crate2JSON from "../assets/SpriteSheets/crate2Destroy.json"
 import crateBigPNG from "../assets/SpriteSheets/crateBigDestroy.png"
 import crateBigJSON from "../assets/SpriteSheets/crateBigDestroy.json"
 import bonePNG from "../assets/bone.png"
+
+import dedPNG from "../assets/ded.png"
 
 import infoPNG from "../assets/info.png"
 import coinAtlasPNG from "../assets/SpriteSheets/coin.png"
@@ -117,6 +120,7 @@ export default class Arena0 extends Scene {
 
     preload() {
         this.load.image('player', playerPNG)
+        this.load.image('health', healthPNG)
         this.load.image('grenade', grenadePNG)
         this.load.image('shard', shardPNG)
         this.load.image('pyramidHead', pyramidHeadPNG)
@@ -128,6 +132,8 @@ export default class Arena0 extends Scene {
         this.load.image('mirrorwall', mirrorwallPNG)
 
         this.load.image('bone', bonePNG)
+
+        this.load.image('ded', dedPNG)
 
         this.load.image('crateIdle', crateIdle)
         this.load.image('crate2Idle', crate2Idle)
@@ -493,6 +499,9 @@ export default class Arena0 extends Scene {
         this.wallet = this.add.container()
         this.wallet.bg = this.add.image(752, 50, 'info')
         this.wallet.bg.setScale(1.5)
+        // this.wallet.bg1 = this.add.image(752, 550, 'info')
+        // this.wallet.setDepth(1)
+        // this.wallet.bg1.setScale(1.5)
         this.wallet.amount = this.add.text(735, 50, '0', {
             fontFamily: '"Press Start 2P"',
             align: 'center',
@@ -516,6 +525,7 @@ export default class Arena0 extends Scene {
         this.wallet.coin = this.add.sprite(769, 48, 'coin').setScale(1.5);
 
         this.wallet.add(this.wallet.bg);
+        // this.wallet.add(this.wallet.bg1);
         this.wallet.add(this.wallet.amount);
         this.wallet.add(this.wallet.coin);
         this.wallet.coin.anims.load('spin');

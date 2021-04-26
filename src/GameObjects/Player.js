@@ -161,27 +161,31 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
         this.isGameOverShown = true;
         let container = this.scene.add.container();
         let blackout = this.scene.add.graphics();
-        blackout.fillStyle(0x000000, 0.8);
+        blackout.fillStyle(0x000000, 0.9);
         blackout.fillRect(0, 0, 800, 600);
         blackout.setScrollFactor(0);
-        let text = this.scene.add.text(400,  200, "YOU DIED", { fontFamily: '"Press Start 2P"', align: 'center', fontSize: 40, color: "#f15c5c" });
+        let text = this.scene.add.text(400,  100, "YOU DIED", { fontFamily: '"Press Start 2P"', align: 'center', fontSize: 40, color: "#f15c5c" });
         text.setScrollFactor(0);
         text.setOrigin(0.5);
 
-        let roundSurvived = this.scene.add.text(400, 250, "Rounds survived: " + this.scene.gameStats.roundsSurvived, {
+        let image = this.scene.add.image(-280, 170, 'ded')
+        image.setOrigin(0,0);
+        
+        let roundSurvived = this.scene.add.text(400, 450, "Rounds survived: " + this.scene.gameStats.roundsSurvived, {
             fontFamily: '"Press Start 2P"', align: 'center', fontSize: 15, color: "#ff7836"
         });
         roundSurvived.setOrigin(0.5).setScrollFactor(0);
-        let kills = this.scene.add.text(400, 270, "Kills: " + this.scene.gameStats.kills, {
+        let kills = this.scene.add.text(400, 470, "Kills: " + this.scene.gameStats.kills, {
             fontFamily: '"Press Start 2P"', align: 'center', fontSize: 15, color: "#ff7836"
         });
         kills.setOrigin(0.5).setScrollFactor(0);
-        let t = this.scene.add.text(400, 320, "Return to main menu", { fontFamily: '"Press Start 2P"', align: 'center', fontSize: 18, color: "#3b9a52" });
+        let t = this.scene.add.text(400, 520, "Return to main menu", { fontFamily: '"Press Start 2P"', align: 'center', fontSize: 18, color: "#3b9a52" });
         t.setPosition(t.x - t.width/2, t.y);
         this.scene.input.enableDebug(t);
         t.setScrollFactor(0);
         t.setInteractive({ cursor: 'pointer' });
         t.on("pointerdown", () => {
+            this.scene.game.sound.stopAll();
             this.scene.scene.start("GameMenuScene")
         });
         t.on('pointerover', (pointer) => {
@@ -190,8 +194,9 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
         t.on('pointerout',  (pointer) => {
             t.setColor("#3b9a52")
         });
-
+        
         container.add(blackout);
+        container.add(image)
         container.add(text);
         container.add(t);
         container.add(kills);

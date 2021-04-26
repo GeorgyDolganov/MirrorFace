@@ -9,7 +9,7 @@ export default class SkeletonEnemy extends RaycasterEnemy {
     currentAction;
     timestamp;
 
-    maxHealth = 25;
+    maxHealth = 15;
     health = this.maxHealth;
 
     speed = 200;

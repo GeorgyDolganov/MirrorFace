@@ -3,7 +3,7 @@ import Phaser from "phaser";
 
 export default class VampireEnemy extends AEnemy {
 
-    maxHealth = 40;
+    maxHealth = 20;
     health = this.maxHealth;
 
     speed = 120;

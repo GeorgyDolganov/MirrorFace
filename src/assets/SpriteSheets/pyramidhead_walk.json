@@ -80,7 +80,7 @@
   "size": { "w": 280, "h": 61 },
   "scale": "1",
   "frameTags": [
-   { "name": "walk", "from": 0, "to": 7, "direction": "forward" },
+   { "name": "phwalk", "from": 0, "to": 7, "direction": "forward" },
    { "name": "attack", "from": 8, "to": 12, "direction": "forward" }
   ]
  }

@@ -19,7 +19,7 @@ export default class AEnemy extends Phaser.Physics.Arcade.Sprite {
      * Maximum health points
      * @type {number}
      */
-    maxHealth = 20;
+    maxHealth = 10;
     /**
      * Current health
      * @type {number}

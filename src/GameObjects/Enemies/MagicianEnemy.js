@@ -34,7 +34,7 @@ export default class MagicianEnemy extends AEnemy {
                 } else {
                     this.goTo(scene.player);
                 }
-        } else if ( distance < 200 ) {
+        } else if ( distance < 100 ) {
             this.setAction('retreat');
 
             if ( this.recalcPath++ > 100 ) {

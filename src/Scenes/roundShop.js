@@ -132,7 +132,7 @@ export default class RoundShop extends Scene {
             this.items[i].add(this.items[i].image)
             this.items[i].image.setOrigin(0.5, 0.5)
 
-            this.items[i].title = this.add.text(170 + i * 150, 282, itemData.name, {
+            this.items[i].title = this.add.text(165 + i * 150, 282, itemData.name, {
                 fontFamily: '"Press Start 2P"',
                 align: 'center',
                 fontSize: 15,
@@ -140,7 +140,7 @@ export default class RoundShop extends Scene {
             })
             this.items[i].add(this.items[i].title)
             this.items[i].title.setOrigin(0, 0.5)
-            this.items[i].title.setScale(0.9, 0.9)
+            this.items[i].title.setScale(1, 1)
             this.items[i].title.x = 62 + i * 150
             this.items[i].title.visible = false
 
@@ -183,12 +183,6 @@ export default class RoundShop extends Scene {
                 if (!this.items[i].active || this.wallet.amount.text < itemData.price) return
                 console.log('buy')
                 this.wallet.amount.text = '' + (this.wallet.amount.text - itemData.price)
-                this.items[i].bg.setTint(0x000000)
-                this.items[i].image.setTint(0x000000)
-                this.items[i].title.setTint(0x000000)
-                this.items[i].description.setTint(0x000000)
-                this.items[i].btnBuy.setTint(0x000000)
-                this.items[i].price.setTint(0x000000)
                 this.items[i].active = false
                 if (itemData.item.type === 'mirror') {
                     this.mirror = itemKey
@@ -201,6 +195,7 @@ export default class RoundShop extends Scene {
                 }
                  this.tweens.add({
                     targets: [this.items[i]],
+                    alpha: 0.3,
                     y: 0,
                     duration: 250,
                     ease: 'Power2'

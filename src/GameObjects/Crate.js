@@ -1,6 +1,6 @@
 import Phaser from "phaser";
 
-const GRENADES_TYPES = ['burn','damage','freeze','blink','reflection','health','regeneration'];
+const GRENADES_TYPES = ['burn','damage','freeze','blink','reflection','health']; // 'regeneration'
 
 export default class Crate extends Phaser.Physics.Arcade.Sprite {
     type
@@ -56,13 +56,14 @@ export default class Crate extends Phaser.Physics.Arcade.Sprite {
     }
 
     spawnItem() {
+        let type = Math.floor(Math.random() * GRENADES_TYPES.length)
         let newItem = {
-            type: GRENADES_TYPES[Math.floor(Math.random() * GRENADES_TYPES.length)],
+            type: GRENADES_TYPES[type],
             quantity: Math.floor(Math.random() * (this.type === 'crateBig' ? 4 : 2))
         }
 
         if ( newItem.quantity > 0 ) {
-            let item = scene.add.sprite(this.x, this.y, 'grenade')
+            let item = scene.add.sprite(this.x, this.y, type === 'health' ? 'health' : 'grenade')
             scene.physics.world.enable([ item ]);
             let collider = scene.physics.add.collider(scene.player, item, _ => {
                 scene.player.addItem(newItem.type, newItem.quantity);
