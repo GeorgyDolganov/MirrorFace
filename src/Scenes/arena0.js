@@ -2,7 +2,6 @@ import Phaser, {
     Scene
 } from 'phaser';
 import ReflectableRay from "../GameObjects/ReflectableRay";
-import Stats from "stats.js";
 import createObstacles from '../functions/createObstacles';
 import handlePlayerMovement from '../functions/handlePlayerMovment';
 import updateMirrorPosition from '../functions/updateMirrorPosition';
@@ -94,10 +93,6 @@ import tilesetPNG from "../assets/SpriteSheets/tileset.png"
 var raycaster;
 var obstacles
 var cursors;
-
-var stats = new Stats();
-stats.showPanel(1); // 0: fps, 1: ms, 2: mb, 3+: custom
-document.body.appendChild(stats.dom);
 
 Phaser.Geom.Line.fromAngle = function (x, y, angle, distance) {
     return new Phaser.Geom.Line(x, y, x + distance * Math.cos(angle), y + distance * Math.sin(angle));
@@ -577,8 +572,6 @@ export default class Arena0 extends Scene {
     }
 
     update(time, delta) {
-        stats.begin();
-
         this.EnemiesManager.update(time, delta);
         this.RoundManager.update(time, delta, scene);
 
@@ -589,8 +582,6 @@ export default class Arena0 extends Scene {
             this.player.x,
             this.player.y
         )
-
-        stats.end();
     }
 
     addObstacles() {
