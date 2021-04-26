@@ -31,10 +31,15 @@ export default class GameUI extends Phaser.GameObjects.Container {
         this._addItem.alpha = 0
         this._addItem.setDepth(2)
 
-        this._grenadeType = new Phaser.GameObjects.Text(scene, 700, 550, 'Item Type:\nnone', { font: '"Press Start 2P"', align: 'center' });
+        this._grenadeType = new Phaser.GameObjects.Text(
+            scene,
+            680,
+            535,
+            'Item Type:\nnone', { font: '"Press Start 2P"', align: 'left' }
+        );
         this._grenadeType.setDepth(2)
         this._grenadeType.set = grenade => {
-            if ( grenade ) this._grenadeType.text = 'Item Type:\n' + grenade.type + ' x' + grenade.quantity;
+            if (grenade) this._grenadeType.text = 'Item Type:\n' + grenade.type + ' x' + grenade.quantity;
             else this._grenadeType.text = 'Item Type:\nnone';
         };
         this._grenadeType.add = (type, quantity) => {
@@ -53,6 +58,7 @@ export default class GameUI extends Phaser.GameObjects.Container {
         scene.grenadeType = this._grenadeType;
 
         this.currentRound = new CurrentRound(scene);
+        this.currentRound.scale = 2;
         this.add(this.currentRound);
         this.add(this._addItem)
         this.add(this._grenadeType)
