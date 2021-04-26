@@ -169,8 +169,9 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
         text.setScrollFactor(0);
         text.setOrigin(0.5);
 
-        let image = this.scene.add.image(-280, 170, 'ded')
+        let image = this.scene.add.image(0, 0, 'ded')
         image.setOrigin(0,0);
+        image.setScrollFactor(0);
         
         let roundSurvived = this.scene.add.text(400, 450, "Rounds survived: " + this.scene.gameStats.roundsSurvived, {
             fontFamily: '"Press Start 2P"', align: 'center', fontSize: 15, color: "#ff7836"

@@ -56,9 +56,9 @@ export default class Crate extends Phaser.Physics.Arcade.Sprite {
     }
 
     spawnItem() {
-        let type = Math.floor(Math.random() * GRENADES_TYPES.length)
+        let type = GRENADES_TYPES[Math.floor(Math.random() * GRENADES_TYPES.length)]
         let newItem = {
-            type: GRENADES_TYPES[type],
+            type,
             quantity: Math.floor(Math.random() * (this.type === 'crateBig' ? 4 : 2))
         }
 
