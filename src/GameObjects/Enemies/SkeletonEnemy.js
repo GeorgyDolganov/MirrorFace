@@ -36,14 +36,6 @@ export default class SkeletonEnemy extends RaycasterEnemy {
        switch (this.currentAction) {
            case "movement":
                 this.handleMovementAction(time,delta);
-
-                if (this.currentAction === 'movement') {
-                    if ( !this.releasePath() ) this.handleMovementAction(time,delta);
-
-                    if ( this.isStacked() ) {
-                        this.findNextPosition();
-                    }
-                }
                 break;
            case "charge":
                this.handleChargeAction(time,delta);
@@ -56,7 +48,8 @@ export default class SkeletonEnemy extends RaycasterEnemy {
 
 
     handleMovementAction(time, delta) {
-        // this.moveTo(this.targetPosition);
+        if( this.currentTarget == null ) this.findNextPosition();
+        this.releasePath();
         this.rotation = Phaser.Math.Angle.Between(this.x, this.y, this.targetPosition.x, this.targetPosition.y) - 1.5;
 
         if( Phaser.Math.Distance.BetweenPoints(this, this.targetPosition) < 200 ) {
