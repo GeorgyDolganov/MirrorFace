@@ -40,15 +40,29 @@ export default class RoundManager {
     setNextRound() {
         this._scene.gameStats.roundsSurvived += 1;
         console.log("------ Next round -----");
-        this.setRound(this._currentRound.round + 1);
+        return this.setRound(this._currentRound.round + 1);
     }
 
     setRound(roundNumber) {
         let roundConfig = config.rounds.find(r => r.round === roundNumber);
         if (roundConfig === undefined) {
-            this._scene.scene.sleep()
-            alert('YOU WON!!!')
-            return;
+            let congrats = new Phaser.GameObjects.Text( scene, 100, 200, "CONGRATULATIONS!!!\nYOU WON!!!", { font: '"Press Start 2P"', align: 'center', color: '#FFFF00' } );
+            congrats.scale = 6
+
+            let congratsInterval = setInterval(_ => {
+                congrats.x = congrats.x === 100 ? 120 : 100;
+                congrats.scale = congrats.scale === 6 ? 5.5 : 6;
+
+                congrats.setColor(congrats.scale === 6 ? '#FFFF00' : '#FFFFFF');
+            }, 500);
+            setTimeout(_ => {
+                clearInterval(congratsInterval);
+                congrats.destroy();
+            }, 5000);
+            
+            scene.gameUI.add(congrats);
+
+            return false;
         }
 
         this._currentRound = {
@@ -61,6 +75,8 @@ export default class RoundManager {
         });
 
         this._scene.gameUI.currentRound.setRound(roundNumber);
+
+        return true;
     }
 
     update(time, delta, scene) {
@@ -80,7 +96,7 @@ export default class RoundManager {
 
         if (!roundInProgress && this._enemiesManager.countEnemies() === 0) {
             //TODO: handle last round
-            this.setNextRound()
+            if ( !this.setNextRound() ) {this.setNextRound = _ => {}; return;}
             let ctx = this
             new Promise((res)=>{
                 scene.tweens.add({
