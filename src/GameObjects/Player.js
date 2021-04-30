@@ -5,26 +5,41 @@ let mirrorTween
 export default class Player extends Phaser.Physics.Arcade.Sprite {
     hitReady = true;
     speed = 200;
-    items = [
-        {
-            quantity: 1,
-            type: 'burn'
+
+    inventory = {
+        throwable: {
+            items: [
+                {
+                    quantity: 1,
+                    type: 'burn'
+                },
+                {
+                    quantity: 2,
+                    type: 'damage'
+                },
+                {
+                    quantity: 1,
+                    type: 'freeze'
+                }
+            ],
+            current: false
         },
-        {
-            quantity: 2,
-            type: 'damage'
-        },
-        {
-            quantity: 1,
-            type: 'freeze'
-        },
-        {
-            quantity: 1,
-            type: 'health'
+        consumable: {
+            items: [
+                {
+                    quantity: 1,
+                    type: 'health'
+                },
+                {
+                    quantity: 1,
+                    type: 'regeneration'
+                }
+            ],
+            current: false
         }
-    ];
+    }
+
     mirror = 'mirrorSmall'
-    currentItem = false;
 
     _bloodEmitter;
 
@@ -48,7 +63,7 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
         this.body.setOffset(0, 15);
 
         this.grenadeType = scene.grenadeType;
-        this.grenadeType.scale = 1.5;
+        this.healingType = scene.healingType;
 
         this.mirrorPushSound = scene.sound.add('mirrorPush', {
             volume: 0.25,
@@ -226,15 +241,40 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
         if( this.isDead() ) this.body.stop();
     }
 
+    consume() {
+        if ( this.inventory['consumable'].current === false || this.inventory['consumable'].items.length === 0 || this.inventory['consumable'].items[this.inventory['consumable'].current] === undefined ) return;
+        if ( this.inventory['consumable'].items.length === 0 ) {
+            this.inventory['consumable'].current === false;
+            this.healingType.set();
+            return;
+        }
+
+        let currentItem = this.inventory['consumable'].items[this.inventory['consumable'].current];
+
+        let item = new Item(this.scene, this.x, this.y, currentItem.type);
+
+        currentItem.quantity -= 1;
+
+        item.consume();
+
+        this.healingType.set( currentItem );
+
+        if ( currentItem.quantity <= 0 ) {
+            this.inventory['consumable'].items.splice(this.inventory['consumable'].current, 1);
+            this.inventory['consumable'].current = false;
+            this.healingType.set( false );
+        }
+    }
+
     throw() {
-        if ( this.currentItem === false || this.items.length === 0 || this.items[this.currentItem] === undefined ) return;
-        if ( this.items.length === 0 ) {
-            this.currentItem === false;
+        if ( this.inventory['throwable'].current === false || this.inventory['throwable'].items.length === 0 || this.inventory['throwable'].items[this.inventory['throwable'].current] === undefined ) return;
+        if ( this.inventory['throwable'].items.length === 0 ) {
+            this.inventory['throwable'].current === false;
             this.grenadeType.set();
             return;
         }
 
-        let currentItem = this.items[this.currentItem];
+        let currentItem = this.inventory['throwable'].items[this.inventory['throwable'].current];
 
         let item = new Item(this.scene, this.x, this.y, currentItem.type);
 
@@ -246,27 +286,30 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
         this.grenadeType.set( currentItem );
 
         if ( currentItem.quantity <= 0 ) {
-            this.items.splice(this.currentItem, 1);
-            this.currentItem = false;
+            this.inventory['throwable'].items.splice(this.inventory['throwable'].current, 1);
+            this.inventory['throwable'].current = false;
             this.grenadeType.set( false );
         }
     }
 
-    changeItem() {
-        this.currentItem = this.items.length > 0 ? ( 1 + this.currentItem ) % this.items.length : false;
-        this.grenadeType.set( this.items[this.currentItem] );
+    changeItem(type) {
+        this.inventory[type].current = this.inventory[type].items.length > 0 ? ( 1 + this.inventory[type].current ) % this.inventory[type].items.length : false;
+
+        if ( type === 'throwable' ) this.grenadeType.set( this.inventory[type].items[this.inventory[type].current] );
+        if ( type === 'consumable' ) this.healingType.set( this.inventory[type].items[this.inventory[type].current] );
     }
     
-    addItem(type, quantity) {
-        this.grenadeType.add(type, quantity);
+    addItem(newItem) {
+        const {type, subtype, quantity} = newItem;
+        subtype === 'throwable' ? this.grenadeType.add(type, quantity) : this.healingType.add(type, quantity);
 
-        let itemIndex = this.items.findIndex(item => item.type === type);
+        let itemIndex = this.inventory[subtype].items.findIndex(item => item.type === type);
 
         if ( itemIndex > -1 ) {
-            this.items[itemIndex].quantity += quantity;
-            if ( itemIndex === this.currentItem ) this.grenadeType.set( this.items[this.currentItem] );
+            this.inventory[subtype].items[itemIndex].quantity += quantity;
+            if ( itemIndex === this.inventory[subtype].current ) subtype === 'throwable' ? this.grenadeType.set( this.inventory[subtype].items[this.current] ) : this.healingType.set( this.inventory[subtype].items[this.current] );
         } else {
-            this.items.push({type, quantity});
+            this.inventory[subtype].items.push({type, quantity});
         }
     }
 

@@ -23,14 +23,24 @@ export default function handlePlayerMovement(player, cursors) {
 
 window.addEventListener('keypress', e => {
     switch (e.code) {
-        case 'KeyG':
+        case 'Space':
             {
                 scene.player.throw();
                 break;
             }
-        case 'KeyQ':
+        case 'KeyF':
             {
-                scene.player.changeItem();
+                scene.player.consume();
+                break;
+            }
+        case 'Digit1':
+            {
+                scene.player.changeItem('throwable');
+                break;
+            }
+        case 'Digit2':
+            {
+                scene.player.changeItem('consumable');
                 break;
             }
     }

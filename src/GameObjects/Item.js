@@ -19,10 +19,12 @@ export default class Item extends Phaser.Physics.Arcade.Sprite {
         this.EnemiesManager = this.scene.EnemiesManager;
     }
 
+    consume(delay = 0) {
+        this.delayedCall(delay, _ => {this.action()});
+    }
+
     throw(x, y) {
         let time = Math.sqrt( Math.pow(x - this.x, 2) + Math.pow(y - this.y, 2) ) / 500 * 1000;
-
-        if ( this.type === 'health' || this.type === 'regeneration' ) time = 0;
 
         this.tweens.add({
             targets: this,
@@ -51,14 +53,14 @@ export default class Item extends Phaser.Physics.Arcade.Sprite {
         }
     }
 
-    delayedCall(delay, callback, repeat = 0) {
+    delayedCall(delay, callback, repeat = false) {
         let fakeObject = { iterator: 0 };
 
         this.tweens.add({
             targets: fakeObject,
             iterator: delay,
             duration: delay,
-            repeat: repeat - 1,
+            repeat: repeat ? repeat - 1 : 0,
             onRepeat: tween => {
                 callback();
             },
