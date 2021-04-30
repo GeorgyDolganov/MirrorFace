@@ -307,7 +307,7 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
 
         if ( itemIndex > -1 ) {
             this.inventory[subtype].items[itemIndex].quantity += quantity;
-            if ( itemIndex === this.inventory[subtype].current ) subtype === 'throwable' ? this.grenadeType.set( this.inventory[subtype].items[this.current] ) : this.healingType.set( this.inventory[subtype].items[this.current] );
+            if ( itemIndex === this.inventory[subtype].current ) subtype === 'throwable' ? this.grenadeType.set( this.inventory[subtype].items[this.inventory[subtype].current] ) : this.healingType.set( this.inventory[subtype].items[this.inventory[subtype].current] );
         } else {
             this.inventory[subtype].items.push({type, quantity});
         }
