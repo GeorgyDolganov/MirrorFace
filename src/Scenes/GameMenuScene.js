@@ -130,9 +130,11 @@ export default class GameMenuScene extends Phaser.Scene {
             "Use the mouse to rotate the player and",
             "reflect lasers by the mirror", "",
             "WASD - move the player around the map", "",
-            "Q - change item type", "",
-            "G - use the item, or throw a grenade",
+            "1 - change grenade item type",
+            "2 - change healing item type", "",
+            "Space - throw a grenade",
             "to the area, where the pointer is", "",
+            "F - consume a healing", "",
             "Left Click - melee, for example, try", "to break crates or attack enemies", "",
         ], {
             fixedWidth: 400,

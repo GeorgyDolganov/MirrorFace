@@ -40,48 +40,29 @@ export default class RoundManager {
     setNextRound() {
         this._scene.gameStats.roundsSurvived += 1;
         console.log("------ Next round -----");
-        this.setRound(this._currentRound.round + 1);
+        return this.setRound(this._currentRound.round + 1);
     }
 
     setRound(roundNumber) {
         let roundConfig = config.rounds.find(r => r.round === roundNumber);
         if (roundConfig === undefined) {
-            let container = this.scene.add.container();
-            let blackout = this.scene.add.graphics();
-            blackout.fillStyle(0x000000, 0.9);
-            blackout.fillRect(0, 0, 800, 600);
-            blackout.setScrollFactor(0);
-            let text = this.scene.add.text(400, 100, "YOU DIED", {
-                fontFamily: '"Press Start 2P"',
-                align: 'center',
-                fontSize: 40,
-                color: "#f15c5c"
-            });
-            text.setScrollFactor(0);
-            text.setOrigin(0.5);
-            let roundSurvived = this.scene.add.text(400, 450, "Rounds survived: " + this.scene.gameStats.roundsSurvived, {
-                fontFamily: '"Press Start 2P"',
-                align: 'center',
-                fontSize: 15,
-                color: "#ff7836"
-            });
-            roundSurvived.setOrigin(0.5).setScrollFactor(0);
-            let kills = this.scene.add.text(400, 470, "Kills: " + this.scene.gameStats.kills, {
-                fontFamily: '"Press Start 2P"',
-                align: 'center',
-                fontSize: 15,
-                color: "#ff7836"
-            });
-            kills.setOrigin(0.5).setScrollFactor(0);
+            let congrats = new Phaser.GameObjects.Text( scene, 100, 200, "CONGRATULATIONS!!!\nYOU WON!!!", { font: '"Press Start 2P"', align: 'center', color: '#FFFF00' } );
+            congrats.scale = 6
 
-            container.add(blackout);
-            container.add(text);
-            container.add(kills);
-            container.add(roundSurvived);
-            container.setDepth(100);
+            let congratsInterval = setInterval(_ => {
+                congrats.x = congrats.x === 100 ? 120 : 100;
+                congrats.scale = congrats.scale === 6 ? 5.5 : 6;
 
-            this._scene.scene.sleep()
-            return;
+                congrats.setColor(congrats.scale === 6 ? '#FFFF00' : '#FFFFFF');
+            }, 500);
+            setTimeout(_ => {
+                clearInterval(congratsInterval);
+                congrats.destroy();
+            }, 5000);
+            
+            scene.gameUI.add(congrats);
+
+            return false;
         }
 
         this._currentRound = {
@@ -94,6 +75,8 @@ export default class RoundManager {
         });
 
         this._scene.gameUI.currentRound.setRound(roundNumber);
+
+        return true;
     }
 
     update(time, delta, scene) {
@@ -113,7 +96,7 @@ export default class RoundManager {
 
         if (!roundInProgress && this._enemiesManager.countEnemies() === 0) {
             //TODO: handle last round
-            this.setNextRound()
+            if ( !this.setNextRound() ) {this.setNextRound = _ => {}; return;}
             let ctx = this
             new Promise((res) => {
                 scene.tweens.add({

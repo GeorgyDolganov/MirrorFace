@@ -6,7 +6,7 @@ export default class Item extends Phaser.Physics.Arcade.Sprite {
     constructor(scene, x, y, type) {
         super(scene, x, y, 'grenade');
 
-        if ( type === 'magicicanAttack' ) this.play('magicball');
+        if ( type === 'magicicanAttack' || type === 'blink' ) this.play('magicball');
         if ( type === 'hydraBurn' || type === 'hydraExplode' ) this.play('fireball');
 
         this.type = type;
@@ -19,10 +19,14 @@ export default class Item extends Phaser.Physics.Arcade.Sprite {
         this.EnemiesManager = this.scene.EnemiesManager;
     }
 
+    consume(delay = 0) {
+        this.delayedCall(delay, _ => {this.action()});
+    }
+
     throw(x, y) {
         let time = Math.sqrt( Math.pow(x - this.x, 2) + Math.pow(y - this.y, 2) ) / 500 * 1000;
 
-        if ( this.type === 'health' || this.type === 'regeneration' ) time = 0;
+        if ( this.type === 'blink' ) time /= 10;
 
         this.tweens.add({
             targets: this,
@@ -51,14 +55,14 @@ export default class Item extends Phaser.Physics.Arcade.Sprite {
         }
     }
 
-    delayedCall(delay, callback, repeat = 0) {
+    delayedCall(delay, callback, repeat = false) {
         let fakeObject = { iterator: 0 };
 
         this.tweens.add({
             targets: fakeObject,
             iterator: delay,
             duration: delay,
-            repeat: repeat - 1,
+            repeat: repeat ? repeat - 1 : 0,
             onRepeat: tween => {
                 callback();
             },
@@ -119,7 +123,7 @@ export default class Item extends Phaser.Physics.Arcade.Sprite {
                     particle.y = this.y + delta * Math.sin(Math.random() * Math.PI);
                     particle.rotation = Math.random() * 6;
 
-                    this.delayedCall(Math.random() * 3000 + 2000, _ => {
+                    this.delayedCall(Math.random() * 2000 + 3000, _ => {
                         particle.x = -999;
                         particle.y = -999;
                     });
