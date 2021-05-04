@@ -46,6 +46,9 @@ export default class RaycasterEnemy extends AEnemy {
     onUpdate(time, delta) {
         // this.moveTowardsTo(this.scene.player);
         if (Phaser.Math.Distance.Between(this.x, this.y, scene.player.x, scene.player.y) > 150) {
+            if (!this.anims.isPlaying) {
+                this.play({key: "phwalk", repeat: -1});
+            }
             if ( this.recalcPath++ > 200 ) {
                 this.recalcPath = 0;
                 this.goTo(scene.player);
@@ -58,6 +61,7 @@ export default class RaycasterEnemy extends AEnemy {
                     this.goTo(scene.player);
                 }
         } else {
+            this.stop();
             this.recalcPath = 0;
             this.body.velocity.set(0);
         }
