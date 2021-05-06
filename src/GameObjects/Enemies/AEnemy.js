@@ -32,6 +32,11 @@ export default class AEnemy extends Phaser.Physics.Arcade.Sprite {
 
     reward = 1;
 
+    idleColor = 0xffffff;
+    damageColor = 0xff0000;
+    hitTween = null;
+    stopHitTimeout = null;
+
     /**
      * AEnemy constructor
      * @param scene
@@ -67,7 +72,7 @@ export default class AEnemy extends Phaser.Physics.Arcade.Sprite {
     update(...args) {
         super.update(...args);
         this.healthBar.setPosition(this.x -this.width * 0.75, this.y + 30);
-        this.tint = 0xffffff;
+        //this.setTint(this.idleColor);
 
         //this.rotation = Phaser.Math.Angle.Between(this.x, this.y, scene.player.x, scene.player.y);
 
@@ -155,7 +160,43 @@ export default class AEnemy extends Phaser.Physics.Arcade.Sprite {
      */
     onRayHit(ray) {
         this.changeHealth(-ray.damage);
-        this.tint = 0xff0000;
+
+        clearTimeout(this.stopHitTimeout);
+        this.stopHitTimeout = setTimeout(()=>{
+            this.hitTween.stop()
+            this.hitTween = null
+            this.setTint(this.idleColor)
+        }, 100)
+
+        if (this.hitTween) return
+        console.log('start')
+
+        let primaryColor = Phaser.Display.Color.ValueToColor(this.idleColor)
+        let secondaryColor = Phaser.Display.Color.ValueToColor(this.damageColor)
+        let ctx = this
+        this.hitTween = this.scene.tweens.addCounter({
+            from: 0,
+            to: 100,
+            duration: 100,
+            repeat: -1,
+            yoyo: true,
+            onUpdate: (tween) =>  {
+                const value = Math.floor(tween.getValue())
+                const colorObject = Phaser.Display.Color.Interpolate.ColorWithColor(
+                    primaryColor,
+                    secondaryColor,
+                    100,
+                    value
+                )
+
+                const color = Phaser.Display.Color.GetColor(colorObject.r, colorObject.g, colorObject.b)
+                ctx.setTint(color)
+            },
+            onRepeat(){
+                console.log('1')
+            }
+        })
+        
     }
 
     /**
