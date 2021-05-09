@@ -20,22 +20,12 @@
       "spawns": [
         {
           "position": {
-            "x": 300,
-            "y": 300
-          },
-          "enemyType": "RaycasterEnemy",
-          "delayBeforeSpawn": 0,
-          "spawnRate": 2,
-          "totalSpawns": 4
-        },
-        {
-          "position": {
             "x": 1000,
             "y": 1000
           },
           "enemyType": "RaycasterEnemy",
           "delayBeforeSpawn": 0,
-          "spawnRate": 4,
+          "spawnRate": 2,
           "totalSpawns": 3
         },
         {
@@ -45,18 +35,8 @@
           },
           "enemyType": "SkeletonEnemy",
           "delayBeforeSpawn": 0,
-          "spawnRate": 6,
-          "totalSpawns": 1
-        },
-        {
-          "position": {
-            "x": 1600,
-            "y": 1600
-          },
-          "enemyType": "RaycasterEnemy",
-          "delayBeforeSpawn": 0,
           "spawnRate": 2,
-          "totalSpawns": 4
+          "totalSpawns": 1
         }
       ]
     },

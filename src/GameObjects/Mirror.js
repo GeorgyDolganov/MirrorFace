@@ -232,6 +232,7 @@ export default class Mirror extends Phaser.Physics.Arcade.Sprite {
         this.addReflectEmitter(ray, intersectionInfo);
         this.noDamageTime = 0;
         this.changeStability(-ray.damage);
+        this.scene.cameras.main.shake(200, .001);
         ray.multiplyDamage(this.reflectDamageMultiplier);
         if (Math.round(Math.random() * 5) === 3){
             this._scene.mirrorHitSound.play()
