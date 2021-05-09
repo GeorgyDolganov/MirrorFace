@@ -56,7 +56,7 @@ export default class Mirror extends Phaser.Physics.Arcade.Sprite {
      * Amount of damage this mirror can absorb before being broken
      * @type {number}
      */
-    maxStability = 100;
+    maxStability = 50;
     /**
      * Amount of current stability
      * @type {number}
@@ -79,6 +79,9 @@ export default class Mirror extends Phaser.Physics.Arcade.Sprite {
     noDamageTime;
 
     soundPlaying = false;
+
+    idleColor = 0xffffff;
+    damageColor = 0xff0000;
 
     _regenerationParticles;
     _particlesContainer;
@@ -222,7 +225,7 @@ export default class Mirror extends Phaser.Physics.Arcade.Sprite {
         //     {min: this.x-20, max: this.x+20,},
         //     {min: this.y-20, max: this.y+20,}
         // );
-        this.changeStability(this.restoreRate * delta / 1000);
+        this.changeStability(this.restoreRate * delta / 1000, true);
     }
 
     onRayHit(ray, intersectionInfo) {
@@ -236,9 +239,18 @@ export default class Mirror extends Phaser.Physics.Arcade.Sprite {
         
     }
 
-    changeStability(changeBy) {
+    changeStability(changeBy, restore) {
         this.stability += changeBy;
-        this.setTint(0xffffff)
+        let primaryColor = Phaser.Display.Color.ValueToColor(this.idleColor)
+        let secondaryColor = Phaser.Display.Color.ValueToColor(this.damageColor)
+        const colorObject = Phaser.Display.Color.Interpolate.ColorWithColor(
+            primaryColor,
+            secondaryColor,
+            this.maxStability,
+            this.maxStability - this.stability
+        )
+        const color = Phaser.Display.Color.GetColor(colorObject.r, colorObject.g, colorObject.b)
+        this.setTint(color)
         if (this.stability > this.maxStability) this.stability = this.maxStability;
         if (this.stability < 0) {
             this.stability = 0;

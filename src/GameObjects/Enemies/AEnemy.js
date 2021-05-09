@@ -19,7 +19,7 @@ export default class AEnemy extends Phaser.Physics.Arcade.Sprite {
      * Maximum health points
      * @type {number}
      */
-    maxHealth = 10;
+    maxHealth = 25;
     /**
      * Current health
      * @type {number}
@@ -33,7 +33,7 @@ export default class AEnemy extends Phaser.Physics.Arcade.Sprite {
     reward = 1;
 
     idleColor = 0xffffff;
-    damageColor = 0xff0000;
+    damageColor = 0xb83530;
     hitTween = null;
     stopHitTimeout = null;
 
