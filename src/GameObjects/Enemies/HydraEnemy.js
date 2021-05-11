@@ -29,6 +29,8 @@ export default class HydraEnemy extends AEnemy {
     state = 1
     reward = 200
 
+    rays = []
+
     constructor(scene, x, y) {
         super(scene, x, y, "hydra");
 
@@ -64,6 +66,8 @@ export default class HydraEnemy extends AEnemy {
         this._centerRay.initialDamage = 0.22;
         this._leftRay.initialDamage = 0.14;
         this._rightRay.initialDamage = 0.14;
+
+        this.rays.push(this._leftRay, this._centerRay, this._rightRay);
 
         this.body.setCircle(5);
         this.body.setOffset(30, 30);
@@ -101,6 +105,28 @@ export default class HydraEnemy extends AEnemy {
     }
 
     onUpdate(time, delta) {
+        let moveNextCauseRays = [false, false, false];
+
+        this.rays.forEach((ray, i) => {
+            if ( typeof(this.hittedObject) !== 'string'  ) return;
+
+            if ( ray.hittedObject === 'TilemapLayer' || ray.hittedObject.includes('Enemy') ) moveNextCauseRays[i] = true;
+        });
+
+        if ( this._leftRay.hittedObject.includes('Enemy') ) this._leftRay.disable();
+        else this._leftRay.enable();
+
+        if ( this._centerRay.hittedObject.includes('Enemy') ) this._centerRay.disable();
+        else this._centerRay.enable();
+
+        if ( this._rightRay.hittedObject.includes('Enemy') ) this._rightRay.disable();
+        else this._rightRay.enable();
+
+        if ( this.state > 1 && this.state < 4 ) this.rays[0] = true;
+        if ( this.state > 2 && this.state < 4 ) this.rays[2] = true;
+        if ( this.state === 4 ) this.rays[1] = true;
+
+        // Transform 1
         if ( this.health < this.maxHealth * 0.75 && this.state === 1 ) {
             this.state = 2
 
@@ -117,6 +143,7 @@ export default class HydraEnemy extends AEnemy {
             image.setDepth(0);
         }
 
+        // Transform 2
         if ( this.health < this.maxHealth * 0.5 && this.state === 2 ) {
             this.state = 3
 
@@ -133,6 +160,7 @@ export default class HydraEnemy extends AEnemy {
             image.setDepth(0);
         }
 
+        // Transform 3
         if ( this.health < this.maxHealth * 0.25 && this.state === 3 ) {
             this.state = 4
 
@@ -161,6 +189,7 @@ export default class HydraEnemy extends AEnemy {
         this._container.setPosition(this.x, this.y);
         this.healthBar.setPosition(this.x - 25, this.y + 60);
 
+        // Head turns
         if ( this.leftTurn-- <= 0 ) {
             if ( this.state < 2 || this.state > 3 ) {
                 this.leftTurn = Math.floor(Math.random() * 1000) + 500
@@ -189,7 +218,8 @@ export default class HydraEnemy extends AEnemy {
             }
         }
 
-        if (Phaser.Math.Distance.Between(this.x, this.y, scene.player.x, scene.player.y) > 150) {
+        // Moving
+        if (Phaser.Math.Distance.Between(this.x, this.y, scene.player.x, scene.player.y) > 150 || moveNextCauseRays.reduce((a, b) => a + b) === 3 ) {
             if ( this.recalcPath++ > 100 ) {
                 this.recalcPath = 0;
                 this.goTo(scene.player);

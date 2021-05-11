@@ -24,6 +24,10 @@ export default class ReflectableRay {
 
     firstIgnoredObjects = [];
 
+    hittedObject;
+
+    disabled = false;
+
     constructor({scene, fromPoint, angle}) {
         this.scene = scene;
         this._graphics = scene.add.graphics({
@@ -71,7 +75,7 @@ export default class ReflectableRay {
 
         let raySegment = new Phaser.Geom.Line(ray.origin.x, ray.origin.y, intersection.x, intersection.y);
         this._raySegments.push(raySegment);
-        this._createNextSegment(raySegment, intersection);
+        return this._createNextSegment(raySegment, intersection);
     }
 
     _createNextSegment(prevRaySegment, intersection) {
@@ -86,14 +90,14 @@ export default class ReflectableRay {
         }
 
         if( this._raySegments.length > this.MAX_REFLECTS) {
-            return;
+            return '';
         }
-        if( intersection.segment === undefined ) return;
+        if( intersection.segment === undefined ) return '';
 
         let defaultReflect = intersection.object.canReflect;
         let tileReflect = this.isReflectedTile(intersection.object);
         if( !defaultReflect && !tileReflect ) {
-            return;
+            return intersection.object.constructor.name.toString();
         }
 
         let ray = this._getRay({
@@ -106,7 +110,7 @@ export default class ReflectableRay {
         let raySegment = new Phaser.Geom.Line(ray.origin.x, ray.origin.y, nextIntersection.x, nextIntersection.y);
         this._raySegments.push(raySegment);
 
-        this._createNextSegment(raySegment,nextIntersection);
+        return this._createNextSegment(raySegment,nextIntersection);
     }
 
     isReflectedTile(possibleTile) {
@@ -136,8 +140,8 @@ export default class ReflectableRay {
     }
 
     update() {
-        this._createRayRecursively(this.fromPoint, this.angle);
-        this.render();
+        this.hittedObject = this._createRayRecursively(this.fromPoint, this.angle);
+        if ( !this.disabled ) this.render();
     }
 
     render() {
@@ -167,7 +171,12 @@ export default class ReflectableRay {
         return this._ray;
     }
 
+    enable() {
+        this.disabled = false;
+    }
+
     disable() {
+        this.disabled = true;
         this._graphics.clear();
         this._highlight.clear();
         this._highlight2.clear();

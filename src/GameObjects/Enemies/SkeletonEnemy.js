@@ -73,20 +73,25 @@ export default class SkeletonEnemy extends RaycasterEnemy {
     }
 
     handleFireAction(time, delta) {
-        this.body.stop();
-        this.timestamp += delta;
-        if( this.timestamp > 2000 ) {
-            this.setAction("movement");
-            this.rays.forEach( r => r.disable() );
-            return;
-        }
-
+        let needToDisableRay = false;
+        this.rays.forEach(ray => { if ( ray.hittedObject === 'TilemapLayer' || ray.hittedObject.includes('Enemy') ) needToDisableRay = true; });
 
         this.rays.forEach((r, index) => {
             r.setOrigin(this._calculateRayOrigin());
             r.setAngle(Phaser.Math.Angle.Between(this.x, this.y, this.scene.player.x, this.scene.player.y));
             r.update();
         });
+
+        this.body.stop();
+        this.timestamp += delta;
+        if( this.timestamp > 2000 || needToDisableRay  ) {
+            this.setAction("movement");
+            this.rays.forEach( r => r.disable() );
+            return;
+        } else {
+            this.rays.forEach( r => r.enable() );
+        }
+
         this.rotation = Phaser.Math.Angle.Between(this.x, this.y, this.scene.player.x, this.scene.player.y) - 1.5;
     }
 

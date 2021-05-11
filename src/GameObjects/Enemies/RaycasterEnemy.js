@@ -44,8 +44,10 @@ export default class RaycasterEnemy extends AEnemy {
      * @param delta
      */
     onUpdate(time, delta) {
+        let needToDisableRay = false;
+        this.rays.forEach(ray => { if ( ray.hittedObject === 'TilemapLayer' || ray.hittedObject.includes('Enemy') ) needToDisableRay = true; });
         // this.moveTowardsTo(this.scene.player);
-        if (Phaser.Math.Distance.Between(this.x, this.y, scene.player.x, scene.player.y) > 150) {
+        if ( Phaser.Math.Distance.Between(this.x, this.y, scene.player.x, scene.player.y) > 150 || needToDisableRay ) {
             if (!this.anims.isPlaying) {
                 this.play({key: "phwalk", repeat: -1});
             }
@@ -68,6 +70,9 @@ export default class RaycasterEnemy extends AEnemy {
 
         let angle = Phaser.Math.Angle.Between(this.x, this.y, scene.player.x, scene.player.y)
         this.rotation = angle;
+
+        if ( needToDisableRay ) this.rays[0].disable();
+        else this.rays[0].enable();
 
         this.updateRays();
     }
