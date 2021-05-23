@@ -30,6 +30,7 @@
         "phaser": "^3.54.0",
         "phaser-navmesh": "^2.2.1",
         "phaser-raycaster": "^0.9.3",
+        "phaser3-rex-plugins": "^1.1.47",
         "stats.js": "^0.17.0",
         "webpack": "^5.33.2"
     },

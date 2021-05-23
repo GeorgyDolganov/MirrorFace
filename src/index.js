@@ -1,5 +1,6 @@
 import PhaserRaycaster from 'phaser-raycaster'
 import NavMeshPlugin from "phaser-navmesh"
+import ShakePositionPlugin from "phaser3-rex-plugins/plugins/shakeposition-plugin"
 
 import Arena0 from './Scenes/arena0'
 import GameMenuScene from "./Scenes/GameMenuScene"
@@ -49,6 +50,11 @@ let config = {
     //enable Phaser-raycaster plugin
     plugins: {
         scene: [
+            {
+            key: 'rexShake',
+            plugin: ShakePositionPlugin,
+            start: true
+            },
             {
                 key: "NavMeshPlugin", // Key to store the plugin class under in cache
                 plugin: NavMeshPlugin, // Class that constructs plugins

@@ -36,6 +36,16 @@ import crate2PNG from "../assets/SpriteSheets/crate2Destroy.png"
 import crate2JSON from "../assets/SpriteSheets/crate2Destroy.json"
 import crateBigPNG from "../assets/SpriteSheets/crateBigDestroy.png"
 import crateBigJSON from "../assets/SpriteSheets/crateBigDestroy.json"
+import createPiece0PNG from "../assets/crate2_2.png"
+import createPiece1PNG from "../assets/crate2_3.png"
+import createPiece2PNG from "../assets/crate2_4.png"
+import createPiece3PNG from "../assets/crate2_5.png"
+import createBigPiece0PNG from "../assets/crateBig2.png"
+import createBigPiece1PNG from "../assets/crateBig3.png"
+import createBigPiece2PNG from "../assets/crateBig4.png"
+import createBigPiece3PNG from "../assets/crateBig5.png"
+
+
 import bonePNG from "../assets/bone.png"
 
 import dedPNG from "../assets/ded.png"
@@ -80,6 +90,8 @@ import hydraPiece8PNG from "../assets/hydra/piece_8.png";
 
 import bgLoopMP3 from "../assets/audio/moom.mp3"
 import mirrorPushWAV from "../assets/audio/mirrorPush.wav"
+import crateHitWAV from "../assets/audio/crateHit.wav"
+import itemPickUpWAV from "../assets/audio/itemPickUp.wav"
 import laser0WAV from "../assets/audio/laser0.wav"
 
 import RoundManager from "../Managers/RoundManager";
@@ -136,6 +148,17 @@ export default class Arena0 extends Scene {
         this.load.atlas('crate', cratePNG, crateJSON)
         this.load.atlas('crate2', crate2PNG, crate2JSON)
         this.load.atlas('crateBig', crateBigPNG, crateBigJSON)
+
+        this.load.image('cratePiece0', createPiece0PNG)
+        this.load.image('cratePiece1', createPiece1PNG)
+        this.load.image('cratePiece2', createPiece2PNG)
+        this.load.image('cratePiece3', createPiece3PNG)
+        this.load.image('crateBigPiece0', createBigPiece0PNG)
+        this.load.image('crateBigPiece1', createBigPiece1PNG)
+        this.load.image('crateBigPiece2', createBigPiece2PNG)
+        this.load.image('crateBigPiece3', createBigPiece3PNG)
+
+
         this.load.image('info', infoPNG)
 
         this.load.image('Skeleton_body', Skeleton_bodyPNG)
@@ -143,6 +166,8 @@ export default class Arena0 extends Scene {
 
         this.load.audio('bgloop', bgLoopMP3)
         this.load.audio('mirrorPush', mirrorPushWAV)
+        this.load.audio('crateHit', crateHitWAV)
+        this.load.audio('itemPickUp', itemPickUpWAV)
         this.load.audio('laser0', laser0WAV)
 
         this.load.aseprite('magician', magicianPNG, magicianJSON)
@@ -376,8 +401,16 @@ export default class Arena0 extends Scene {
         })
 
         this.mirrorHitSound = this.sound.add('laser0', {
-            volume: 0.10,
+            volume: 0.1,
             loop: true
+        })
+        this.crateHitSound = this.sound.add('crateHit', {
+            volume: 0.2,
+            loop: false
+        })
+        this.itemPickUpSound = this.sound.add('itemPickUp', {
+            volume: 0.3,
+            loop: false
         })
 
         const objectLayer = map.getObjectLayer("navmesh");
